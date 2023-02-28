@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('articles.index');
 });
 Route::group([],  function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
