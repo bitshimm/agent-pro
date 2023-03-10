@@ -20,15 +20,12 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::where('visibility', '=', true)->orderBy('id', 'desc')->get();
-        // $articles = Article::paginate(10);
-        return (view('article.index', compact('articles'))->render());
+
+        return view('article.index', compact('articles'));
     }
 
     public function create()
     {
-        // $categories = Category::all();
-        // $tags = Tag::all();
-
         return view('article.create');
     }
 
@@ -49,9 +46,6 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        // $categories = Category::all();
-        // $tags = Tag::all();
-
         return view('article.edit', compact('article'));
     }
 

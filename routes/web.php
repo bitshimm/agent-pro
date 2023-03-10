@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,8 @@ Route::get('/', function () {
     // return view('welcome');
     return redirect()->route('articles.index');
 });
+
+
 Route::group([],  function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
     Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
@@ -28,6 +31,16 @@ Route::group([],  function () {
     Route::patch('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 });
+Route::group([],  function () {
+    Route::get('/images', [ImageController::class, 'index'])->name('images.index');
+    Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');
+    Route::post('/images', [ImageController::class, 'store'])->name('images.store');
+    Route::get('/images/{image}', [ImageController::class, 'show'])->name('images.show');
+    Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
+    Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
+    Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -1,19 +1,19 @@
 @extends('layouts.example')
 
 @section('content')
-    <form action="{{ route('articles.store') }}" method="POST">
+    <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div>
-            <label for="title">title</label>
-            <input type="text" name="title" id="title" required>
-        </div>
-        <div>
-            <label for="content">content</label>
-            <textarea name="content" id="" rows="10" id="content" required></textarea>
-        </div>
-        <div>
             <label for="image">image</label>
-            <input type="text" name="image" id="image">
+            <input type="file" name="image" id="image" required>
+        </div>
+        <div>
+            <label for="caption">caption</label>
+            <input type="text" name="caption" id="caption">
+        </div>
+        <div>
+            <label for="alt">alt</label>
+            <input type="text" name="alt" id="alt">
         </div>
         <div>
             <label for="sort">sort</label>
