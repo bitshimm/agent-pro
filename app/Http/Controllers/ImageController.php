@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Intervention\Image\Facades\Image as ImageManager;
 use App\Models\Image;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Image\StoreRequest;
+use App\Http\Requests\Image\UpdateRequest;
 use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
@@ -50,17 +49,20 @@ class ImageController extends Controller
 
     public function edit(Image $image): View
     {
-        return view('images.edit', compact('image'));
+        return view('image.edit', compact('image'));
     }
 
-    public function update(Request $request, Image $image): RedirectResponse
+    public function update(UpdateRequest $updateRequest, Image $image): RedirectResponse
     {
-        //
+        $data = $updateRequest->validated();
+
+        $this->service->update($image, $data);
+        
+        return redirect()->route('images.index');
     }
 
     public function destroy(Image $image): RedirectResponse
     {
-        // dd();
         unlink(public_path($image->path_full));
         
         $image->delete();
