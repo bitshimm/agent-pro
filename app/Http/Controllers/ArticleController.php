@@ -6,6 +6,8 @@ use App\Models\Article;
 use App\Services\ArticleService;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ArticleController extends Controller
 {
@@ -17,19 +19,19 @@ class ArticleController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(): View
     {
         $articles = Article::where('visibility', '=', true)->orderBy('id', 'desc')->get();
 
         return view('article.index', compact('articles'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('article.create');
     }
 
-    public function store(StoreRequest $storeRequest)
+    public function store(StoreRequest $storeRequest): RedirectResponse
     {
         $data = $storeRequest->validated();
 
@@ -38,18 +40,18 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
-    public function show(Article $article)
+    public function show(Article $article): View
     {
         return view('article.show', compact('article'));
     }
 
 
-    public function edit(Article $article)
+    public function edit(Article $article): View
     {
         return view('article.edit', compact('article'));
     }
 
-    public function update(UpdateRequest $updateRequest, Article $article)
+    public function update(UpdateRequest $updateRequest, Article $article): RedirectResponse
     {
         $data = $updateRequest->validated();
 
@@ -58,7 +60,7 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
-    public function destroy(Article $article)
+    public function destroy(Article $article): RedirectResponse
     {
         $article->delete();
 

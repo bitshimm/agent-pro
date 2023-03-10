@@ -32,28 +32,4 @@
             <input type="submit" value="Добавить">
         </div>
     </form>
-    <style>
-        form {
-            display: block;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        div {
-            margin-bottom: 2em;
-            font-size: 16px;
-            font-family: Arial, Helvetica, sans-serif
-        }
-
-        input,
-        textarea {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 10px 15px;
-        }
-
-        input[type=radio] {
-            width: auto;
-        }
-    </style>
 @endsection
