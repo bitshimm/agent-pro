@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return redirect()->route('articles.index');
+    return view('layouts.dashboard');
+    // return redirect()->route('articles.index');
 });
 
 
