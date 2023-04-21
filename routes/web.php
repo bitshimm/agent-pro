@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.dashboard');
+    return redirect()->route('login');
+    // return view('layouts.dashboard');
     // return redirect()->route('articles.index');
 });
 
 
-Route::group([],  function () {
+Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
     Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
     Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
@@ -30,8 +31,7 @@ Route::group([],  function () {
     Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::patch('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
-});
-Route::group([],  function () {
+
     Route::get('/images', [ImageController::class, 'index'])->name('images.index');
     Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');
     Route::post('/images', [ImageController::class, 'store'])->name('images.store');

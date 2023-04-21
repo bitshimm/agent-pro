@@ -1,6 +1,9 @@
-@extends('layouts.example')
-
-@section('content')
+<x-app-layout>
+    <x-slot name="header">
+        <h2>
+            Добавление изображения
+        </h2>
+    </x-slot>
     <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div>
@@ -29,4 +32,4 @@
             <input type="submit" value="Добавить">
         </div>
     </form>
-@endsection
+</x-app-layout>

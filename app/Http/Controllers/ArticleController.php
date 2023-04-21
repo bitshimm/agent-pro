@@ -21,7 +21,7 @@ class ArticleController extends Controller
 
     public function index(): View
     {
-        $articles = Article::where('visibility', '=', true)->orderBy('id', 'desc')->get();
+        $articles = Article::orderBy('id', 'desc')->get();
 
         return view('article.index', compact('articles'));
     }
@@ -35,6 +35,7 @@ class ArticleController extends Controller
     {
         $data = $storeRequest->validated();
 
+        // dd($data);
         $this->service->store($data);
 
         return redirect()->route('articles.index');

@@ -1,27 +1,40 @@
-@extends('layouts.example')
+<x-app-layout>
+    <x-slot name="header">
+        <h2>
+            Новости
+        </h2>
+    </x-slot>
 
-@section('content')
-    <div class="card_list">
-        @foreach ($articles as $article)
-            <div class="card_col">
-                <div class="card_item">
-                    <h2>{{ $article->id }}. {{ $article->title }}</h2>
-                    <img src="{{ $article->image }}" alt="" style="display: block; width: 100%" loading="lazy">
-                    <p>{{ $article->content }}</p>
-                    <div style="display: flex; justify-content:space-between;">
-                        <div>
-                            <a href="{{ route('articles.edit', $article->id) }}" class="edit_btn">Изменить</a>
-                        </div>
-                        <div>
-                            <form method="POST" action="{{ route('articles.destroy', $article->id) }}">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-@endsection
+    <h2>
+        <a href="{{ route('articles.create') }}">Добавить</a>
+    </h2>
+
+    <table style="width: 100%;border-spacing:5px 1rem;">
+        <thead style="font-weight: 700;">
+            <tr>
+                <td>ID</td>
+                <td>Заголовок</td>
+                <td>Изображение</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($articles as $article)
+                <tr style="border: 1px solid">
+                    <td>{{ $article->id }}</td>
+                    <td>{{ $article->title }}</td>
+                    <td><a href="{{ $article->image }}" target="_blank">Ссылка</a></td>
+                    <td><a href="{{ route('articles.edit', $article->id) }}">Редактировать</a></td>
+                    <td>
+                        <form method="POST" action="{{ route('articles.destroy', $article->id) }}">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" value="Удалить">
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</x-app-layout>

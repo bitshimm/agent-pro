@@ -20,7 +20,7 @@ class ImageController extends Controller
 
     public function index(): View
     {
-        $images = Image::orderBy('updated_at', 'desc')->get();
+        $images = Image::orderBy('id', 'desc')->get();
 
         return view('image.index', compact('images'));
     }

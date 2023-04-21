@@ -1,6 +1,9 @@
-@extends('layouts.example')
-
-@section('content')
+<x-app-layout>
+    <x-slot name="header">
+        <h2>
+            Редактирование новости
+        </h2>
+    </x-slot>
     <form action="{{ route('articles.update', $article->id) }}" method="POST">
         @csrf
         @method('patch')
@@ -29,7 +32,7 @@
                 {{ !$article->visibility ? 'checked' : '' }}>
         </div>
         <div>
-            <input type="submit" value="Добавить">
+            <input type="submit" value="Сохранить">
         </div>
     </form>
-@endsection
+</x-app-layout>
