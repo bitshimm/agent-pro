@@ -12,7 +12,7 @@
         @foreach ($images as $image)
             <div>
                 <a href="">
-                    <img src="{{ $image->path_full }}" alt="">
+                    <img src="{{ $image->path_full }}" alt="" style="width:100%;">
                     {{-- <div class="on_hover_image">{{ $image->id }}. {{ $image->caption }}</div> --}}
                 </a>
                 <a href="{{ route('images.edit', $image->id) }}" class="edit_btn">Изменить</a>

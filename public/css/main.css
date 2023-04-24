@@ -1,9 +1,10 @@
-*,
-::after,
-::before {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -46,35 +47,19 @@
     color: #343a40;
 }
 
-.container_wrapper {
+.wrapper {
     margin-left: 250px;
     padding: 15px 30px;
 }
 
-.container_wrapper header h2 {
-    font-size: 1.5em;
-}
-
-.container {
-    margin-top: 1em;
-}
-
-.wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 7.5px;
+header {
+    padding-bottom: 20px;
 }
 
 form {
     display: block;
     max-width: 600px;
     /* margin: 0 auto; */
-}
-
-div {
-    margin-bottom: 2em;
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif
 }
 
 input,
@@ -141,4 +126,67 @@ input[type=radio] {
     color: #fff;
     border: none;
     padding: 10px 15px;
+}
+
+.btn_create {
+    padding: 7px 14px;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 15px;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #0d6efd;
+}
+
+.btn_edit {
+    padding: 7px 14px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 15px;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #0d6efd;
+}
+
+.btn_destroy {
+    display: inline-block;
+}
+
+.btn_destroy button {
+    padding: 7px;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 15px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #dc3545;
+}
+
+table {
+    /* border: 1px solid #adb5bd; */
+    width: 100%;
+    border-radius: 10px;
+    /* border-collapse: collapse; */
+}
+
+table th {
+    text-align: left;
+}
+
+table td {
+    /* border: unset; */
+    /* bord */
+    /* border-top: unset;
+    border-left: unset;
+    border-right: unset; */
+    padding: 5px 0;
+    border-bottom: 1px solid #adb5bd;
 }

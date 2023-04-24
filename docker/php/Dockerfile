@@ -33,6 +33,10 @@ RUN mkdir -p /usr/src/php/ext/imagick; \
     curl -fsSL https://github.com/Imagick/imagick/archive/06116aa24b76edaf6b1693198f79e6c295eda8a9.tar.gz | tar xvz -C "/usr/src/php/ext/imagick" --strip 1; \
     docker-php-ext-install imagick
 
+# Install xdebug
+RUN pecl install -o -f xdebug \
+    && docker-php-ext-enable xdebug
+
 # Install extensions
 RUN docker-php-ext-install pdo_mysql zip bcmath gd
 

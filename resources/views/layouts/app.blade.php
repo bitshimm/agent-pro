@@ -15,7 +15,12 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
-    
+
+    <link href="/css/fontawesome.min.css" rel="stylesheet">
+    <link href="/css/brands.min.css" rel="stylesheet">
+    <link href="/css/solid.min.css" rel="stylesheet">
+
+
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
@@ -40,7 +45,7 @@
         </div> --}}
     <aside class="main_sidebar">
         <div class="user_panel">
-            <a href="#">Profile</a>
+            <a href="#"><i class="fa-solid fa-user" style="color: #fff;"></i>Profile</a>
         </div>
         <nav>
             <ul class="nav">
@@ -57,14 +62,14 @@
             </ul>
         </nav>
     </aside>
-    <div class="container_wrapper">
+    <div class="wrapper">
         @if (isset($header) || isset($insert_link))
             <header>
                 {{ $header }}
             </header>
         @endif
 
-        <div class="container">
+        <div class="content">
             @if ($errors->all())
                 <div class="alert alert-danger" style="background-color: #dc3545; color: #fff;">
                     @foreach ($errors->all() as $error)
