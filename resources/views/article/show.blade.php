@@ -1,5 +1,8 @@
-@extends('layouts.example')
-
-@section('content')
-    <p>{{ $article->id }}</p>
-@endsection
+<x-app-layout>
+    <h1>
+        {{ $article->title }}
+    </h1>
+    <p>
+        {!! $article->content !!}
+    </p>
+</x-app-layout>

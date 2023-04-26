@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable()->default(null);
-            $table->text('content')->nullable()->default(null);
+            $table->longText('content')->nullable()->default(null);
             $table->string('image')->nullable()->default(null);
             $table->integer('sort')->default(100);
             $table->boolean('visibility')->default(1);

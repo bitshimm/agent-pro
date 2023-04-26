@@ -5,9 +5,8 @@
         </h2>
     </x-slot>
 
-    <h2>
-        <a href="{{ route('images.create') }}">Добавить</a>
-    </h2>
+    <x-btn-create :href="route('images.create')"/>
+
     <div>
         @foreach ($images as $image)
             <div>

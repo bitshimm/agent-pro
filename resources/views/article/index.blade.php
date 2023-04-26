@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <a class="btn_create" href="{{ route('articles.create') }}">Добавить</a>
+    <x-btn-create :href="route('articles.create')"/>
 
     <table>
         <thead>

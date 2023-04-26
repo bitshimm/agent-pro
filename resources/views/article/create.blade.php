@@ -29,7 +29,7 @@
             <input type="radio" name="visibility" id="visibility-false" value="0">
         </div>
         <div>
-            <input type="submit" value="Добавить">
+            <input type="submit" value="Сохранить">
         </div>
     </form>
 </x-app-layout>

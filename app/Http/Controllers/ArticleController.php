@@ -24,10 +24,10 @@ class ArticleController extends Controller
         // echo xdebug_info();
         $articles = Article::orderBy('id', 'desc')->get();
 
-        dump(\Illuminate\Support\Facades\Hash::make("Verg"));
-        sleep(3);
-        dump(\Illuminate\Support\Facades\Hash::make("Verg"));
-        dump(\Illuminate\Support\Facades\Hash::make("Dewd"));
+        // dump(\Illuminate\Support\Facades\Hash::make("Verg"));
+        // sleep(3);
+        // dump(\Illuminate\Support\Facades\Hash::make("Verg"));
+        // dump(\Illuminate\Support\Facades\Hash::make("Dewd"));
         
         return view('article.index', compact('articles'));
     }

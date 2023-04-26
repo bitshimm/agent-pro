@@ -12,7 +12,6 @@ body {
     width: 250px;
     height: 100vh;
     position: fixed;
-    font-size: 16px;
     padding: 10px 5px;
     background-color: #343a40;
 }
@@ -32,11 +31,17 @@ body {
     display: block;
     font-weight: 500;
     color: #c2c7d0;
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 4px;
     text-decoration: none;
 }
-
+.nav>.nav_item>.nav_link>.nav_icon {
+    font-size: 20px;
+    margin-right: 7px;
+}
+.nav>.nav_item>.nav_link>.nav_title {
+    font-size: 16px;
+}
 .nav>.nav_item>.nav_link:hover {
     background-color: rgba(255, 255, 255, .1);
     color: #fff;
@@ -47,18 +52,34 @@ body {
     color: #343a40;
 }
 
-.wrapper {
+.content_wrapper {
     margin-left: 250px;
-    padding: 15px 30px;
 }
-
-header {
-    padding-bottom: 20px;
+.content_wrapper>.content_header {
+    padding: 1rem 0.5rem;
 }
-
+.content_wrapper>.content {
+    padding: 0 0.5rem;
+}
+.user_panel a{
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #c2c7d0;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px;
+background: #343a40;
+box-shadow:  4px 4px 9px #2c3136,
+             -4px -4px 9px #3c434a;
+}
+.user_panel a i {
+    margin-right: 10px;
+}
 form {
     display: block;
-    max-width: 600px;
+    max-width: 1200px;
     /* margin: 0 auto; */
 }
 

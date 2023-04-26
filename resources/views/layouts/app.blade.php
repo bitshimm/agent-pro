@@ -16,10 +16,12 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
 
-    <link href="/css/fontawesome.min.css" rel="stylesheet">
-    <link href="/css/brands.min.css" rel="stylesheet">
-    <link href="/css/solid.min.css" rel="stylesheet">
+    <link href="/css/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="/css/fontawesome/css/regular.min.css" rel="stylesheet">
+    <link href="/css/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="/css/fontawesome/css/solid.min.css" rel="stylesheet">
 
+    <script src="/js/tinymce/tinymce.min.js"></script>
 
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
@@ -43,43 +45,70 @@
                 {{ $slot }}
             </main>
         </div> --}}
-    <aside class="main_sidebar">
-        <div class="user_panel">
-            <a href="#"><i class="fa-solid fa-user" style="color: #fff;"></i>Profile</a>
-        </div>
-        <nav>
-            <ul class="nav">
-                <li class="nav_item">
-                    <x-nav-link-new :href="route('articles.index')" :active="request()->routeIs('articles.*')">
-                        Новости
-                    </x-nav-link-new>
-                </li>
-                <li class="nav_item">
-                    <x-nav-link-new :href="route('images.index')" :active="request()->routeIs('images.*')">
-                        Изображения
-                    </x-nav-link-new>
-                </li>
-            </ul>
-        </nav>
-    </aside>
     <div class="wrapper">
-        @if (isset($header) || isset($insert_link))
-            <header>
-                {{ $header }}
-            </header>
-        @endif
-
-        <div class="content">
-            @if ($errors->all())
-                <div class="alert alert-danger" style="background-color: #dc3545; color: #fff;">
-                    @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
-                    @endforeach
-                </div>
-            @endif
-            {{ $slot }}
+        <aside class="main_sidebar">
+            <div class="user_panel">
+                <a href="#">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </div>
+            <nav>
+                <ul class="nav">
+                    <li class="nav_item">
+                        <x-nav-link-new :href="route('articles.index')" :active="request()->routeIs('articles.*')">
+                            <i class="nav_icon fa-solid fa-newspaper"></i>
+                            <span class="nav-title">Новости</span>
+                        </x-nav-link-new>
+                    </li>
+                    <li class="nav_item">
+                        <x-nav-link-new :href="route('images.index')" :active="request()->routeIs('images.*')">
+                            <i class="nav_icon fa-solid fa-image"></i>
+                            <span class="nav-title">Изображения</span>
+                        </x-nav-link-new>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="content_wrapper">
+            <div class="content_header">
+                @if (isset($header) || isset($insert_link))
+                    <header>
+                        {{ $header }}
+                    </header>
+                @endif
+            </div>
+            <div class="content">
+                {{-- <textarea>Next, use our Get Started docs to setup Tiny!</textarea> --}}
+                @if ($errors->all())
+                    <div class="alert alert-danger" style="background-color: #dc3545; color: #fff;">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+                {{ $slot }}
+            </div>
         </div>
     </div>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            language: 'ru',
+            height: 800,
+            plugins: [
+                'fullscreen', 'template', 'code', 'image', 'preview', 'widget', 'callbackform'
+            ],
+            toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | code',
+            toolbar2: 'widget | callbackform',
+            content_style: "p[id^='widget-'] { border: 1px solid #000; }",
+        });
+        const callbackformWrappers = document.querySelectorAll('p[id^="callbackform-"]');
+        for (var i = 0; i < callbackformWrappers.length; i++) {
+            console.log('callbackformWrappers: ', callbackformWrappers[i]);
+            callbackformWrappers[i].innerHTML = '<h3>ТУТА ТИПА ФОРМА</h3>';
+        }
+    </script>
 </body>
 
 </html>
