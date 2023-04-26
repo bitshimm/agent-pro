@@ -46,25 +46,44 @@
             </main>
         </div> --}}
     <div class="wrapper">
+        <nav class="main_header">
+            <ul class="navbar_nav">
+                <li class="nav_item">
+                    <a class="nav_link" href="#" id="menu-toggler">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <li class="nav_item">
+                    <a href="#" class="nav_link">
+                        Home
+                    </a>
+                </li>
+                <li class="nav_item">
+                    <a href="#" class="nav_link">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
         <aside class="main_sidebar">
-            <div class="user_panel">
+            {{-- <div class="user_panel">
                 <a href="#">
                     <i class="fa-regular fa-user"></i>
                     <span>Profile</span>
                 </a>
-            </div>
+            </div> --}}
             <nav>
                 <ul class="nav">
                     <li class="nav_item">
                         <x-nav-link-new :href="route('articles.index')" :active="request()->routeIs('articles.*')">
                             <i class="nav_icon fa-solid fa-newspaper"></i>
-                            <span class="nav-title">Новости</span>
+                            <span class="nav_title">Новости</span>
                         </x-nav-link-new>
                     </li>
                     <li class="nav_item">
                         <x-nav-link-new :href="route('images.index')" :active="request()->routeIs('images.*')">
                             <i class="nav_icon fa-solid fa-image"></i>
-                            <span class="nav-title">Изображения</span>
+                            <span class="nav_title">Изображения</span>
                         </x-nav-link-new>
                     </li>
                 </ul>
@@ -108,6 +127,27 @@
             console.log('callbackformWrappers: ', callbackformWrappers[i]);
             callbackformWrappers[i].innerHTML = '<h3>ТУТА ТИПА ФОРМА</h3>';
         }
+        
+        // function updateSize() {
+        //     let w_sm = window.matchMedia("(max-width: 576px)");
+        //     let w_l = window.matchMedia("(max-width: 992px)");
+        //     let w_xl = window.matchMedia("(max-width: 1200px)");
+        //     // if  (w_l.matches){
+        //     //     document.body.classList.add('sidebar_mini');
+        //     // } else {
+        //     //     document.body.classList.remove('sidebar_mini');
+        //     // }
+        // }
+        
+        // window.addEventListener("resize", updateSize);
+        const toggleMenu = () => {
+            document.body.classList.toggle('sidebar_mini');
+        };
+        // let timerId = setInterval(() => {
+        //     document.body.classList.toggle('sidebar_mini');
+        // }, 1000);
+        const toggler = document.getElementById('menu-toggler');
+        toggler.addEventListener("click", toggleMenu);
     </script>
 </body>
 
