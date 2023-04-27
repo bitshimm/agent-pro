@@ -75,7 +75,7 @@
             </div> --}}
             <nav>
                 <ul class="nav">
-                    <li class="nav_item">
+                    {{-- <li class="nav_item">
                         <x-nav-link-new :href="route('articles.index')" :active="request()->routeIs('articles.*')">
                             <i class="nav_icon fa-solid fa-newspaper"></i>
                             <span class="nav_title">Новости</span>
@@ -86,7 +86,7 @@
                             <i class="nav_icon fa-solid fa-image"></i>
                             <span class="nav_title">Изображения</span>
                         </x-nav-link-new>
-                    </li>
+                    </li> --}}
                 </ul>
             </nav>
         </aside>

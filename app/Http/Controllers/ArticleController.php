@@ -9,7 +9,8 @@ use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-
+use Inertia\Inertia;
+use Inertia\Response;
 class ArticleController extends Controller
 {
 
@@ -22,11 +23,13 @@ class ArticleController extends Controller
         // $this->user = auth()->user();
     }
 
-    public function index(): View
+    public function index(): Response
     {
         $articles = Article::orderBy('id', 'desc')->get();
-        
-        return view('article.index', compact('articles'));
+        return Inertia::render('Article/Index', [
+            'articles' => $articles,
+        ]);
+        // return view('article.index', compact('articles'));
     }
 
     public function create(): View
@@ -39,7 +42,7 @@ class ArticleController extends Controller
         $data = $storeRequest->validated();
 
         $data['user_id'] = $storeRequest->user()->id;
-        
+
         $this->service->store($data);
 
         return redirect()->route('articles.index');
@@ -59,7 +62,7 @@ class ArticleController extends Controller
     public function update(UpdateRequest $updateRequest, Article $article): RedirectResponse
     {
         $data = $updateRequest->validated();
-        
+
         $this->service->update($article, $data);
 
         return redirect()->route('articles.index');
