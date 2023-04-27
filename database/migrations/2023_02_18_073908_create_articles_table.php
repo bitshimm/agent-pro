@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->default(0);
             $table->string('title')->nullable()->default(null);
             $table->longText('content')->nullable()->default(null);
             $table->string('image')->nullable()->default(null);

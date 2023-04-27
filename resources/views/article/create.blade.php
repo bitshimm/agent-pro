@@ -12,7 +12,7 @@
         </div>
         <div>
             <label for="content">content</label>
-            <textarea name="content" id="" rows="10" id="content" required></textarea>
+            <textarea name="content" id="" rows="10" id="content"></textarea>
         </div>
         <div>
             <label for="image">image</label>

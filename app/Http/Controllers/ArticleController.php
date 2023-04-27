@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Article;
 use App\Services\ArticleService;
 use App\Http\Requests\Article\StoreRequest;
@@ -13,21 +14,17 @@ class ArticleController extends Controller
 {
 
     private ArticleService $service;
+    private $user;
 
     public function __construct(ArticleService $service)
     {
         $this->service = $service;
+        // $this->user = auth()->user();
     }
 
     public function index(): View
     {
-        // echo xdebug_info();
         $articles = Article::orderBy('id', 'desc')->get();
-
-        // dump(\Illuminate\Support\Facades\Hash::make("Verg"));
-        // sleep(3);
-        // dump(\Illuminate\Support\Facades\Hash::make("Verg"));
-        // dump(\Illuminate\Support\Facades\Hash::make("Dewd"));
         
         return view('article.index', compact('articles'));
     }
@@ -41,7 +38,8 @@ class ArticleController extends Controller
     {
         $data = $storeRequest->validated();
 
-        // dd($data);
+        $data['user_id'] = $storeRequest->user()->id;
+        
         $this->service->store($data);
 
         return redirect()->route('articles.index');
@@ -61,7 +59,7 @@ class ArticleController extends Controller
     public function update(UpdateRequest $updateRequest, Article $article): RedirectResponse
     {
         $data = $updateRequest->validated();
-
+        
         $this->service->update($article, $data);
 
         return redirect()->route('articles.index');

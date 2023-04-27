@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
 
@@ -45,6 +45,7 @@
                 {{ $slot }}
             </main>
         </div> --}}
+    <div id="sidebar_overlay"></div>
     <div class="wrapper">
         <nav class="main_header">
             <ul class="navbar_nav">
@@ -127,27 +128,57 @@
             console.log('callbackformWrappers: ', callbackformWrappers[i]);
             callbackformWrappers[i].innerHTML = '<h3>ТУТА ТИПА ФОРМА</h3>';
         }
-        
-        // function updateSize() {
-        //     let w_sm = window.matchMedia("(max-width: 576px)");
-        //     let w_l = window.matchMedia("(max-width: 992px)");
-        //     let w_xl = window.matchMedia("(max-width: 1200px)");
-        //     // if  (w_l.matches){
-        //     //     document.body.classList.add('sidebar_mini');
-        //     // } else {
-        //     //     document.body.classList.remove('sidebar_mini');
-        //     // }
-        // }
-        
-        // window.addEventListener("resize", updateSize);
-        const toggleMenu = () => {
-            document.body.classList.toggle('sidebar_mini');
-        };
-        // let timerId = setInterval(() => {
-        //     document.body.classList.toggle('sidebar_mini');
-        // }, 1000);
-        const toggler = document.getElementById('menu-toggler');
-        toggler.addEventListener("click", toggleMenu);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnToggler = document.getElementById('menu-toggler');
+            const mainSidebar = document.querySelector('.main_sidebar');
+
+            btnToggler.addEventListener("click", () => {
+                document.body.classList.toggle('sidebar_collapse');
+                let w_md = window.matchMedia("(max-width: 768px)");
+                if (w_md.matches) {
+                    document.body.classList.remove('sidebar_collapse')
+                    if (document.body.classList.contains('sidebar_open')) {
+                        document.body.classList.remove('sidebar_open');
+                        document.body.classList.add('sidebar_close');
+                    } else {
+                        document.body.classList.remove('sidebar_close');
+                        document.body.classList.add('sidebar_open');
+                    }
+                } else {
+                    document.body.classList.remove('sidebar_open');
+                    document.body.classList.remove('sidebar_close');
+                }
+            });
+
+            mainSidebar.addEventListener('mouseover', (e) => {
+                if (document.body.classList.contains('sidebar_collapse')) {
+                    document.body.classList.remove('sidebar_close');
+                    document.body.classList.add('sidebar_open');
+                }
+                // console.log(e.target.classList);
+            });
+            mainSidebar.addEventListener('mouseout', (e) => {
+                if (document.body.classList.contains('sidebar_collapse')) {
+                    document.body.classList.remove('sidebar_open');
+                    document.body.classList.add('sidebar_close');
+                }
+                // console.log(e.target.classList);
+            });
+            window.addEventListener('click', (e) => {
+                const target = e.target;
+                if (!target.closest('.main_sidebar') && !target.closest('#menu-toggler')) {
+                    document.body.classList.remove('sidebar_open');
+                    document.body.classList.add('sidebar_close')
+                }
+            });
+            window.addEventListener("resize", () => {
+                let w_md = window.matchMedia("(min-width: 768px)");
+                if (w_md.matches && document.body.classList.contains('sidebar_open')) {
+                    document.body.classList.remove('sidebar_open');
+                }
+            });
+        });
     </script>
 </body>
 
