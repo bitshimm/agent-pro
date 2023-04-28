@@ -8,7 +8,8 @@ use App\Http\Requests\Image\UpdateRequest;
 use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
-
+use Inertia\Inertia;
+use Inertia\Response;
 class ImageController extends Controller
 {
     private ImageService $service;
@@ -18,11 +19,13 @@ class ImageController extends Controller
         $this->service = $service;
     }
 
-    public function index(): View
+    public function index(): Response
     {
         $images = Image::orderBy('id', 'desc')->get();
-
-        return view('image.index', compact('images'));
+        return Inertia::render('Image/Index', [
+            // 'articles' => $articles,
+        ]);
+        // return view('image.index', compact('images'));
     }
 
     public function create(): View
