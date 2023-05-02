@@ -31,6 +31,8 @@ Route::get('/', function () {
 // Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/images', [ImageController::class, 'index'])->name('images.index');
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
 // Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 // Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
 // Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');

@@ -9,6 +9,7 @@ defineProps({
 </script>
 <template>
     <DashboardLayout>
+        <Link class="btn_create" :href="route('articles.create')">Добавить</Link>
         <table>
             <thead>
                 <tr>

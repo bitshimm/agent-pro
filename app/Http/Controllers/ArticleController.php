@@ -32,16 +32,18 @@ class ArticleController extends Controller
         // return view('article.index', compact('articles'));
     }
 
-    public function create(): View
+    public function create(): Response
     {
-        return view('article.create');
+        return Inertia::render('Article/Create');
+        // return view('article.create');
     }
 
     public function store(StoreRequest $storeRequest): RedirectResponse
     {
         $data = $storeRequest->validated();
 
-        $data['user_id'] = $storeRequest->user()->id;
+        // $data['user_id'] = $storeRequest->user()->id;
+        $data['user_id'] = 1;
 
         $this->service->store($data);
 
