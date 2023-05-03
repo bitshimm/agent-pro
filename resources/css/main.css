@@ -1,6 +1,8 @@
 :root {
     --icon-mr: 10px;
     --main-sidebar-width-collapsed: 85px;
+    --main-sidebar-margin-collapsed: -220px;
+    --main-sidebar-width: 220px;
 }
 body {
     background-color: #EEF3F7;
@@ -12,7 +14,7 @@ body {
 
 .main_sidebar {
     top: 0;
-    width: 250px;
+    width: var(--main-sidebar-width);
     height: 100vh;
     z-index: 2000;
     position: fixed;
@@ -86,8 +88,9 @@ body {
 
 .main_header {
     padding: 16px;
-    margin-left: 250px;
+    margin-left: var(--main-sidebar-width);
     background-color: #fff;
+    border-bottom: 1px solid rgb(226,232,240);
     /* box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.6) inset; */
     transition: all 0.3s ease-out;
 }
@@ -107,7 +110,7 @@ body {
 }
 
 .content_wrapper {
-    margin-left: 250px;
+    margin-left: var(--main-sidebar-width);
     background-color: #EEF3F7;
     transition: all 0.3s ease-out;
 }
@@ -176,14 +179,28 @@ textarea {
 }
 
 .btn_edit {
-    padding: 7px 14px;
+    /* padding: 7px 14px;
     color: #fff;
     text-align: center;
     border-radius: 5px;
     line-height: 15px;
     display: inline-block;
     text-decoration: none;
-    background-color: #0d6efd;
+    background-color: #0d6efd; */
+    padding: .75rem 1.5rem;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 15px;
+    display: inline-block;
+    text-decoration: none;
+    /* background-color: #0d6efd; */
+    /* background-color: #4c51a5; */
+    background-color: #5661b3;
 }
 
 .btn_destroy {
@@ -222,10 +239,12 @@ table th {
 
 table td {
     /* padding: 0.5rem 1rem 0.5rem 1rem; */
-    padding: 1rem;
+    /* padding: 1rem; */
     border-top: 1px solid #adb5bd;
 }
-
+table td a {
+    padding: 1rem;
+}
 #sidebar_overlay {
     background-color: rgba(0, 0, 0, .2);
     bottom: 0;
@@ -259,7 +278,7 @@ table td {
 
 /* Наведение на сайдбар */
 .on_sidebar .main_sidebar {
-    width: 250px;
+    width: var(--main-sidebar-width);
     transition: all 0.3s ease-out;
 }
 
@@ -285,7 +304,7 @@ table td {
 
     /* Сайдбар закрыт */
     .sidebar_collapse .main_sidebar {
-        margin-left: -300px;
+        margin-left: var(--main-sidebar-margin-collapsed);
         transition: all 0.3s ease-out;
     }
 

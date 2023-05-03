@@ -15,18 +15,27 @@ defineProps({
                 <tr>
                     <th>ID</th>
                     <th>Заголовок</th>
-                    <th>Content</th>
+                    <th>Контент</th>
                     <!-- <th>Изображение</th> -->
-                    <th></th>
+                    <th width="10px"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="article in articles">
-                    <td>{{ article.id }}</td>
-                    <td>{{ article.title }}</td>
-                    <td v-html="article.content"></td>
+                    <td>
+                        <Link class="block" :href="route('articles.edit', article.id)">{{ article.id }}</Link>
+                    </td>
+                    <td>
+                        <Link class="block" :href="route('articles.edit', article.id)">{{ article.title }}</Link>
+                    </td>
+                    <td>
+                        <Link class="block" :href="route('articles.edit', article.id)">{{ article.id }}</Link>
+                    </td>
                     <!-- <td>{{ article.image }}</td> -->
-                    <td></td>
+                    <td>
+                        <Link class="block text-white bg-red-600 text-center" :href="route('articles.destroy', article.id)"
+                            method="delete" as="button"><i class="fa-solid fa-trash"></i></Link>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -56,9 +56,12 @@ class ArticleController extends Controller
     }
 
 
-    public function edit(Article $article): View
+    public function edit(Article $article): Response
     {
-        return view('article.edit', compact('article'));
+        return Inertia::render('Article/Edit', [
+            'article' => $article,
+        ]);
+        // return view('article.edit', compact('article'));
     }
 
     public function update(UpdateRequest $updateRequest, Article $article): RedirectResponse

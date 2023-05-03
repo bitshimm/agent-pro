@@ -5,15 +5,18 @@ import TextInput from '@/Components/TextInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 
+const props = defineProps(['article']);
+
 const form = useForm({
-    title: '',
-    content: '',
-    sort: 100,
-    visibility: false
+    title: props.article.title,
+    content: props.article.content,
+    sort: props.article.sort,
+    visibility: Boolean(props.article.visibility)
 })
 
 const submit = () => {
-    form.post(route('articles.store'), {
+    console.log(form);
+    form.patch(route('articles.update', props.article.id), {
         onFinish: () => form.reset(),
     });
 };

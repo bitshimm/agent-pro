@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longText('content')->nullable()->default(null);
             $table->string('image')->nullable()->default(null);
             $table->integer('sort')->default(100);
-            $table->boolean('visibility')->default(1);
+            $table->boolean('visibility')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });
