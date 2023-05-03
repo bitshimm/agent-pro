@@ -7,6 +7,18 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreRequest extends FormRequest
 {
     /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'sort.integer' => 'Сортировка должна иметь числовой формат',
+        ];
+    }
+
+    /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool

@@ -1,32 +1,32 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
-defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
-});
-defineEmits(['update:modelValue']);
-const textarea = ref('null');
+import Editor from '@tinymce/tinymce-vue';
 
-onMounted(() => {
-  tinymce.init({
-    selector: '.WYSIWYG'
-  });
-  if (textarea.value.hasAttribute('autofocus')) {
-    textarea.value.focus();
-  }
-  setInterval(function () {
-    console.log(modelValue);
-  }, 1000);
-});
-function logTextarea() {
-  
+const config = {
+  plugins: [
+    'fullscreen', 'template', 'code', 'image', 'preview'
+  ],
+  toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | code',
+  toolbar2: 'customBtn',
+  setup(editor) {
+    editor.ui.registry.addButton('customBtn', {
+      text: 'custon btn',
+      onAction: () => {
+        let timestamp = new Date().getTime();
+        editor.insertContent(`<p id="callbackform-${timestamp}">[ФОРМА ОБРАТНОЙ СВЯЗИ]</p><p>&nbsp;</p>`);
+      },
+    });
+  },
+  content_style: "p[id^='callbackform-'] { border: 1px solid #000; }",
 }
-onUnmounted(() => {
-  tinymce.remove();
-})
+
+defineProps({
+    form: {
+        type: Object,
+        required: true,
+    },
+});
 </script>
+
 <template>
-  <textarea class="WYSIWYG" :value="modelValue" ref="textarea"></textarea>
+  <Editor :init="config" v-model="form.content" tinymce-script-src="/js/tinymce/tinymce.min.js" />
 </template>

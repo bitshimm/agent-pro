@@ -15,6 +15,7 @@ defineProps({
                 <tr>
                     <th>ID</th>
                     <th>Заголовок</th>
+                    <th>Content</th>
                     <!-- <th>Изображение</th> -->
                     <th></th>
                 </tr>
@@ -23,6 +24,7 @@ defineProps({
                 <tr v-for="article in articles">
                     <td>{{ article.id }}</td>
                     <td>{{ article.title }}</td>
+                    <td v-html="article.content"></td>
                     <!-- <td>{{ article.image }}</td> -->
                     <td></td>
                 </tr>
