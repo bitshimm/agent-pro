@@ -36,6 +36,8 @@ class ImageService
         unset($data['image']);
 
         Image::create($data);
+
+        return $data['path_full'];
     }
 
     /**
