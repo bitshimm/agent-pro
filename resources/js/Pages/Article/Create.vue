@@ -9,7 +9,7 @@ const form = useForm({
     title: '',
     content: '',
     sort: 100,
-    visibility: false
+    visibility: true
 })
 
 const submit = () => {
@@ -35,7 +35,10 @@ const submit = () => {
             <label for="visibility">Видимость:</label>
             <Checkbox id="visibility" v-model:checked="form.visibility" />
             <br>
-            <button type="submit" class="btn_edit">Сохранить</button>
+            <button type="submit" class="btn_primary">
+                <i class="fa-solid fa-plus btn-icon"></i>
+                <span class="btn-label">Сохранить</span>
+            </button>
         </form>
     </DashboardLayout>
 </template>

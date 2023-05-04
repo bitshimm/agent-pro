@@ -9,7 +9,12 @@ defineProps({
 </script>
 <template>
     <DashboardLayout>
-        <Link class="btn_create" :href="route('articles.create')">Добавить</Link>
+
+        <Link class="btn_primary" :href="route('articles.create')">
+        <!-- <span class="material-symbols-outlined btn-icon">add_circle</span> -->
+        <i class="fa-solid fa-plus btn-icon"></i>
+        <span class="btn-label">Добавить</span>
+        </Link>
         <table>
             <thead>
                 <tr>
@@ -17,7 +22,7 @@ defineProps({
                     <th>Заголовок</th>
                     <th>Контент</th>
                     <!-- <th>Изображение</th> -->
-                    <th width="10px"></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,8 +38,10 @@ defineProps({
                     </td>
                     <!-- <td>{{ article.image }}</td> -->
                     <td>
-                        <Link class="block text-white bg-red-600 text-center" :href="route('articles.destroy', article.id)"
-                            method="delete" as="button"><i class="fa-solid fa-trash"></i></Link>
+                        <!-- <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete" as="button">
+                            <i class="fa-solid fa-trash btn-icon"></i>
+                            <span class="btn-label">Удалить</span>
+                        </Link> -->
                     </td>
                 </tr>
             </tbody>

@@ -4,7 +4,7 @@ import { useForm } from '@inertiajs/vue3'
 import TextInput from '@/Components/TextInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-
+import { Link } from '@inertiajs/vue3';
 const props = defineProps(['article']);
 
 const form = useForm({
@@ -38,7 +38,17 @@ const submit = () => {
             <label for="visibility">Видимость:</label>
             <Checkbox id="visibility" v-model:checked="form.visibility" />
             <br>
-            <button type="submit" class="btn_edit">Сохранить</button>
+            <div class="flex justify-between p-4">
+                <button type="submit" class="btn_primary">
+                    <i class="fa-solid fa-check btn-icon"></i>
+                    <span class="btn-label">Сохранить</span>
+                </button>
+                <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete" as="button">
+                    <i class="fa-solid fa-trash btn-icon"></i>
+                    <span class="btn-label">Удалить</span>
+                </Link>
+            </div>
         </form>
+
     </DashboardLayout>
 </template>
