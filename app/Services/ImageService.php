@@ -31,11 +31,13 @@ class ImageService
      */
     public function store(array $data)
     {
-        $data['path_thumb'] = $data['path_full'] = $this->uploadImage($data['image']) ;
+        $data['path_thumb'] = $data['path_full'] = $this->uploadImage($data['image']);
 
         unset($data['image']);
 
         Image::create($data);
+
+        return $data['path_full'];
     }
 
     /**
@@ -46,8 +48,22 @@ class ImageService
         if ($data['image']) {
             $data['path_thumb'] = $data['path_full'] = $this->uploadImage($data['image']);
             unset($data['image']);
-            unlink(public_path($image->path_full));
+            if (file_exists(public_path($image->path_full))) {
+                unlink(public_path($image->path_full));
+            }
         }
         $image->update($data);
+    }
+
+    /**
+     * Destroy service
+     */
+    public function destroy(Image $image)
+    {
+        if (file_exists(public_path($image->path_full))) {
+            unlink(public_path($image->path_full));
+        }
+
+        $image->delete();
     }
 }

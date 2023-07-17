@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'image',
+            'image' => 'image|nullable',
             'caption' => 'string|nullable',
             'alt' => 'string|nullable',
             'sort' => 'integer',

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
+
 class ImageController extends Controller
 {
     private ImageService $service;
@@ -23,16 +24,24 @@ class ImageController extends Controller
     {
         $images = Image::orderBy('id', 'desc')->get();
         return Inertia::render('Image/Index', [
-            // 'articles' => $articles,
+            'images' => $images,
         ]);
-        // return view('image.index', compact('images'));
     }
 
-    public function create(): View
+    public function create(): Response
     {
-        return view('image.create');
+        return Inertia::render('Image/Create');
     }
 
+    public function tinymceUpload(StoreRequest $storeRequest)
+    {
+        $data = $storeRequest->validated();
+
+        $path = $this->service->store($data);
+
+        return response()->json(['location' => $path]);
+    }
+    // public function store(StoreRequest $storeRequest)
     public function store(StoreRequest $storeRequest): RedirectResponse
     {
         $data = $storeRequest->validated();
@@ -50,9 +59,11 @@ class ImageController extends Controller
     //     //
     // }
 
-    public function edit(Image $image): View
+    public function edit(Image $image): Response
     {
-        return view('image.edit', compact('image'));
+        return Inertia::render('Image/Edit', [
+            'image' => $image,
+        ]);
     }
 
     public function update(UpdateRequest $updateRequest, Image $image): RedirectResponse
@@ -60,15 +71,13 @@ class ImageController extends Controller
         $data = $updateRequest->validated();
 
         $this->service->update($image, $data);
-        
+
         return redirect()->route('images.index');
     }
 
     public function destroy(Image $image): RedirectResponse
     {
-        unlink(public_path($image->path_full));
-        
-        $image->delete();
+        $this->service->destroy($image);
 
         return redirect()->route('images.index');
     }
