@@ -7,10 +7,12 @@ WORKDIR /var/www/agent-pro
 RUN apt-get update && apt-get install -y \
     build-essential \
     libzip-dev \
+    libgd-dev \
     libpng-dev \
-    libmagickwand-dev \
-    libjpeg62-turbo-dev \
     libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmagickwand-dev --no-install-recommends \
+    libmcrypt-dev \
     locales \
     zip \
     jpegoptim optipng pngquant gifsicle \

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\FileManagerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,13 +40,12 @@ Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->nam
 Route::post('/tinymceUpload', [ImageController::class, 'tinymceUpload'])->name('tinymce.upload');
 
 Route::get('/images', [ImageController::class, 'index'])->name('images.index');
-// Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');
-// Route::post('/images', [ImageController::class, 'store'])->name('images.store');
-
-// Route::get('/images/{image}', [ImageController::class, 'show'])->name('images.show');
-// Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
-// Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
-// Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');
+Route::post('/images', [ImageController::class, 'store'])->name('images.store');
+Route::get('/images/{image}', [ImageController::class, 'show'])->name('images.show');
+Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
+Route::post('/images/{image}', [ImageController::class, 'update'])->name('images.update');
+Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 // });
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -56,5 +56,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('filemanager', [FileManagerController::class, 'index']);
 require __DIR__ . '/auth.php';

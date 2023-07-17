@@ -45,8 +45,8 @@ const config = {
   plugins: [
     'fullscreen', 'code', 'image', 'preview', 'media'
   ],
-  toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | code',
-  toolbar2: 'customBtn | media | image',
+  toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | media image | code',
+  toolbar2: 'customBtn |',
   setup(editor) {
     editor.ui.registry.addButton('customBtn', {
       text: 'custon btn',
@@ -59,6 +59,20 @@ const config = {
   language: 'ru',
   content_style: "p[id^='callbackform-'] { border: 1px solid #000; }",
   images_upload_handler: example_image_upload_handler,
+  file_picker_callback(callback, value, meta) {
+    let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
+    let y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
+
+    tinymce.activeEditor.windowManager.openUrl({
+      url: '/file-manager/tinymce5',
+      title: 'Laravel File manager',
+      width: x * 0.8,
+      height: 1000,
+      onMessage: (api, message) => {
+        callback(message.content, { text: message.text })
+      }
+    })
+  }
 }
 
 defineProps({
