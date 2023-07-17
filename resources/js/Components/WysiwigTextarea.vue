@@ -58,6 +58,8 @@ const config = {
   },
   language: 'ru',
   content_style: "p[id^='callbackform-'] { border: 1px solid #000; }",
+  automatic_uploads: true,
+  relative_urls: false,
   images_upload_handler: example_image_upload_handler,
   file_picker_callback(callback, value, meta) {
     let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
