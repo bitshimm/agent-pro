@@ -29,13 +29,7 @@ Route::get('/', function () {
 Route::get('/', function () {
     return redirect()->route('articles.index');
 });
-// Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
-
-
-
-
-// });
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

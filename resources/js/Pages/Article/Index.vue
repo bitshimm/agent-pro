@@ -8,8 +8,11 @@ defineProps({
 });
 </script>
 <template>
+    <Head title="Новости" />
     <DashboardLayout>
-
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Новости</h2>
+        </template>
         <Link class="btn_primary" :href="route('articles.create')">
         <!-- <span class="material-symbols-outlined btn-icon">add_circle</span> -->
         <i class="fa-solid fa-plus btn-icon"></i>

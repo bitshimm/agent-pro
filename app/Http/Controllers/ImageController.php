@@ -7,7 +7,6 @@ use App\Http\Requests\Image\StoreRequest;
 use App\Http\Requests\Image\UpdateRequest;
 use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Contracts\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -41,7 +40,7 @@ class ImageController extends Controller
 
         return response()->json(['location' => $path]);
     }
-    // public function store(StoreRequest $storeRequest)
+
     public function store(StoreRequest $storeRequest): RedirectResponse
     {
         $data = $storeRequest->validated();

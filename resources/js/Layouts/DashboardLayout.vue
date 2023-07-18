@@ -8,7 +8,9 @@ const onSidebar = ref(false);
 const activeRoute = {
     articles: route().current('articles.*'),
     images: route().current('images.*'),
+    // profile: route().current('profile.*'),
 };
+
 onMounted(() => {
     window.addEventListener('resize', () => {
         windowWidth.value = window.innerWidth
@@ -28,7 +30,7 @@ onUnmounted(() => {
         <nav class="main_header">
             <ul class="navbar_nav">
                 <li class="nav_item">
-                    <a class="nav_link" href="#" id="menu-toggler" @click=" sidebarCollapse = !sidebarCollapse ">
+                    <a class="nav_link" href="#" id="menu-toggler" @click="sidebarCollapse = !sidebarCollapse">
                         <i class="fas fa-bars"></i>
                     </a>
                 </li>
@@ -44,17 +46,23 @@ onUnmounted(() => {
                 </li>
             </ul>
         </nav>
-        <aside class="main_sidebar" v-on:mouseenter=" onSidebar = !onSidebar " v-on:mouseleave=" onSidebar = !onSidebar ">
+        <aside class="main_sidebar" v-on:mouseenter="onSidebar = !onSidebar" v-on:mouseleave="onSidebar = !onSidebar">
+            <div class="user_panel">
+                <Link :href="route('profile.edit')" class="nav_link" :class="{ active: activeRoute.articles }">
+                <i class="nav_icon fa-solid fa-user"></i>
+                <span class="nav_title">{{ $page.props.auth.user.name }}</span>
+                </Link>
+            </div>
             <nav>
                 <ul class="nav">
                     <li class="nav_item">
-                        <Link :href=" route('articles.index') " class="nav_link"  :class="{ active: activeRoute.articles }">
+                        <Link :href="route('articles.index')" class="nav_link" :class="{ active: activeRoute.articles }">
                         <i class="nav_icon fa-solid fa-newspaper"></i>
                         <span class="nav_title">Новости</span>
                         </Link>
                     </li>
                     <li class="nav_item">
-                        <Link :href=" route('images.index') " class="nav_link"  :class="{ active: activeRoute.images }">
+                        <Link :href="route('images.index')" class="nav_link" :class="{ active: activeRoute.images }">
                         <i class="nav_icon fa-solid fa-image"></i>
                         <span class="nav_title">Изображения</span>
                         </Link>
@@ -68,10 +76,14 @@ onUnmounted(() => {
                 </ul>
             </nav>
         </aside>
-        <div class="content_wrapper">
-            <div class="content_header">
 
-            </div>
+        <div class="content_wrapper">
+            <!-- Page Heading -->
+            <header class="bg-white shadow content_header" v-if="$slots.header">
+                <slot name="header" />
+            </header>
+
+            <!-- Page Content -->
             <div class="content">
                 <slot />
             </div>
