@@ -66,7 +66,7 @@ const config = {
     let y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
 
     tinymce.activeEditor.windowManager.openUrl({
-      url: '/file-manager/tinymce5',
+      url: '/filemanager',
       title: 'Laravel File manager',
       width: x * 0.8,
       height: 1000,
