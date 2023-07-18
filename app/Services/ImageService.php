@@ -19,7 +19,7 @@ class ImageService
 
         $filePath = 'agents_images/' . $fileName;
         $image = ImageManager::make($file)
-            ->encode($fileExtension, 90);
+            ->encode('webp', 10);
 
         Storage::disk('public')->put($filePath, $image);
 
