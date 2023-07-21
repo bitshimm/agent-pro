@@ -87,7 +87,7 @@ body {
 }
 
 .main_header {
-    padding: 16px;
+    padding: 1rem;
     margin-left: var(--main-sidebar-width);
     background-color: #fff;
     border-bottom: 1px solid rgb(226, 232, 240);
@@ -132,7 +132,7 @@ body {
 
 .user_panel .nav_link {
     color: #fff;
-    font-size: 18px;
+    /* font-size: 18px; */
     font-weight: 500;
 }
 
@@ -205,13 +205,14 @@ table td a {
 
 #sidebar_overlay {
     background-color: rgba(0, 0, 0, .2);
-    bottom: 0;
+    /* bottom: 0; */
     display: none;
-    left: 0;
+    /* left: 0; */
     position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 50;
+    /* right: 0;
+    top: 0; */
+    z-index: 99;
+    inset: 0px;
 }
 
 /* Сайдбар открыт */

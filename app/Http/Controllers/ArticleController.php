@@ -29,13 +29,11 @@ class ArticleController extends Controller
         return Inertia::render('Article/Index', [
             'articles' => $articles,
         ]);
-        // return view('article.index', compact('articles'));
     }
 
     public function create(): Response
     {
         return Inertia::render('Article/Create');
-        // return view('article.create');
     }
 
     public function store(StoreRequest $storeRequest): RedirectResponse
@@ -61,7 +59,6 @@ class ArticleController extends Controller
         return Inertia::render('Article/Edit', [
             'article' => $article,
         ]);
-        // return view('article.edit', compact('article'));
     }
 
     public function update(UpdateRequest $updateRequest, Article $article): RedirectResponse

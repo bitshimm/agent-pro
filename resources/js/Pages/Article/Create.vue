@@ -7,6 +7,7 @@ import Checkbox from "@/Components/Checkbox.vue";
 
 const form = useForm({
     title: '',
+    image: null,
     content: '',
     sort: 100,
     visibility: true
@@ -32,6 +33,8 @@ const submit = () => {
         <form @submit.prevent="submit">
             <label for="title">Заголовок:</label>
             <TextInput id="title" type="text" v-model="form.title" required autofocus />
+            <label for="image">Изображение:</label>
+            <input type="file" @input="form.image = $event.target.files[0]" id="image" />
             <label for="content">Контент:</label>
             <WysiwigTextarea id="content" :form="form" />
             <label for="sort">Сортировка:</label>
