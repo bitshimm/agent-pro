@@ -18,36 +18,38 @@ defineProps({
         <i class="fa-solid fa-plus btn-icon"></i>
         <span class="btn-label">Добавить</span>
         </Link>
-        <table class="data_table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Заголовок</th>
-                    <th>Контент</th>
-                    <!-- <th>Изображение</th> -->
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="article in articles">
-                    <td>
-                        <Link class="block" :href="route('articles.edit', article.id)">{{ article.id }}</Link>
-                    </td>
-                    <td>
-                        <Link class="block" :href="route('articles.edit', article.id)">{{ article.title }}</Link>
-                    </td>
-                    <td>
-                        <Link class="block" :href="route('articles.edit', article.id)">{{ article.content }}</Link>
-                    </td>
-                    <!-- <td>{{ article.image }}</td> -->
-                    <td>
-                        <!-- <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete" as="button">
+        <div class="data_table_wrapper">
+            <table class="data_table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Заголовок</th>
+                        <th>Контент</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="article in articles">
+                        <td>
+                            <Link class="block" :href="route('articles.edit', article.id)">{{ article.id }}</Link>
+                        </td>
+                        <td>
+                            <Link class="block" :href="route('articles.edit', article.id)">{{ article.title }}</Link>
+                        </td>
+                        <td>
+                            <Link class="block" :href="route('articles.edit', article.id)">{{ article.content }}</Link>
+                        </td>
+                        <td>
+                            <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete"
+                                as="button">
                             <i class="fa-solid fa-trash btn-icon"></i>
-                            <span class="btn-label">Удалить</span>
-                        </Link> -->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                            <!-- <span class="btn-label">Удалить</span> -->
+                            </Link>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </DashboardLayout>
 </template>
