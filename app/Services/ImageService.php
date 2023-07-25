@@ -56,13 +56,21 @@ class ImageService
     }
 
     /**
+     * Unlink service
+     */
+    public function unlinkImage(string $path)
+    {
+        if (file_exists(public_path($path))) {
+            unlink(public_path($path));
+        }
+    }
+
+    /**
      * Destroy service
      */
     public function destroy(Image $image)
     {
-        if (file_exists(public_path($image->path_full))) {
-            unlink(public_path($image->path_full));
-        }
+        $this->unlinkImage($image->path_full);
 
         $image->delete();
     }

@@ -9,23 +9,24 @@ use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+
 class ArticleController extends Controller
 {
 
     private ArticleService $service;
-    private $user;
 
     public function __construct(ArticleService $service)
     {
         $this->service = $service;
-        // $this->user = auth()->user();
     }
 
     public function index(): Response
     {
-        $articles = Article::orderBy('id', 'desc')->get();
+        $articles = Auth::user()->articles()->orderBy('id', 'desc')->get();
+
         return Inertia::render('Article/Index', [
             'articles' => $articles,
         ]);
@@ -39,9 +40,6 @@ class ArticleController extends Controller
     public function store(StoreRequest $storeRequest): RedirectResponse
     {
         $data = $storeRequest->validated();
-
-        // $data['user_id'] = $storeRequest->user()->id;
-        $data['user_id'] = 1;
 
         $this->service->store($data);
 

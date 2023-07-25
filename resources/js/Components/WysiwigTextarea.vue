@@ -36,7 +36,7 @@ const example_image_upload_handler = (blobInfo, progress) => new Promise((resolv
 
   const formData = new FormData();
   formData.append('image', blobInfo.blob(), blobInfo.filename());
-  console.log(formData);
+
   xhr.send(formData);
 });
 
@@ -67,9 +67,9 @@ const config = {
 
     tinymce.activeEditor.windowManager.openUrl({
       url: '/filemanager',
-      title: 'Laravel File manager',
+      title: 'Файловый менеджер',
       width: x * 0.8,
-      height: 1000,
+      height: y * 0.8,
       onMessage: (api, message) => {
         callback(message.content, { text: message.text })
       }

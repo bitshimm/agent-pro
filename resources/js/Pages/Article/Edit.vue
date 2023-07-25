@@ -5,18 +5,21 @@ import TextInput from '@/Components/TextInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import { Link } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 const props = defineProps(['article']);
 
 const form = useForm({
     title: props.article.title,
     content: props.article.content,
     sort: props.article.sort,
-    visibility: Boolean(props.article.visibility)
+    visibility: Boolean(props.article.visibility),
+    image: props.article.image,
+    new_image: null,
+    _method: 'patch',
 })
 
 const submit = () => {
-    console.log(form);
-    form.patch(route('articles.update', props.article.id), {
+    form.post(route('articles.update', props.article.id), {
         onFinish: () => form.reset(),
     });
 };
@@ -25,7 +28,7 @@ const submit = () => {
     <Head title="Новости" />
     <DashboardLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Новости</h2>
+            <h1>Новости</h1>
         </template>
         <ul v-if="form.errors">
             <li v-for="error in form.errors" class="bg-red-100 text-red-900 p-2">
@@ -35,6 +38,15 @@ const submit = () => {
         <form @submit.prevent="submit">
             <label for="title">Заголовок:</label>
             <TextInput id="title" type="text" v-model="form.title" required autofocus />
+            <div v-if="form.image">
+                <label for="new_image">Заменить изображение:</label>
+                <img :src="form.image" alt="" width="200">
+                <input type="file" @input="form.new_image = $event.target.files[0]" id="new_image" />
+            </div>
+            <div v-else>
+                <label for="new_image">Изображение:</label>
+                <input type="file" @input="form.new_image = $event.target.files[0]" id="new_image" />
+            </div>
             <label for="content">Контент:</label>
             <WysiwigTextarea id="content" :form="form" />
             <label for="sort">Сортировка:</label>
@@ -48,8 +60,8 @@ const submit = () => {
                     <span class="btn-label">Сохранить</span>
                 </button>
                 <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete" as="button">
-                    <i class="fa-solid fa-trash btn-icon"></i>
-                    <span class="btn-label">Удалить</span>
+                <i class="fa-solid fa-trash btn-icon"></i>
+                <span class="btn-label">Удалить</span>
                 </Link>
             </div>
         </form>

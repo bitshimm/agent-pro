@@ -23,7 +23,7 @@ const submit = () => {
     <Head title="Новости" />
     <DashboardLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Новости</h2>
+            <h1>Новости</h1>
         </template>
         <ul v-if="form.errors">
             <li v-for="error in form.errors" class="bg-red-100 text-red-900 p-2">
@@ -32,7 +32,7 @@ const submit = () => {
         </ul>
         <form @submit.prevent="submit">
             <label for="title">Заголовок:</label>
-            <TextInput id="title" type="text" v-model="form.title" required autofocus />
+            <TextInput id="title" type="text" v-model="form.title" autofocus />
             <label for="image">Изображение:</label>
             <input type="file" @input="form.image = $event.target.files[0]" id="image" />
             <label for="content">Контент:</label>

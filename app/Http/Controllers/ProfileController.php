@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
@@ -59,5 +60,13 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    function sendmail()
+    {
+        Mail::raw('Hello World!', function ($msg) {
+            $msg->to('b.shiman@flotconsult.ru')->subject('Test Email');
+        });
+        return 'success';
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Image;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\File;
 
 class StoreRequest extends FormRequest
 {
@@ -23,7 +22,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required|image|mimes:jpg,jpeg,png,bmp,gif',
+            'image' => 'required|image',
             'caption' => 'string|nullable',
             'alt' => 'string|nullable',
             'sort' => 'integer',

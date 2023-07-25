@@ -13,7 +13,12 @@ body {
     font-family: 'Roboto', sans-serif;
     /* font-family: 'Montserrat', sans-serif; */
 }
-
+header h1 {
+    font-size: 2em;
+    font-weight: 700;
+    color: rgb(51,65,85);
+    margin-bottom: 2rem;
+}
 .main_sidebar {
     top: 0;
     width: var(--main-sidebar-width);
@@ -53,20 +58,6 @@ body {
 
 .main_sidebar .nav_link:hover {
     color: #fff;
-    animation-name: fadeIn;
-    animation-duration: 1s;
-    animation-timing-function: ease;
-    transition: all 0.2s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0.7;
-    }
-
-    to {
-        opacity: 1;
-    }
 }
 
 .main_sidebar .nav_link.active {
@@ -99,6 +90,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+    align-items: center;
     flex-direction: row;
 }
 
@@ -121,6 +113,7 @@ body {
 
 .content_wrapper .content {
     padding: 1.5rem;
+    overflow-x: auto;
 }
 
 .user_panel {
@@ -178,28 +171,28 @@ textarea {
     text-transform: uppercase;
 }
 
-table {
+.data_table {
     width: 100%;
     padding: 10px 0;
     border-radius: 6px;
     border-spacing: 0;
     background-color: #fff;
     box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-    margin-bottom: 10px;
+    margin: 1rem 0;
 }
 
-table th {
+.data_table th {
     text-align: left;
     padding: 1.5rem 1rem 1rem 1rem;
 }
 
-table td {
+.data_table td {
     /* padding: 0.5rem 1rem 0.5rem 1rem; */
     /* padding: 1rem; */
     border-top: 1px solid #adb5bd;
 }
 
-table td a {
+.data_table td a {
     padding: 1rem;
 }
 
@@ -284,13 +277,17 @@ table td a {
     display: grid;
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    margin: 1rem 0;
 }
 
 .imageLink {
     height: 200px;
+    border-radius: 6px;
+    overflow-x: auto;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
 }
 
 .hover_text_wrapper {
@@ -308,7 +305,9 @@ table td a {
 .hover_text_wrapper:hover {
     background-color: rgba(30, 30, 30, 0.5);
     opacity: 1;
-    transition: ease-in 0.15s;
+    transition: ease-in 0.05s;
 }
-
+.tox-promotion {
+    display: none;
+}
 /* .tox-notification {display: none !important;}  */

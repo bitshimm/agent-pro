@@ -13,7 +13,8 @@ const form = useForm({
     alt: props.image.alt,
     caption: props.image.caption,
     sort: props.image.sort,
-    visibility: Boolean(props.image.visibility)
+    visibility: Boolean(props.image.visibility),
+    _method: 'patch',
 });
 
 const submit = () => {

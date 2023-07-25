@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->default(0);
+            $table->unsignedBigInteger('user_id');
             $table->string('title')->nullable()->default(null);
             $table->longText('content')->nullable()->default(null);
             $table->string('image')->nullable()->default(null);
             $table->integer('sort')->default(100);
             $table->boolean('visibility')->default(true);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->softDeletes();
         });
     }

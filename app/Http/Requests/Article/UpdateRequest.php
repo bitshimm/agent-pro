@@ -24,9 +24,22 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'string|required',
             'content' => 'string|required',
-            'image' => '',
+            'image' => 'string|nullable',
+            'new_image' => 'image|nullable',
             'sort' => 'integer',
             'visibility' => 'boolean'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'sort.integer' => 'Сортировка должна иметь числовой формат',
         ];
     }
 }

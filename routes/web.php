@@ -52,12 +52,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/images', [ImageController::class, 'store'])->name('images.store');
     Route::get('/images/{image}', [ImageController::class, 'show'])->name('images.show');
     Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
-    Route::post('/images/{image}', [ImageController::class, 'update'])->name('images.update');
+    Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
     Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
     Route::post('/tinymceUpload', [ImageController::class, 'tinymceUpload'])->name('tinymce.upload');
 
-    Route::get('filemanager', [FileManagerController::class, 'index']);
+    Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
+    Route::get('sendmail', [ProfileController::class, 'sendmail'])->name('sendmail');
 });
 
 // Route::group(['prefix' => 'laravel-filemanager'], function () {

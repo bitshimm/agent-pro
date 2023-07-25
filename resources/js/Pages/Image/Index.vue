@@ -12,7 +12,7 @@ defineProps({
   <Head title="Изображения" />
   <DashboardLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Изображения</h2>
+      <h1>Изображения</h1>
     </template>
     <Link class="btn_primary" :href="route('images.create')">
     <i class="fa-solid fa-plus btn-icon"></i>

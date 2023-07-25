@@ -32,15 +32,6 @@ class ImageController extends Controller
         return Inertia::render('Image/Create');
     }
 
-    public function tinymceUpload(StoreRequest $storeRequest)
-    {
-        $data = $storeRequest->validated();
-
-        $path = $this->service->store($data);
-
-        return response()->json(['location' => $path]);
-    }
-
     public function store(StoreRequest $storeRequest): RedirectResponse
     {
         $data = $storeRequest->validated();
@@ -48,6 +39,15 @@ class ImageController extends Controller
         $this->service->store($data);
 
         return redirect()->route('images.index');
+    }
+
+    public function tinymceUpload(StoreRequest $storeRequest)
+    {
+        $data = $storeRequest->validated();
+
+        $path = $this->service->uploadImage($data['image']);
+
+        return response()->json(['location' => $path]);
     }
 
     // /**

@@ -24,7 +24,7 @@ const submit = () => {
     <Head title="Изображения" />
     <DashboardLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Изображения</h2>
+            <h1>Изображения</h1>
         </template>
         <ul v-if="form.errors">
             <li v-for="error in form.errors" class="bg-red-100 text-red-900 p-2">

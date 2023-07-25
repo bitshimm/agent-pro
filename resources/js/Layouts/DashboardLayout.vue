@@ -34,7 +34,7 @@ onUnmounted(() => {
             <ul class="navbar_nav">
                 <li class="nav_item">
                     <a class="nav_link" href="#" id="menu-toggler" @click="sidebarCollapse = !sidebarCollapse">
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-lg fa-bars"></i>
                     </a>
                 </li>
                 <li class="nav_item ml-auto">
@@ -87,18 +87,25 @@ onUnmounted(() => {
                         <span class="nav_title">Изображения</span>
                         </Link>
                     </li>
+                    <li class="nav_item">
+                        <Link :href="route('filemanager')" class="nav_link">
+                        <i class="nav_icon fa-solid fa-image"></i>
+                        <span class="nav_title">Файловы менеджер</span>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </aside>
 
         <div class="content_wrapper">
             <!-- Page Heading -->
-            <header class="bg-white shadow content_header" v-if="$slots.header">
-                <slot name="header" />
-            </header>
+
 
             <!-- Page Content -->
             <div class="content">
+                <header v-if="$slots.header">
+                    <slot name="header" />
+                </header>
                 <slot />
             </div>
         </div>
