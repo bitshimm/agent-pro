@@ -1,5 +1,6 @@
 <script setup>
 import Editor from '@tinymce/tinymce-vue';
+import { ref } from 'vue';
 
 const example_image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
   const xhr = new XMLHttpRequest();
@@ -76,15 +77,31 @@ const config = {
     })
   }
 }
-
+const showModal = ref(false)
 defineProps({
   form: {
     type: Object,
     required: true,
   },
+  label: String,
+  error: String,
 });
 </script>
 
 <template>
-  <Editor :init="config" v-model="form.content" tinymce-script-src="/js/tinymce/tinymce.min.js" />
+  <div class="form-item wysiwig-textarea" :class="{ error: error }">
+    <span class="form-label">{{ label }}:</span>
+    <div class="form-modal-btn" @click="showModal = true">Открыть окно</div>
+    <div v-if="error" class="form-error">{{ error }}</div>
+    <div class="form-modal-wrapper" v-if="showModal">
+      <div class="form-modal">
+        <div class="form-modal-header">{{ label }} <span class="form-modal-close" @click="showModal = false"><i
+              class="fa-solid fa-xmark"></i></span></div>
+        <div class="form-modal-content">
+          <Editor :init="config" v-model="form.content" tinymce-script-src="/js/tinymce/tinymce.min.js"
+            class="form-textarea" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

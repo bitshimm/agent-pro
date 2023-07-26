@@ -1,11 +1,14 @@
 <script setup>
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { useForm } from '@inertiajs/vue3'
-import TextInput from '@/Components/TextInput.vue';
+import { Link } from '@inertiajs/vue3';
+
+import ResourseTextInput from '@/Components/ResourseTextInput.vue';
+import FileInput from '@/Components/FileInput.vue';
+import NumberInput from '@/Components/NumberInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-import { Link } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+
 const props = defineProps(['article']);
 
 const form = useForm({
@@ -20,7 +23,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('articles.update', props.article.id), {
-        onFinish: () => form.reset(),
+        onSuccess: () => form.reset(),
     });
 };
 </script>
@@ -30,39 +33,31 @@ const submit = () => {
         <template #header>
             <h1>Новости</h1>
         </template>
-        <ul v-if="form.errors">
-            <li v-for="error in form.errors" class="bg-red-100 text-red-900 p-2">
-                {{ error }}
-            </li>
-        </ul>
-        <form @submit.prevent="submit">
-            <label for="title">Заголовок:</label>
-            <TextInput id="title" type="text" v-model="form.title" required autofocus />
-            <div v-if="form.image">
-                <label for="new_image">Заменить изображение:</label>
-                <img :src="form.image" alt="" width="200">
-                <input type="file" @input="form.new_image = $event.target.files[0]" id="new_image" />
+        <form @submit.prevent="submit" class="form">
+            <div class="form-items">
+                <ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title" />
+                <div v-if="form.image">
+                    <FileInput label="Заменить изображение" id="new_image" :error="form.errors.new_image"
+                        v-model="form.new_image" :currentImage="form.image" />
+                </div>
+                <div v-else>
+                    <FileInput label="Изображение" id="new_image" :error="form.errors.new_image"
+                        v-model="form.new_image" />
+                </div>
+                <WysiwigTextarea label="Контент" id="content" :error="form.errors.content" :form="form" />
+                <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
+                <Checkbox label="Видимость" id="visibility" :error="form.errors.visibility"
+                    v-model:checked="form.visibility" />
             </div>
-            <div v-else>
-                <label for="new_image">Изображение:</label>
-                <input type="file" @input="form.new_image = $event.target.files[0]" id="new_image" />
-            </div>
-            <label for="content">Контент:</label>
-            <WysiwigTextarea id="content" :form="form" />
-            <label for="sort">Сортировка:</label>
-            <TextInput id="sort" type="number" v-model="form.sort" min="0" />
-            <label for="visibility">Видимость:</label>
-            <Checkbox id="visibility" v-model:checked="form.visibility" />
-            <br>
-            <div class="flex justify-between p-4">
-                <button type="submit" class="btn_primary">
-                    <i class="fa-solid fa-check btn-icon"></i>
-                    <span class="btn-label">Сохранить</span>
-                </button>
+            <div class="form-bottom">
                 <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete" as="button">
                 <i class="fa-solid fa-trash btn-icon"></i>
                 <span class="btn-label">Удалить</span>
                 </Link>
+                <button type="submit" class="btn_primary ml-auto">
+                    <i class="fa-solid fa-check btn-icon"></i>
+                    <span class="btn-label">Сохранить</span>
+                </button>
             </div>
         </form>
 

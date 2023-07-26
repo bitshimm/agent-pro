@@ -1,6 +1,17 @@
+<script setup>
+const props = defineProps({
+    id: String,
+    label: String,
+    error: String,
+    modelValue: File,
+    currentImage: String,
+});
+
+defineEmits(['update:modelValue']);
+</script>
 <template>
-    <div class="form-group-item file-input">
-        <span class="form-label">{{ label }}:</span>
+    <div class="form-item file-input">
+        <span class="form-label" v-if="label">{{ label }}: <a :href="currentImage" v-if="currentImage" class="underline" target="_blank">ссылка</a></span>
         <label class="form-input">
             <input type="file" class="form-input" :class="{ error: error }" :id="id"
                 @input="$emit('update:modelValue', $event.target.files[0])">
@@ -11,12 +22,3 @@
         <div v-if="error" class="form-error">{{ error }}</div>
     </div>
 </template>
-<script setup>
-defineProps({
-    id: String,
-    label: String,
-    error: String,
-    modelValue: File,
-});
-defineEmits(['update:modelValue']);
-</script>

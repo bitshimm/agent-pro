@@ -1,13 +1,12 @@
 <script setup>
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { useForm } from '@inertiajs/vue3'
-import TextInput from '@/Components/TextInput.vue';
+
+import ResourseTextInput from '@/Components/ResourseTextInput.vue';
+import FileInput from '@/Components/FileInput.vue';
+import NumberInput from '@/Components/NumberInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
-
-import NewTextInput from '@/Components/NewTextInput.vue';
-import NewFileInput from '@/Components/NewFileInput.vue';
-import NewNumberInput from '@/Components/NewNumberInput.vue';
 
 const form = useForm({
     title: '',
@@ -19,7 +18,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('articles.store'), {
-        onFinish: () => form.reset(),
+        onSuccess: () => form.reset(),
     });
 };
 </script>
@@ -29,24 +28,21 @@ const submit = () => {
         <template #header>
             <h1>Новости</h1>
         </template>
-        <ul v-if="form.errors">
-            <li v-for="error in form.errors" class="bg-red-100 text-red-900 p-2">
-                {{ error }}
-            </li>
-        </ul>
-        <form @submit.prevent="submit" class="form-group">
-            <NewTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title" />
-            <NewFileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
-            <NewNumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
-            <label for="content">Контент:</label>
-            <WysiwigTextarea id="content" :form="form" />
-            <label for="visibility">Видимость:</label>
-            <Checkbox id="visibility" v-model:checked="form.visibility" />
-            <br>
-            <button type="submit" class="btn_primary">
-                <i class="fa-solid fa-plus btn-icon"></i>
-                <span class="btn-label">Сохранить</span>
-            </button>
+        <form @submit.prevent="submit" class="form">
+            <div class="form-items">
+                <ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title" autofocus />
+                <FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
+                <WysiwigTextarea label="Контент" id="content" :error="form.errors.content" :form="form" />
+                <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
+                <Checkbox label="Видимость" id="visibility" :error="form.errors.visibility"
+                    v-model:checked="form.visibility" />
+            </div>
+            <div class="form-bottom">
+                <button type="submit" class="btn_primary ml-auto">
+                    <i class="fa-solid fa-plus btn-icon"></i>
+                    <span class="btn-label">Добавить</span>
+                </button>
+            </div>
         </form>
     </DashboardLayout>
 </template>

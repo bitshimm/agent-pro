@@ -1,9 +1,12 @@
 <script setup>
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { useForm } from '@inertiajs/vue3'
-import TextInput from '@/Components/TextInput.vue';
+
+import ResourseTextInput from '@/Components/ResourseTextInput.vue';
+import FileInput from '@/Components/FileInput.vue';
+import NumberInput from '@/Components/NumberInput.vue';
 import Checkbox from "@/Components/Checkbox.vue";
-import { Link } from '@inertiajs/vue3';
+
 const props = defineProps(['image']);
 
 const form = useForm({
@@ -16,7 +19,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('images.store'), {
-        onFinish: () => form.reset(),
+        onSuccess: () => form.reset(),
     });
 };
 </script>
@@ -26,27 +29,21 @@ const submit = () => {
         <template #header>
             <h1>Изображения</h1>
         </template>
-        <ul v-if="form.errors">
-            <li v-for="error in form.errors" class="bg-red-100 text-red-900 p-2">
-                {{ error }}
-            </li>
-        </ul>
-        <form @submit.prevent="submit">
-            <label for="image">Изображение:</label>
-            <input type="file" @input="form.image = $event.target.files[0]" id="image" required autofocus />
-            <label for="alt">Alt:</label>
-            <TextInput id="alt" type="text" v-model="form.alt" />
-            <label for="caption">Caption:</label>
-            <TextInput id="caption" type="text" v-model="form.caption" />
-            <label for="sort">Сортировка:</label>
-            <TextInput id="sort" type="number" v-model="form.sort" min="0" />
-            <label for="visibility">Видимость:</label>
-            <Checkbox id="visibility" v-model:checked="form.visibility" />
-            <button type="submit" class="btn_primary">
-                <i class="fa-solid fa-plus btn-icon"></i>
-                <span class="btn-label">Сохранить</span>
-            </button>
+        <form @submit.prevent="submit" class="form">
+            <div class="form-items">
+                <FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
+                <ResourseTextInput label="Alt" id="alt" :error="form.errors.alt" v-model="form.alt" />
+                <ResourseTextInput label="Caption" id="caption" :error="form.errors.caption" v-model="form.caption" />
+                <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
+                <Checkbox label="Видимость" id="visibility" :error="form.errors.visibility"
+                    v-model:checked="form.visibility" />
+            </div>
+            <div class="form-bottom">
+                <button type="submit" class="btn_primary ml-auto">
+                    <i class="fa-solid fa-plus btn-icon"></i>
+                    <span class="btn-label">Добавить</span>
+                </button>
+            </div>
         </form>
-
     </DashboardLayout>
 </template>

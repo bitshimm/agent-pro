@@ -40,11 +40,11 @@ defineProps({
                             <Link class="block" :href="route('articles.edit', article.id)">{{ article.content }}</Link>
                         </td>
                         <td>
-                            <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete"
+                            <!-- <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete"
                                 as="button">
                             <i class="fa-solid fa-trash btn-icon"></i>
-                            <!-- <span class="btn-label">Удалить</span> -->
-                            </Link>
+                            <span class="btn-label">Удалить</span>
+                            </Link> -->
                         </td>
                     </tr>
                 </tbody>

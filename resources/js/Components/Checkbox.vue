@@ -11,6 +11,9 @@ const props = defineProps({
     value: {
         default: null,
     },
+    id: String,
+    label: String,
+    error: String,
 });
 
 const proxyChecked = computed({
@@ -25,10 +28,9 @@ const proxyChecked = computed({
 </script>
 
 <template>
-    <input
-        type="checkbox"
-        :value="value"
-        v-model="proxyChecked"
-        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-    />
+    <div class="form-item checkbox-input">
+        <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
+        <input type="checkbox" class="form-input" :class="{ error: error }" :value="value" :id="id" v-model="proxyChecked"  />
+        <div v-if="error" class="form-error">{{ error }}</div>
+    </div>
 </template>
