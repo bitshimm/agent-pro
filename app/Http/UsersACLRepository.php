@@ -24,17 +24,20 @@ class UsersACLRepository implements ACLRepository
      */
     public function getRules(): array
     {
-        if (Auth::id() === 1) {
-            return [
-                ['disk' => 'public', 'path' => '*', 'access' => 2],
-            ];
-        }
+        /**
+         * Пока ограничу доступ для "админов"
+         */
+        // if (Auth::id() === 1) {
+        //     return [
+        //         ['disk' => 'public', 'path' => '*', 'access' => 2],
+        //     ];
+        // }
         
         return [
             ['disk' => 'public', 'path' => '/', 'access' => 1],                                  // main folder - read
-            ['disk' => 'public', 'path' => 'users', 'access' => 1],                              // only read
-            ['disk' => 'public', 'path' => 'users/'. Auth::user()->name, 'access' => 1],        // only read
-            ['disk' => 'public', 'path' => 'users/'. Auth::user()->name .'/*', 'access' => 2],  // read and write
+            ['disk' => 'public', 'path' => 'uploads', 'access' => 1],                              // only read
+            ['disk' => 'public', 'path' => 'uploads/'. Auth::user()->name, 'access' => 1],        // only read
+            ['disk' => 'public', 'path' => 'uploads/'. Auth::user()->name .'/*', 'access' => 2],  // read and write
         ];
     }
 }

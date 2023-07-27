@@ -7,6 +7,7 @@ use App\Http\Requests\Image\StoreRequest;
 use App\Http\Requests\Image\UpdateRequest;
 use App\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -21,7 +22,8 @@ class ImageController extends Controller
 
     public function index(): Response
     {
-        $images = Image::orderBy('id', 'desc')->get();
+        $images = Auth::user()->images()->orderBy('id', 'desc')->get();
+
         return Inertia::render('Image/Index', [
             'images' => $images,
         ]);
@@ -45,7 +47,7 @@ class ImageController extends Controller
     {
         $data = $storeRequest->validated();
 
-        $path = $this->service->uploadImage($data['image']);
+        $path = $this->service->uploadImage($data['image'], 'uploads/' . Auth::user()->name . '/');
 
         return response()->json(['location' => $path]);
     }

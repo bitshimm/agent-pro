@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('caption')->nullable()->default(null);
             $table->string('alt')->nullable()->default(null);
             $table->string('path_full');
@@ -20,6 +21,9 @@ return new class extends Migration
             $table->integer('sort')->default(100);
             $table->boolean('visibility')->default(1);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->softDeletes();
         });
     }

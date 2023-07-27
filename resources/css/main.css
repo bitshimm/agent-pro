@@ -116,7 +116,6 @@ header h1 {
 
 .content_wrapper .content {
     padding: 1.5rem;
-    overflow-x: auto;
 }
 
 .user_panel {
@@ -142,9 +141,11 @@ header h1 {
     background-color: #5661b3;
     /* background-color: #6200ee; */
 }
+
 .btn_primary:hover {
-    background-color: rgb(251,146,60);
+    background-color: rgb(251, 146, 60);
 }
+
 .btn_danger {
     color: #fff;
     font-size: 14px;
@@ -164,6 +165,10 @@ header h1 {
     text-transform: uppercase;
 }
 
+.data_table_wrapper {
+    overflow-x: auto;
+}
+
 .data_table {
     width: 100%;
     padding: 10px 0;
@@ -172,6 +177,7 @@ header h1 {
     background-color: #fff;
     box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
     margin: 1rem 0;
+    color: rgb(51, 65, 85);
 }
 
 .data_table th {
@@ -262,6 +268,7 @@ header h1 {
     color: #fff;
     padding: 10px;
 }
+
 .hover_text_wrapper:hover {
     background-color: rgba(30, 30, 30, 0.7);
     opacity: 1;
@@ -276,6 +283,7 @@ header h1 {
 .tox-promotion {
     display: none;
 }
+
 .form {
     max-width: 768px;
     background-color: #fff;
@@ -283,11 +291,13 @@ header h1 {
     border-radius: 6px;
     box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
 }
+
 .form-bottom {
     display: flex;
     padding-bottom: 1rem;
     padding-right: 1.5rem;
 }
+
 .form-items {
     display: grid;
     color: rgba(51, 65, 85);
@@ -353,12 +363,14 @@ header h1 {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.form-item.checkbox-input input{
+
+.form-item.checkbox-input input {
     margin-left: 10px;
     width: 22px;
     height: 22px;
     border-radius: 6px;
 }
+
 .form-item.number-input .form-label {
     display: block;
     margin-bottom: 8px;
@@ -379,6 +391,7 @@ header h1 {
     display: block;
     margin-bottom: 8px;
 }
+
 .form-item.wysiwig-textarea .form-modal-btn {
     background-color: rgb(226, 232, 240);
     padding: 0.5rem 0.75rem;
@@ -387,6 +400,7 @@ header h1 {
     cursor: pointer;
     text-align: center;
 }
+
 .form-modal-wrapper {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.2);
@@ -397,22 +411,26 @@ header h1 {
     padding: 50px;
     z-index: 100;
 }
-.form-modal-wrapper .form-modal  {
+
+.form-modal-wrapper .form-modal {
     padding: 1rem 1.5rem;
     background-color: #fff;
     border-radius: 10px;
 }
+
 .form-modal-wrapper .form-modal .form-modal-header {
     position: relative;
     font-size: 20px;
     margin-bottom: 0.75rem;
 }
+
 .form-modal-wrapper .form-modal .form-modal-header .form-modal-close {
     cursor: pointer;
     position: absolute;
     top: 0;
     right: 0;
 }
+
 @media(max-width: 768px) {
 
     /* Сайдбар открыт */

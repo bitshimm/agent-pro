@@ -1,6 +1,6 @@
 <script setup>
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
-import { useForm } from '@inertiajs/vue3'
+import { Head, useForm } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3';
 
 import ResourseTextInput from '@/Components/ResourseTextInput.vue';

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Image;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as ImageManager;
 
@@ -12,12 +13,12 @@ class ImageService
      * Upload image service
      * @return string path file
      */
-    public function uploadImage(\Illuminate\Http\UploadedFile $file): string
+    public function uploadImage(\Illuminate\Http\UploadedFile $file, $path = 'images/'): string
     {
         $fileExtension = $file->getClientOriginalExtension();
         $fileName = md5(uniqid()) . '.' . $fileExtension;
 
-        $filePath = 'agents_images/' . $fileName;
+        $filePath = $path . $fileName;
         $image = ImageManager::make($file)
             ->encode($fileExtension, 90);
 
@@ -35,7 +36,7 @@ class ImageService
 
         unset($data['image']);
 
-        Image::create($data);
+        Auth::user()->images()->create($data);
 
         return $data['path_full'];
     }
