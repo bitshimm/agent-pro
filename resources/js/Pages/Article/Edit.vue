@@ -30,8 +30,12 @@ const submit = () => {
 <template>
     <Head title="Новости" />
     <DashboardLayout>
-        <template #header>
-            <h1>Новости</h1>
+        <template #breadcrumbs>
+            <h1>
+                <Link :href="route('articles.index')">Новости</Link>
+                <span class="text-indigo-400 font-medium">/</span>
+                {{ form.title }}
+            </h1>
         </template>
         <form @submit.prevent="submit" class="form">
             <div class="form-items">

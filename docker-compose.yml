@@ -36,3 +36,10 @@ services:
       MYSQL_DATABASE: agent_pro
       MYSQL_ROOT_USERNAME: root
       MYSQL_ROOT_PASSWORD: root
+  redis:
+    image: 'redis:alpine'
+    container_name: redis
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    volumes:
+      - './docker/redis:/data'

@@ -11,20 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('user_social_network', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('caption')->nullable()->default(null);
-            $table->string('alt')->nullable()->default(null);
-            $table->string('path_full');
-            $table->string('path_thumb');
-            $table->integer('sort')->default(100);
-            $table->boolean('visibility')->default(1);
+            $table->unsignedBigInteger('social_network_id');
+            $table->string('link')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
-
-            $table->softDeletes();
+            $table->foreign('social_network_id')->references('id')->on('social_networks')->onDelete('cascade');;
         });
     }
 
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('user_social_network');
     }
 };

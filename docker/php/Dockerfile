@@ -42,6 +42,11 @@ RUN curl -sLS https://deb.nodesource.com/setup_18.x | bash - && \
 RUN pecl install -o -f xdebug \
     && docker-php-ext-enable xdebug
 
+# Install redis 
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
+
 # Install extensions
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install zip pdo_mysql mbstring exif pcntl bcmath gd

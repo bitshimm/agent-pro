@@ -30,14 +30,13 @@ const submit = () => {
 <template>
     <Head title="Изображения" />
     <DashboardLayout>
-        <template #header>
-            <h1>Изображения</h1>
+        <template #breadcrumbs>
+            <h1>
+                <Link :href="route('articles.index')">Изображения</Link>
+                <span class="text-indigo-400 font-medium">/</span>
+                {{ form.caption }}
+            </h1>
         </template>
-        <ul v-if="form.errors">
-            <li v-for="error in form.errors" class="bg-red-100 text-red-900 p-2">
-                {{ error }}
-            </li>
-        </ul>
         <form @submit.prevent="submit" class="form">
             <div class="form-items">
                 <FileInput label="Заменить изображение" id="image" :error="form.errors.image" v-model="form.image" :currentImage="form.path_full" />

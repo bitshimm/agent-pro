@@ -11,6 +11,7 @@ const onSidebar = ref(false);
 const activeRoute = {
     articles: route().current('articles.*'),
     images: route().current('images.*'),
+    social_networks: route().current('social_networks.*'),
     // profile: route().current('profile.*'),
 };
 
@@ -73,9 +74,9 @@ onUnmounted(() => {
                 <span class="nav_title">{{ $page.props.auth.user.name }}</span>
                 </Link> -->
                 <Link :href="route('home')" class="nav_link">
-                    <!-- <i class="nav_icon fa-solid fa-circle-nodes fa-spin fa-2xl"></i> -->
-                    <i class="nav_icon fa-brands fa-battle-net" style="font-size:23px;color: #B2B7FF;"></i>
-                    <!-- <i class="nav_icon fa-solid fa-user"></i> -->
+                <!-- <i class="nav_icon fa-solid fa-circle-nodes fa-spin fa-2xl"></i> -->
+                <i class="nav_icon fa-brands fa-battle-net" style="font-size:23px;color: #B2B7FF;"></i>
+                <!-- <i class="nav_icon fa-solid fa-user"></i> -->
                 <span class="nav_title text-2xl">cruiselines</span>
                 </Link>
             </div>
@@ -94,6 +95,12 @@ onUnmounted(() => {
                         </Link>
                     </li>
                     <li class="nav_item">
+                        <Link :href="route('social_networks.index')" class="nav_link" :class="{ active: activeRoute.social_networks }">
+                            <i class="nav_icon fa-solid fa-circle-nodes"></i>
+                        <span class="nav_title">Социальные сети</span>
+                        </Link>
+                    </li>
+                    <li class="nav_item">
                         <Link :href="route('filemanager')" class="nav_link">
                         <i class="nav_icon fa-solid fa-file"></i>
                         <span class="nav_title">Файловы менеджер</span>
@@ -105,13 +112,15 @@ onUnmounted(() => {
 
         <div class="content_wrapper">
             <!-- Page Heading -->
-
+            <header v-if="$slots.header">
+                <slot name="header" />
+            </header>
 
             <!-- Page Content -->
             <div class="content">
-                <header v-if="$slots.header">
-                    <slot name="header" />
-                </header>
+                <div class="breadcrumbs" v-if="$slots.breadcrumbs">
+                    <slot name="breadcrumbs" />
+                </div>
                 <slot />
             </div>
         </div>

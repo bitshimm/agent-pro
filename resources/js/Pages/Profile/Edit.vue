@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 
 defineProps({
@@ -20,8 +20,12 @@ defineProps({
     <Head title="Profile" />
 
     <DashboardLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
+        <template #breadcrumbs>
+            <h1>
+                <Link :href="route('home')">Главная</Link>
+                <span class="text-indigo-400 font-medium">/</span>
+                {{ $page.props.auth.user.name }}
+            </h1>
         </template>
 
         <div class="py-12">

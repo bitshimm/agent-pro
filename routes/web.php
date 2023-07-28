@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
+use App\Http\Controllers\SocialNetworkController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +44,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
     Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
     Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+
+    Route::get('/social_networks', [SocialNetworkController::class, 'index'])->name('social_networks.index');
+    Route::get('/social_networks/create', [SocialNetworkController::class, 'create'])->name('social_networks.create');
+    Route::post('/social_networks', [SocialNetworkController::class, 'store'])->name('social_networks.store');
+    Route::get('/social_networks/{social_network}', [SocialNetworkController::class, 'show'])->name('social_networks.show');
+    Route::get('/social_networks/{social_network}/edit', [SocialNetworkController::class, 'edit'])->name('social_networks.edit');
+    Route::patch('/social_networks/{social_network}', [SocialNetworkController::class, 'update'])->name('social_networks.update');
+    Route::delete('/social_networks/{social_network}', [SocialNetworkController::class, 'destroy'])->name('social_networks.destroy');
+
 
     Route::post('/tinymceUpload', [ImageController::class, 'tinymceUpload'])->name('tinymce.upload');
 

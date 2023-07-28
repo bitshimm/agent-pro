@@ -1,6 +1,6 @@
 <script setup>
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3'
+import { Head, Link, useForm } from '@inertiajs/vue3'
 
 import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import FileInput from '@/Components/FileInput.vue';
@@ -26,8 +26,11 @@ const submit = () => {
 <template>
     <Head title="Изображения" />
     <DashboardLayout>
-        <template #header>
-            <h1>Изображения</h1>
+        <template #breadcrumbs>
+            <h1>
+                <Link :href="route('images.index')">Изображения</Link>
+                <span class="text-indigo-400 font-medium">/</span> Добавление
+            </h1>
         </template>
         <form @submit.prevent="submit" class="form">
             <div class="form-items">

@@ -2,6 +2,7 @@
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
@@ -55,7 +56,6 @@ const updatePassword = () => {
                     class="mt-1 block w-full"
                     autocomplete="current-password"
                 />
-
                 <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
 

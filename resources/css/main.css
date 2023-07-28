@@ -14,13 +14,15 @@ body {
     /* font-family: 'Montserrat', sans-serif; */
 }
 
-header h1 {
+.breadcrumbs h1 {
     font-size: 2em;
     font-weight: 700;
     color: rgb(51, 65, 85);
     margin-bottom: 2rem;
 }
-
+.breadcrumbs a {
+    color: rgb(120,134,215);
+}
 .main_sidebar {
     top: 0;
     width: var(--main-sidebar-width);
@@ -115,7 +117,7 @@ header h1 {
 }
 
 .content_wrapper .content {
-    padding: 1.5rem;
+    padding: 3rem;
 }
 
 .user_panel {
