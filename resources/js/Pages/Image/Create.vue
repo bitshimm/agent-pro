@@ -29,7 +29,8 @@ const submit = () => {
         <template #breadcrumbs>
             <h1>
                 <Link :href="route('images.index')">Изображения</Link>
-                <span class="text-indigo-400 font-medium">/</span> Добавление
+                <span class="text-indigo-400 font-medium"> /</span>
+                Добавление
             </h1>
         </template>
         <form @submit.prevent="submit" class="form">
@@ -42,7 +43,7 @@ const submit = () => {
                     v-model:checked="form.visibility" />
             </div>
             <div class="form-bottom">
-                <button type="submit" class="btn_primary ml-auto">
+                <button type="submit" class="btn_indigo ml-auto">
                     <i class="fa-solid fa-plus btn-icon"></i>
                     <span class="btn-label">Добавить</span>
                 </button>

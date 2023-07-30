@@ -133,7 +133,7 @@ body {
     font-weight: 500;
 }
 
-.btn_primary {
+.btn_indigo {
     color: #fff;
     font-size: 14px;
     font-weight: 500;
@@ -144,7 +144,7 @@ body {
     /* background-color: #6200ee; */
 }
 
-.btn_primary:hover {
+.btn_indigo:hover {
     background-color: rgb(251, 146, 60);
 }
 

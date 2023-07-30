@@ -15,7 +15,7 @@ defineProps({
                 Новости
             </h1>
         </template>
-        <Link class="btn_primary" :href="route('articles.create')">
+        <Link class="btn_indigo" :href="route('articles.create')">
         <!-- <span class="material-symbols-outlined btn-icon">add_circle</span> -->
         <i class="fa-solid fa-plus btn-icon"></i>
         <span class="btn-label">Добавить</span>

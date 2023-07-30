@@ -11,7 +11,7 @@ const onSidebar = ref(false);
 const activeRoute = {
     articles: route().current('articles.*'),
     images: route().current('images.*'),
-    social_networks: route().current('social_networks.*'),
+    social_networks: route().current('social-networks.*'),
     // profile: route().current('profile.*'),
 };
 
@@ -95,7 +95,7 @@ onUnmounted(() => {
                         </Link>
                     </li>
                     <li class="nav_item">
-                        <Link :href="route('social_networks.index')" class="nav_link" :class="{ active: activeRoute.social_networks }">
+                        <Link :href="route('social-networks.index')" class="nav_link" :class="{ active: activeRoute.social_networks }">
                             <i class="nav_icon fa-solid fa-circle-nodes"></i>
                         <span class="nav_title">Социальные сети</span>
                         </Link>

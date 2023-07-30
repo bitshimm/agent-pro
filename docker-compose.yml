@@ -33,13 +33,13 @@ services:
       - "7002:3306"
     command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
     environment:
-      MYSQL_DATABASE: agent_pro
-      MYSQL_ROOT_USERNAME: root
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_USERNAME: ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
   redis:
     image: 'redis:alpine'
     container_name: redis
     ports:
-      - '${REDIS_PORT:-6379}:6379'
+      - '7003:6379'
     volumes:
       - './docker/redis:/data'

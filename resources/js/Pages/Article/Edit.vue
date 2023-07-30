@@ -33,7 +33,7 @@ const submit = () => {
         <template #breadcrumbs>
             <h1>
                 <Link :href="route('articles.index')">Новости</Link>
-                <span class="text-indigo-400 font-medium">/</span>
+                <span class="text-indigo-400 font-medium"> /</span>
                 {{ form.title }}
             </h1>
         </template>
@@ -54,11 +54,11 @@ const submit = () => {
                     v-model:checked="form.visibility" />
             </div>
             <div class="form-bottom">
-                <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete" as="button">
+                <Link class="btn_danger" :href="route('articles.destroy', props.article.id)" method="delete" as="button">
                 <i class="fa-solid fa-trash btn-icon"></i>
                 <span class="btn-label">Удалить</span>
                 </Link>
-                <button type="submit" class="btn_primary ml-auto">
+                <button type="submit" class="btn_indigo ml-auto">
                     <i class="fa-solid fa-check btn-icon"></i>
                     <span class="btn-label">Сохранить</span>
                 </button>

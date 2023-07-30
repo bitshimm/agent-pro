@@ -16,7 +16,7 @@ defineProps({
         Изображения
       </h1>
     </template>
-    <Link class="btn_primary" :href="route('images.create')">
+    <Link class="btn_indigo" :href="route('images.create')">
     <i class="fa-solid fa-plus btn-icon"></i>
     <span class="btn-label">Добавить</span>
     </Link>

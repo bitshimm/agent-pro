@@ -45,13 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
     Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
-    Route::get('/social_networks', [SocialNetworkController::class, 'index'])->name('social_networks.index');
-    Route::get('/social_networks/create', [SocialNetworkController::class, 'create'])->name('social_networks.create');
-    Route::post('/social_networks', [SocialNetworkController::class, 'store'])->name('social_networks.store');
-    Route::get('/social_networks/{social_network}', [SocialNetworkController::class, 'show'])->name('social_networks.show');
-    Route::get('/social_networks/{social_network}/edit', [SocialNetworkController::class, 'edit'])->name('social_networks.edit');
-    Route::patch('/social_networks/{social_network}', [SocialNetworkController::class, 'update'])->name('social_networks.update');
-    Route::delete('/social_networks/{social_network}', [SocialNetworkController::class, 'destroy'])->name('social_networks.destroy');
+    Route::get('/social-networks', [SocialNetworkController::class, 'index'])->name('social-networks.index');
+    Route::get('/social-networks/create', [SocialNetworkController::class, 'create'])->name('social-networks.create');
+    Route::post('/social-networks', [SocialNetworkController::class, 'store'])->name('social-networks.store');
+    Route::get('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'show'])->name('social-networks.show');
+    Route::get('/social-networks/{socialNetwork}/edit', [SocialNetworkController::class, 'edit'])->name('social-networks.edit');
+    Route::patch('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'update'])->name('social-networks.update');
+    Route::delete('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'destroy'])->name('social-networks.destroy');
 
 
     Route::post('/tinymceUpload', [ImageController::class, 'tinymceUpload'])->name('tinymce.upload');

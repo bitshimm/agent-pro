@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SocialNetwork\StoreRequest;
+use App\Http\Requests\SocialNetwork\UpdateRequest;
 use App\Models\SocialNetwork;
+use App\Services\SocialNetworkService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class SocialNetworkController extends Controller
 {
+    private SocialNetworkService $service;
+
+    public function __construct(SocialNetworkService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index() : Response
+    public function index(): Response
     {
         $social_networks = SocialNetwork::orderBy('id', 'desc')->get();
 
@@ -27,46 +36,58 @@ class SocialNetworkController extends Controller
      */
     public function create()
     {
-        
+        return Inertia::render('SocialNetwork/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $storeRequest)
     {
-        //
+        $data = $storeRequest->validated();
+
+        $this->service->store($data);
+
+        return redirect()->route('social-networks.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(SocialNetwork $socialNetwork): Response
     {
-        //
+        return Inertia::render('SocialNetwork/Edit', [
+            'social_network' => $socialNetwork,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $updateRequest, SocialNetwork $socialNetwork): RedirectResponse
     {
-        //
+        $data = $updateRequest->validated();
+
+        $this->service->update($socialNetwork, $data);
+
+        return redirect()->route('social-networks.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SocialNetwork $socialNetwork)
     {
-        //
+        $socialNetwork->delete();
+
+        return redirect()->route('social-networks.index');
     }
 }
