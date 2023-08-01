@@ -23,6 +23,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'widget',
+        'about_title',
+        'adout_short_description',
+        'adout_full_description',
     ];
 
     /**
@@ -63,8 +67,8 @@ class User extends Authenticatable
     /**
      * Get the social_networks for the user.
      */
-    public function socialNetwork(): BelongsToMany
+    public function socialNetworks(): BelongsToMany
     {
-        return $this->belongsToMany(SocialNetwork::class, 'user_social_network', 'user_id', 'social_network_id');
+        return $this->belongsToMany(SocialNetwork::class, 'user_social_network', 'user_id', 'social_network_id')->withPivot('link');
     }
 }

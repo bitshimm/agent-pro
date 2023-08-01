@@ -44,10 +44,11 @@ const example_image_upload_handler = (blobInfo, progress) => new Promise((resolv
 const config = {
   height: 800,
   plugins: [
-    'fullscreen', 'code', 'image', 'preview', 'media'
+    'fullscreen', 'code', 'image', 'preview', 'media', 'link'
   ],
   toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | media image | code',
-  toolbar2: 'customBtn |',
+  toolbar2: 'link',
+  toolbar3: 'customBtn |',
   setup(editor) {
     editor.ui.registry.addButton('customBtn', {
       text: 'custon btn',

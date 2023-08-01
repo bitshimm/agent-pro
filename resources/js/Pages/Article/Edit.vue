@@ -39,7 +39,9 @@ const submit = () => {
         </template>
         <form @submit.prevent="submit" class="form">
             <div class="form-items">
-                <ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title" />
+                <div class="form-item text-input">
+                    <ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title" />
+                </div>
                 <div v-if="form.image">
                     <FileInput label="Заменить изображение" id="new_image" :error="form.errors.new_image"
                         v-model="form.new_image" :currentImage="form.image" />

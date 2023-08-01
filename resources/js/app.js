@@ -1,10 +1,10 @@
 import './bootstrap';
 import '../css/app.css';
 import '../css/main.css';
-import '../css/fontawesome/css/brands.min.css';
-import '../css/fontawesome/css/regular.min.css';
-import '../css/fontawesome/css/solid.min.css';
-import '../css//fontawesome/css/fontawesome.min.css';
+import '../../public/css/fontawesome/css/brands.min.css';
+import '../../public/css/fontawesome/css/regular.min.css';
+import '../../public/css/fontawesome/css/solid.min.css';
+import '../../public/css//fontawesome/css/fontawesome.min.css';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';

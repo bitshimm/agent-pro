@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\SocialNetwork;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,9 +20,15 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        // dd( $request->user()->socialNetworks);
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'social_networks' => SocialNetwork::orderBy('id')->get(),
+            'user_social_networks' => $request->user()->socialNetworks,
+            'about_title' => $request->user()->about_title,
+            'about_short_description' => $request->user()->about_short_description,
+            'about_full_description' => $request->user()->about_full_description,
         ]);
     }
 
@@ -68,5 +75,34 @@ class ProfileController extends Controller
             $msg->to('b.shiman@flotconsult.ru')->subject('Test Email');
         });
         return 'success';
+    }
+
+    function socialNetworksUpdate(Request $request): RedirectResponse
+    {
+        $userSocialNetworks = $request->user_social_networks;
+
+        foreach ($userSocialNetworks as $socialNetworkId => $socialNetworkLink) {
+            $userSocialNetworks[$socialNetworkId] = [
+                'link' => $socialNetworkLink,
+            ];
+        }
+
+        $request->user()->socialNetworks()->sync($userSocialNetworks);
+
+        return Redirect::route('profile.edit');
+    }
+
+    function widgetUpdate(Request $request): RedirectResponse {
+        $request->validate([
+            'widget' => ['string'],
+        ]);
+
+        $user = $request->user();
+
+        $user->widget = $request->widget;
+
+        $user->save();
+
+        return Redirect::route('profile.edit');
     }
 }

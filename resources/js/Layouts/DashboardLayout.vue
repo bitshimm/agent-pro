@@ -38,6 +38,20 @@ onUnmounted(() => {
                         <i class="fas fa-lg fa-bars"></i>
                     </a>
                 </li>
+
+                <li class="nav_item mt-auto">
+                    <Link :href="route('preview')" class="nav_link">
+                    <i class="nav_icon fa-solid fa-eye mr-2"></i>
+                    <span class="nav_title">Предпросмотр</span>
+                    </Link>
+                </li>
+                <li class="nav_item">
+                    <Link :href="route('publish')" class="nav_link">
+                    <i class="nav_icon fa-solid fa-upload mr-2"></i>
+                    <span class="nav_title">Опубликовать</span>
+                    </Link>
+                </li>
+
                 <li class="nav_item ml-auto">
                     <Dropdown align="right" width="48">
                         <template #trigger>
@@ -95,15 +109,16 @@ onUnmounted(() => {
                         </Link>
                     </li>
                     <li class="nav_item">
-                        <Link :href="route('social-networks.index')" class="nav_link" :class="{ active: activeRoute.social_networks }">
-                            <i class="nav_icon fa-solid fa-circle-nodes"></i>
+                        <Link :href="route('social-networks.index')" class="nav_link"
+                            :class="{ active: activeRoute.social_networks }">
+                        <i class="nav_icon fa-solid fa-circle-nodes"></i>
                         <span class="nav_title">Социальные сети</span>
                         </Link>
                     </li>
                     <li class="nav_item">
                         <Link :href="route('filemanager')" class="nav_link">
                         <i class="nav_icon fa-solid fa-file"></i>
-                        <span class="nav_title">Файловы менеджер</span>
+                        <span class="nav_title">Файловый менеджер</span>
                         </Link>
                     </li>
                 </ul>

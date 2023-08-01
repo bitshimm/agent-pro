@@ -40,8 +40,12 @@ const submit = () => {
         <form @submit.prevent="submit" class="form">
             <div class="form-items">
                 <FileInput label="Заменить изображение" id="image" :error="form.errors.image" v-model="form.image" :currentImage="form.path_full" />
-                <ResourseTextInput label="Alt" id="alt" :error="form.errors.alt" v-model="form.alt" />
-                <ResourseTextInput label="Caption" id="caption" :error="form.errors.caption" v-model="form.caption" />
+                <div class="form-item text-input">
+                    <ResourseTextInput label="Alt" id="alt" :error="form.errors.alt" v-model="form.alt" />
+                </div>
+                <div class="form-item text-input">
+                    <ResourseTextInput label="Caption" id="caption" :error="form.errors.caption" v-model="form.caption" />
+                </div>
                 <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
                 <Checkbox label="Видимость" id="visibility" :error="form.errors.visibility"
                     v-model:checked="form.visibility" />

@@ -27,9 +27,12 @@ const submit = () => {
         </template>
         <form @submit.prevent="submit" class="form">
             <div class="form-items">
-                <ResourseTextInput label="Название" id="name" :error="form.errors.name" v-model="form.name" autofocus
-                    required />
-                <ResourseTextInput label="Иконка" id="icon" :error="form.errors.icon" v-model="form.icon" required />
+                <div class="form-item text-input">
+                    <ResourseTextInput label="Название" id="name" :error="form.errors.name" v-model="form.name" autofocus required />
+                </div>
+                <div class="form-item text-input">
+                    <ResourseTextInput label="Иконка" id="icon" :error="form.errors.icon" v-model="form.icon" required />
+                </div>
             </div>
             <div class="py-3">
                 <div>

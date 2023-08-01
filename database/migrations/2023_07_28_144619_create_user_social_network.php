@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('user_social_network', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('social_network_id');
-            $table->string('link')->nullable()->default(null);
-            $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('social_network_id')->references('id')->on('social_networks')->onDelete('cascade');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
-            $table->foreign('social_network_id')->references('id')->on('social_networks')->onDelete('cascade');;
+            $table->string('link')->nullable()->default(null);
+            
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
