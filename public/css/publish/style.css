@@ -86,15 +86,24 @@
 
 .images_wrapper {
     grid-area: i;
+    overflow: hidden;
+    position: relative;
 }
 .images_wrapper .images {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /* margin: 0 -10px; */
 }
-.images_wrapper .images img {
+.images_wrapper .images .image {
+    height: 200px;
+    overflow: hidden;
+    /* padding: 0 10px; */
+}
+.images_wrapper .images .image img {
     width: 100%;
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    border: 15px solid;
 }
-
 @media(max-width: 1024px) {
     .content {
         grid-template-areas:
@@ -119,7 +128,7 @@
 }
 
 @media(max-width: 640px) {
-    .content .articles {
+    /* .content .articles {
         grid-template-columns: repeat(1, 1fr);
-    }
+    } */
 }

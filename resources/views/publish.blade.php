@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="/css/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/css/fontawesome/css/fontawesome.min.css">
 
-    {{-- <link rel="stylesheet" href="/js/slick/slick.css"> --}}
-    {{-- <link rel="stylesheet" href="/js/slick/slick-theme.css"> --}}
-
     <link rel="stylesheet" href="/css/publish/style.css">
 </head>
 
@@ -65,14 +62,16 @@
                 </div>
             </div>
         </div>
-        <div class="images_wrapper">
-            <div class="images">
+        <div class="images_wrapper swiper-container">
+            <div class="images swiper-wrapper">
                 @foreach ($user->images as $image)
-                    <div class="image">
+                    <div class="image swiper-slide">
                         <img src="{{ $image->path_full }}" alt="">
                     </div>
                 @endforeach
             </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
     <div class="footer">
@@ -82,21 +81,33 @@
             </a>
         @endforeach
     </div>
-    <script src="/js/jquery/jquery-3.7.0.min.js"></script>
-    {{-- <script src="/js/slick/slick.min.js"></script> --}}
-
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="/js/lazysizes/lazysizes.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-        // $('.images').slick({
-        //     dots: true,
-        //     infinite: true,
-        //     speed: 300,
-        //     slidesToShow: 1,
-        //     adaptiveHeight: true
-        // });
+        const swiper = new Swiper('.swiper-container', {
+            spaceBetween: 10,
+            slidesPerView: 5,
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                480: {
+                    slidesPerView: 2,
+                },
+                640: {
+                    slidesPerView: 3,
+                },
+                880: {
+                    slidesPerView: 4,
+                },
+                960: {
+                    slidesPerView: 5,
+                }
+            }
+        });
     </script>
 </body>
 
