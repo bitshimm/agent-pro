@@ -29,7 +29,7 @@ const submit = () => {
             <h1>
                 <Link :href="route('articles.index')">Новости</Link>
                 <span class="text-indigo-400 font-medium"> /</span>
-                Добавление
+                Создание
             </h1>
         </template>
         <form @submit.prevent="submit" class="form">
@@ -38,7 +38,7 @@ const submit = () => {
                     <ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title" autofocus />
                 </div>
                 <FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
-                <WysiwigTextarea label="Контент" id="content" :error="form.errors.content" :form="form" />
+                <WysiwigTextarea label="Контент" id="content" :error="form.errors.content" v-model="form.content" />
                 <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
                 <Checkbox label="Видимость" id="visibility" :error="form.errors.visibility"
                     v-model:checked="form.visibility" />

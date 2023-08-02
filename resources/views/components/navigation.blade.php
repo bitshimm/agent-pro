@@ -1,10 +1,10 @@
 <ul class="navigation">
     <li><a href="{{ route('articles.index') }}">Articles</a>
         {{-- <ul class="dropdown">
-            <li><a href="{{ route('articles.create') }}">Создать Статью</a></li>
+            <li><a href="{{ route('articles.create') }}">Добавить Статью</a></li>
         </ul> --}}
     </li>
-    <li><a href="{{ route('articles.create') }}">Создать Статью</a></li>
+    <li><a href="{{ route('articles.create') }}">Добавить Статью</a></li>
     <li><a href="{{ route('images.index') }}">Images</a></li>
     <li><a href="{{ route('images.create') }}">Добавить изображение</a></li>
     <li style="margin-left: auto;"><a href="{{ url()->previous() }}">Назад</a></li>

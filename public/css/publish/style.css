@@ -1,0 +1,125 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Arial';
+}
+
+.content {
+    /* max-width: 1024px; */
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-areas:
+        "w w w w w n"
+        "a a a a a a"
+        "i i i i i i";
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 1rem;
+}
+
+.content .widget_wrapper {
+    grid-area: w;
+    padding: 1rem;
+    border-width: 15px;
+    border-style: solid;
+    padding: 1rem 0.5rem;
+}
+
+.content .articles_wrapper {
+    grid-area: n;
+}
+
+.content .articles {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+}
+
+.content .articles .article {
+    background-color: cyan;
+}
+
+.content .articles .article .article_head {
+    position: relative;
+}
+
+.content .articles .article .article_head .article_date {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    text-shadow: 0 0 10px;
+}
+
+.content .articles .article .article_head img {
+    display: block;
+    width: 100%;
+}
+
+.content .articles .article .article_title {
+    padding: 1rem 0.5rem;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.content .articles .article .article_bottom {
+    padding: 1rem 0.5rem;
+}
+
+.content .articles .article .article_bottom .article_btn {
+    border-radius: 6px;
+    text-align: center;
+    background-color: lightgreen;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.content .about_wrapper {
+    grid-area: a;
+    border-width: 15px;
+    border-style: solid;
+    padding: 24px;
+}
+
+.images_wrapper {
+    grid-area: i;
+}
+.images_wrapper .images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.images_wrapper .images img {
+    width: 100%;
+}
+
+@media(max-width: 1024px) {
+    .content {
+        grid-template-areas:
+            "w"
+            "n"
+            "a"
+            "i";
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .content .articles {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media(max-width: 768px) {
+    .content .articles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 640px) {
+    .content .articles {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

@@ -30,11 +30,9 @@ defineProps({
                 {{ $page.props.auth.user.name }}
             </h1>
         </template>
-
+        
         <UpdateUserSocialNetworksForm />
-
         <UpdateUserWidgetForm />
-
         <UpdateUserAboutForm />
 
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">

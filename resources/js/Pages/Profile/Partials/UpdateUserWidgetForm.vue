@@ -1,8 +1,5 @@
 <script setup>
-import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
-import { onBeforeMount } from 'vue';
-
 
 const widget = usePage().props.widget;
 

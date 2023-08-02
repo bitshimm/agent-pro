@@ -46,9 +46,10 @@ const config = {
   plugins: [
     'fullscreen', 'code', 'image', 'preview', 'media', 'link'
   ],
-  toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | media image | code',
+  toolbar1: 'undo redo | bold italic underline | fontsize | fontfamily | blocks | alignleft aligncenter alignright alignjustify | outdent indent | media image | code',
   toolbar2: 'link',
   toolbar3: 'customBtn |',
+  font_family_formats: 'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats',
   setup(editor) {
     editor.ui.registry.addButton('customBtn', {
       text: 'custon btn',
@@ -78,28 +79,47 @@ const config = {
     })
   }
 }
-const showModal = ref(false)
+
+const showModal = ref(false);
+
 defineProps({
-  form: {
-    type: Object,
+  modelValue: {
+    type: String,
     required: true,
   },
   label: String,
   error: String,
 });
+
+function toggleModal(status) {
+  this.showModal = status;
+  if (status == true) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+}
+
+defineEmits(['update:modelValue']);
+
 </script>
 
 <template>
+  
   <div class="form-item wysiwig-textarea" :class="{ error: error }">
     <span class="form-label">{{ label }}:</span>
-    <div class="form-modal-btn" @click="showModal = true">Открыть окно</div>
+    <div class="form-modal-btn" @click="toggleModal(true)">Открыть окно</div>
     <div v-if="error" class="form-error">{{ error }}</div>
     <div class="form-modal-wrapper" v-if="showModal">
       <div class="form-modal">
-        <div class="form-modal-header">{{ label }} <span class="form-modal-close" @click="showModal = false"><i
-              class="fa-solid fa-xmark"></i></span></div>
+        <div class="form-modal-header">
+          {{ label }}
+          <span class="form-modal-close" @click="toggleModal(false)">
+            <i class="fa-solid fa-xmark"></i>
+          </span>
+        </div>
         <div class="form-modal-content">
-          <Editor :init="config" v-model="form.content" tinymce-script-src="/js/tinymce/tinymce.min.js"
+          <Editor :init="config" :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)" tinymce-script-src="/js/tinymce/tinymce.min.js"
             class="form-textarea" />
         </div>
       </div>

@@ -22,7 +22,7 @@ const submit = () => {
             <h1>
                 <Link :href="route('social-networks.index')">Социальные сети</Link>
                 <span class="text-indigo-400 font-medium"> /</span>
-                Добавление
+                Создание
             </h1>
         </template>
         <form @submit.prevent="submit" class="form">

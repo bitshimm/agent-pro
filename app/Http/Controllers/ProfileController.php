@@ -26,6 +26,7 @@ class ProfileController extends Controller
             'status' => session('status'),
             'social_networks' => SocialNetwork::orderBy('id')->get(),
             'user_social_networks' => $request->user()->socialNetworks,
+            'widget' => $request->user()->widget,
             'about_title' => $request->user()->about_title,
             'about_short_description' => $request->user()->about_short_description,
             'about_full_description' => $request->user()->about_full_description,
@@ -100,6 +101,24 @@ class ProfileController extends Controller
         $user = $request->user();
 
         $user->widget = $request->widget;
+
+        $user->save();
+
+        return Redirect::route('profile.edit');
+    }
+
+    function aboutUpdate(Request $request): RedirectResponse {
+        // $request->validate([
+        //     'about_title' => ['string'],
+        //     'about_short_description' => ['string'],
+        //     'about_full_description' => ['string'],
+        // ]);
+
+        $user = $request->user();
+
+        $user->about_title = $request->about_title;
+        $user->about_short_description = $request->about_short_description;
+        $user->about_full_description = $request->about_full_description;
 
         $user->save();
 

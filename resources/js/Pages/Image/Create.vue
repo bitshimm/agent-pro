@@ -30,7 +30,7 @@ const submit = () => {
             <h1>
                 <Link :href="route('images.index')">Изображения</Link>
                 <span class="text-indigo-400 font-medium"> /</span>
-                Добавление
+                Создание
             </h1>
         </template>
         <form @submit.prevent="submit" class="form">

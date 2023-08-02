@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('adout_title')->nullable()->after('email');
-            $table->text('adout_short_description')->nullable()->after('adout_title');
-            $table->text('adout_full_description')->nullable()->after('adout_short_description');
+            $table->text('about_title')->nullable()->after('email');
+            $table->text('about_short_description')->nullable()->after('about_title');
+            $table->text('about_full_description')->nullable()->after('about_short_description');
         });
     }
 
@@ -24,9 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('adout_title');
-            $table->dropColumn('adout_short_description');
-            $table->dropColumn('adout_full_description');
+            $table->dropColumn('about_title');
+            $table->dropColumn('about_short_description');
+            $table->dropColumn('about_full_description');
         });
     }
 };

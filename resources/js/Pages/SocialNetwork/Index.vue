@@ -34,13 +34,13 @@ defineProps({
                 <tbody>
                     <tr v-for="social_network in social_networks">
                         <td>
-                            <Link class="block" :href="route('social-networks.edit', social_network.id)">{{ social_network.id }}</Link>
+                            <Link class="block social_network_icon" :href="route('social-networks.edit', social_network.id)">{{ social_network.id }}</Link>
                         </td>
                         <td>
-                            <Link class="block" :href="route('social-networks.edit', social_network.id)">{{ social_network.name }}</Link>
+                            <Link class="block social_network_icon" :href="route('social-networks.edit', social_network.id)">{{ social_network.name }}</Link>
                         </td>
                         <td>
-                            <Link class="block" :href="route('social-networks.edit', social_network.id)">{{ social_network.icon }}</Link>
+                            <Link class="block social_network_icon" :href="route('social-networks.edit', social_network.id)" v-html="social_network.icon"></Link>
                         </td>
                         <td>
                             <!-- <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete"

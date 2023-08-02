@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile-social-networks', [ProfileController::class, 'socialNetworksUpdate'])->name('profile.social-networks.update');
     Route::patch('/profile-widget', [ProfileController::class, 'widgetUpdate'])->name('profile.widget.update');
+    Route::patch('/profile-about', [ProfileController::class, 'aboutUpdate'])->name('profile.about.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

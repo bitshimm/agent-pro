@@ -480,5 +480,9 @@ body {
         display: none;
     }
 }
-
+@media(max-width: 640px) {
+    .content_wrapper .content {
+        padding: 1.5rem;
+    }
+}
 /* .tox-notification {display: none !important;}  */
