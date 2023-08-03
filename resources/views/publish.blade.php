@@ -24,7 +24,7 @@
     <div class="content">
         <div class="widget_wrapper">
             <div class="widget">
-                {{-- {!! $user->widget !!} --}}
+                {!! $user->widget !!}
             </div>
         </div>
         <div class="articles_wrapper">
@@ -62,18 +62,32 @@
                 </div>
             </div>
         </div>
-        <div class="images_wrapper swiper-container">
-            <div class="images swiper-wrapper">
-                @foreach ($user->images as $image)
-                    <div class="image swiper-slide">
-                        <img src="{{ $image->path_full }}" alt="">
-                    </div>
-                @endforeach
+        <div class="images_container">
+            <div class="images_wrapper" data-glide-el="track">
+                <div class="images">
+                    @foreach ($user->images as $image)
+                        <div class="image">
+                            <img src="{{ $image->path_full }}" alt="">
+                        </div>
+                    @endforeach
+                </div>
             </div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--prev" data-glide-dir="<">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M0 12l10.975 11 2.848-2.828-6.176-6.176H24v-3.992H7.646l6.176-6.176L10.975 1 0 12z">
+                        </path>
+                    </svg>
+                </button>
+                <button class="glide__arrow glide__arrow--next" data-glide-dir=">">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
+                      </svg>
+                </button>
+            </div>
         </div>
     </div>
+
     <div class="footer">
         @foreach ($user->socialNetworks as $social_network)
             <a href="{{ $social_network->pivot->link }}" target="_blank">
@@ -82,32 +96,26 @@
         @endforeach
     </div>
     <script type="text/javascript" src="/js/lazysizes/lazysizes.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
-        const swiper = new Swiper('.swiper-container', {
-            spaceBetween: 10,
-            slidesPerView: 5,
-            loop: true,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
+        new Glide('.images_container', {
+            type: 'carousel',
+            perView: 5,
             breakpoints: {
-                480: {
-                    slidesPerView: 2,
-                },
-                640: {
-                    slidesPerView: 3,
+                1024: {
+                    perView: 4,
                 },
                 880: {
-                    slidesPerView: 4,
+                    perView: 3,
                 },
-                960: {
-                    slidesPerView: 5,
-                }
-            }
-        });
+                640: {
+                    perView: 2,
+                },
+                480: {
+                    perView: 1,
+                },
+            },
+        }).mount();
     </script>
 </body>
 
