@@ -92,7 +92,7 @@ defineProps({
 });
 
 function toggleModal(status) {
-  this.showModal = status;
+  showModal.value = status;
   if (status == true) {
     document.body.style.overflow = 'hidden';
   } else {
@@ -110,7 +110,7 @@ defineEmits(['update:modelValue']);
     <span class="form-label">{{ label }}:</span>
     <div class="form-modal-btn" @click="toggleModal(true)">Открыть окно</div>
     <div v-if="error" class="form-error">{{ error }}</div>
-    <div class="form-modal-wrapper" v-if="showModal">
+    <div class="form-modal-wrapper" :class="{modal_open: showModal}">
       <div class="form-modal">
         <div class="form-modal-header">
           {{ label }}
