@@ -33,7 +33,8 @@
                     <ul class="navbar-nav">
                         @foreach ($user->articles as $article)
                             <li class="nav-item">
-                                <a data-target="#navpages-{{ $article->id }}" class="modal_btn">{{ $article->title }}</a>
+                                <a data-target="#navpages-{{ $article->id }}"
+                                    class="modal_btn">{{ $article->title }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -67,7 +68,7 @@
         </div>
         <div class="articles_wrapper">
             <div class="articles_wrapper_head">
-                <span>Новости</span>
+                <span>НОВОСТИ</span>
             </div>
             <div class="articles">
                 @foreach ($user->articles as $article)
@@ -95,7 +96,7 @@
                                 <button class="btn_close"></button>
                             </div>
                             <div class="modal_body">
-                                {{ $article->content }}
+                                {!! $article->content !!}
                             </div>
                             {{-- <div class="modal_footer"></div> --}}
                         </div>
@@ -103,30 +104,32 @@
                 @endforeach
             </div>
         </div>
-        <div class="about_wrapper">
-            <div class="about">
-                <div class="about_title">
-                    {{ $user->about_title }}
-                </div>
-                <div class="about_short_description">
-                    {{ $user->about_short_description }}
-                </div>
-                <div class="about_bottom">
-                    <div class="about_btn modal_btn" data-target="#about-{{ $user->id }}">Читать далее</div>
-                </div>
-            </div>
-        </div>
-        <div class="modal_wrapper" id="about-{{ $user->id }}">
-            <div class="modal">
-                <div class="modal_header">
-                    <h1>{{ $user->about_title }}</h1>
-                    <button class="btn_close"></button>
-                </div>
-                <div class="modal_body">
-                    {!! $user->about_full_description !!}
+        @if ($user->about_title && $user->about_short_description && $user->about_full_description)
+            <div class="about_wrapper">
+                <div class="about">
+                    <div class="about_title">
+                        {{ $user->about_title }}
+                    </div>
+                    <div class="about_short_description">
+                        {{ $user->about_short_description }}
+                    </div>
+                    <div class="about_bottom">
+                        <div class="about_btn modal_btn" data-target="#about-{{ $user->id }}">Читать далее</div>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="modal_wrapper" id="about-{{ $user->id }}">
+                <div class="modal">
+                    <div class="modal_header">
+                        <h1>{{ $user->about_title }}</h1>
+                        <button class="btn_close"></button>
+                    </div>
+                    <div class="modal_body">
+                        {!! $user->about_full_description !!}
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="images_container">
             <div class="images_wrapper" data-glide-el="track">
                 <div class="images f-carousel">
