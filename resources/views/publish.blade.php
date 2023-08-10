@@ -19,15 +19,56 @@
 
 <body class="body-background">
     <div class="header">
-
+        <nav class="nav">
+            <div class="navbar">
+                <button class="navbar-toggler"><i class="fas fa-bars"></i></button>
+                <div class="navbar-brand">
+                    <a href="#"><img src="https://via.placeholder.com/200x100.png/0066ff?text=logotype"
+                            alt=""></a>
+                </div>
+                <div class="navbar-phone">
+                    <a href="#"><i class="fas fa-phone-alt"></i></a>
+                </div>
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav">
+                        @foreach ($user->articles as $article)
+                            <li class="nav-item">
+                                <a data-target="#navpages-{{ $article->id }}" class="modal_btn">{{ $article->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="navbar-contacts">
+                    <a href="#">+79999999999</a>
+                    <a href="#">testagent@mail.ru</a>
+                </div>
+            </div>
+        </nav>
     </div>
+    @foreach ($user->articles as $article)
+        <div class="modal_wrapper" id="navpages-{{ $article->id }}">
+            <div class="modal">
+                <div class="modal_header">
+                    <h1>{{ $article->title }}</h1>
+                    <button class="btn_close"></button>
+                </div>
+                <div class="modal_body">
+                    {{ $article->content }}
+                </div>
+                {{-- <div class="modal_footer"></div> --}}
+            </div>
+        </div>
+    @endforeach
     <div class="content">
         <div class="widget_wrapper">
             <div class="widget">
-
+                {{-- {!! $user->widget !!} --}}
             </div>
         </div>
         <div class="articles_wrapper">
+            <div class="articles_wrapper_head">
+                <span>Новости</span>
+            </div>
             <div class="articles">
                 @foreach ($user->articles as $article)
                     <div class="article">
@@ -40,29 +81,21 @@
                         <div class="article_title">
                             {{ $article->title }}
                         </div>
+                        <div class="article_hr"></div>
                         <div class="article_bottom">
-                            <div class="article_btn modal_btn" modal-btn-id="{{ $article->id }}" modal-btn-group="articles">
+                            <div class="article_btn modal_btn" data-target="#articles-{{ $article->id }}">
                                 Подробнее
                             </div>
                         </div>
                     </div>
-                    <div class="modal_wrapper" modal-id="{{ $article->id }}" modal-group="articles">
+                    <div class="modal_wrapper" id="articles-{{ $article->id }}">
                         <div class="modal">
                             <div class="modal_header">
                                 <h1>{{ $article->title }}</h1>
+                                <button class="btn_close"></button>
                             </div>
-                            <div class="modal_content">
+                            <div class="modal_body">
                                 {{ $article->content }}
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae facilis,
-                                    accusamus sit, ex officiis reprehenderit architecto rem dicta dolorum, corrupti
-                                    fugit similique itaque natus? Sit dolor labore voluptates nostrum dicta at
-                                    temporibus fugit nulla, esse quod eum perferendis facilis doloribus officia
-                                    molestias! Accusamus, nesciunt atque cum quod debitis quidem velit ea porro aliquid
-                                    ad dicta quis sint, exercitationem quae tempora esse molestias voluptate voluptatum
-                                    illum fugit dolore eos tenetur? Fugiat dolor dolore a nemo nihil, praesentium quae,
-                                    fuga vel amet corporis rem nostrum dolorum quos expedita impedit laudantium odio
-                                    obcaecati laborum mollitia quod? Quibusdam ipsa earum, accusamus consequuntur ullam
-                                    nostrum.</p>
                             </div>
                             {{-- <div class="modal_footer"></div> --}}
                         </div>
@@ -78,8 +111,19 @@
                 <div class="about_short_description">
                     {{ $user->about_short_description }}
                 </div>
-                <div class="about_full_description">
-                    {{ $user->about_full_description }}
+                <div class="about_bottom">
+                    <div class="about_btn modal_btn" data-target="#about-{{ $user->id }}">Читать далее</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal_wrapper" id="about-{{ $user->id }}">
+            <div class="modal">
+                <div class="modal_header">
+                    <h1>{{ $user->about_title }}</h1>
+                    <button class="btn_close"></button>
+                </div>
+                <div class="modal_body">
+                    {!! $user->about_full_description !!}
                 </div>
             </div>
         </div>
@@ -111,12 +155,14 @@
         </div>
     </div>
 
-    <div class="footer">
-        @foreach ($user->socialNetworks as $social_network)
-            <a href="{{ $social_network->pivot->link }}" target="_blank">
-                {!! $social_network->icon !!}
-            </a>
-        @endforeach
+    <div class="footer_wrapper">
+        <div class="footer">
+            @foreach ($user->socialNetworks as $social_network)
+                <a href="{{ $social_network->pivot->link }}" target="_blank">
+                    {!! $social_network->icon !!}
+                </a>
+            @endforeach
+        </div>
     </div>
     <script type="text/javascript" src="/js/lazysizes/lazysizes.min.js"></script>
 
@@ -159,32 +205,51 @@
         document.addEventListener("DOMContentLoaded", function() {
             const modalBtns = document.querySelectorAll('.modal_btn');
             const modalWrappers = document.querySelectorAll('.modal_wrapper');
+            const navbarToggles = document.querySelector('.navbar-toggler');
 
-            function toggleModal(modalId, modalGroup) {
-                const modal = document.querySelector('.modal_wrapper[modal-id="' + modalId + '"][modal-group="'+modalGroup+'"]');
-
-                if (modal.classList.contains('modal_open')) {
-                    modal.classList.remove("modal_open");
+            navbarToggles.addEventListener('click', () => {
+                const collapseBlock = document.querySelector('.navbar-collapse');
+                if (collapseBlock.classList.contains('show')) {
+                    // collapseBlock.classList.remove('collapse');
+                    // collapseBlock.classList.add('collapsing');
+                    collapseBlock.classList.remove('show');
                 } else {
-                    modal.classList.add("modal_open");
+                    collapseBlock.classList.add('show');
+                }
+            });
+
+            function openModal(selector) {
+                const modal = document.querySelector(selector);
+
+                if (!document.body.classList.contains('modal-open') && !modal.classList.contains('show')) {
+                    modal.classList.add("show");
+                    document.body.classList.add("modal-open");
+                }
+            }
+
+            function closeModal(selector) {
+                const modal = document.querySelector(selector);
+
+                if (modal.classList.contains('show') && document.body.classList.contains('modal-open')) {
+                    modal.classList.remove("show");
+                    document.body.classList.remove("modal-open");
                 }
             }
 
             modalBtns.forEach(btnEl => {
                 btnEl.addEventListener('click', () => {
-                    const id = btnEl.getAttribute('modal-btn-id');
-                    const group = btnEl.getAttribute('modal-btn-group');
-                    toggleModal(id, group);
+                    const selector = btnEl.getAttribute('data-target');
+                    openModal(selector);
                 });
             });
 
             modalWrappers.forEach(wrapperEl => {
                 wrapperEl.addEventListener('click', (e) => {
                     const modal = wrapperEl.querySelector('.modal');
-                    const id = wrapperEl.getAttribute('modal-id');
-                    const group = wrapperEl.getAttribute('modal-group');
-                    if (!e.composedPath().includes(modal)) {
-                        toggleModal(id, group);
+                    const selector = wrapperEl.getAttribute('id');
+                    const closeBtn = wrapperEl.querySelector('.btn_close');
+                    if (!e.composedPath().includes(modal) || e.composedPath().includes(closeBtn)) {
+                        closeModal('#' + selector);
                     }
                 });
             });
