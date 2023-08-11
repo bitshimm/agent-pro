@@ -27,6 +27,11 @@ class User extends Authenticatable
         'about_title',
         'adout_short_description',
         'adout_full_description',
+        'contact_phone',
+        'contact_phone_second',
+        'contact_email',
+        'contact_address',
+        'contact_opening_hours',
     ];
 
     /**

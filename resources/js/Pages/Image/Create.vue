@@ -43,7 +43,7 @@ const submit = () => {
                     <ResourseTextInput label="Caption" id="caption" :error="form.errors.caption" v-model="form.caption" />
                 </div>
                 <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
-                <Checkbox label="Видимость" id="visibility" :error="form.errors.visibility"
+                <Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
                     v-model:checked="form.visibility" />
             </div>
             <div class="form-bottom">

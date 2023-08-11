@@ -26,8 +26,7 @@ defineProps({
                     <tr>
                         <th>ID</th>
                         <th>Заголовок</th>
-                        <th>Контент</th>
-                        <th></th>
+                        <th>Активно</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,14 +38,10 @@ defineProps({
                             <Link class="block" :href="route('articles.edit', article.id)">{{ article.title }}</Link>
                         </td>
                         <td>
-                            <Link class="block" :href="route('articles.edit', article.id)">{{ article.content }}</Link>
-                        </td>
-                        <td>
-                            <!-- <Link class="btn_danger" :href="route('articles.destroy', article.id)" method="delete"
-                                as="button">
-                            <i class="fa-solid fa-trash btn-icon"></i>
-                            <span class="btn-label">Удалить</span>
-                            </Link> -->
+                            <Link class="block" :href="route('articles.edit', article.id)">
+                                <span v-if="article.visibility">Да</span>
+                                <span v-else>Нет</span>
+                            </Link>
                         </td>
                     </tr>
                 </tbody>

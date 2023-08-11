@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\SocialNetworkController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile-social-networks', [ProfileController::class, 'socialNetworksUpdate'])->name('profile.social-networks.update');
+    Route::patch('/profile-contacts', [ProfileController::class, 'contactsUpdate'])->name('profile.contacts.update');
     Route::patch('/profile-widget', [ProfileController::class, 'widgetUpdate'])->name('profile.widget.update');
     Route::patch('/profile-about', [ProfileController::class, 'aboutUpdate'])->name('profile.about.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -63,14 +65,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
     Route::get('sendmail', [ProfileController::class, 'sendmail'])->name('sendmail');
-    Route::get('/publish', function () {
+    Route::get('/publish', function (Request $request) {
         $user = Auth::user();
-        return $finalHtml = view('publish', compact('user'))->render();
+        $articles = $user->articles()->where('visibility', 1)->get();
+        return $finalHtml = view('publish.index', compact('user', 'articles'))->render();
         // return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
     })->name('publish');
     Route::get('/preview', function () {
+       
         $user = Auth::user();
-        return $finalHtml = view('publish', compact('user'))->render();
+        return $finalHtml = view('publish.index', compact('user'))->render();
         // return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
     })->name('preview');
 });

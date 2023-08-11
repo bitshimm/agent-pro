@@ -43,7 +43,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
-
+        'static' => [
+            'driver' => 'local',
+            'root' => public_path('app/public'),
+            'url' => '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'agent-sites' => [
             'driver' => 'local',
             'root' => storage_path('app/public/agent-sites'),

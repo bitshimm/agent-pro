@@ -30,6 +30,11 @@ class ProfileController extends Controller
             'about_title' => $request->user()->about_title,
             'about_short_description' => $request->user()->about_short_description,
             'about_full_description' => $request->user()->about_full_description,
+            'contact_phone' => $request->user()->contact_phone,
+            'contact_phone_second' => $request->user()->contact_phone_second,
+            'contact_email' => $request->user()->contact_email,
+            'contact_address' => $request->user()->contact_address,
+            'contact_opening_hours' => $request->user()->contact_opening_hours,
         ]);
     }
 
@@ -120,6 +125,20 @@ class ProfileController extends Controller
         $user->about_short_description = $request->about_short_description;
         $user->about_full_description = $request->about_full_description;
 
+        $user->save();
+
+        return Redirect::route('profile.edit');
+    }
+
+    function contactsUpdate(Request $request) : RedirectResponse {
+        $user = $request->user();
+
+        $user->contact_phone = str_replace(['(',')','-'], '', $request->contact_phone);
+        $user->contact_phone_second = str_replace(['(',')','-'], '',$request->contact_phone_second);
+        $user->contact_email = $request->contact_email;
+        $user->contact_address = $request->contact_address;
+        $user->contact_opening_hours = $request->contact_opening_hours;
+        
         $user->save();
 
         return Redirect::route('profile.edit');

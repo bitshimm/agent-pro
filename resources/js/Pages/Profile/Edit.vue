@@ -8,6 +8,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import UpdateUserSocialNetworksForm from './Partials/UpdateUserSocialNetworksForm.vue';
 import UpdateUserWidgetForm from './Partials/UpdateUserWidgetForm.vue';
 import UpdateUserAboutForm from './Partials/UpdateUserAboutForm.vue';
+import UpdateUserContacts from './Partials/UpdateUserContactsForm.vue';
 
 defineProps({
     mustVerifyEmail: {
@@ -30,7 +31,7 @@ defineProps({
                 {{ $page.props.auth.user.name }}
             </h1>
         </template>
-        
+        <UpdateUserContacts />
         <UpdateUserSocialNetworksForm />
         <UpdateUserWidgetForm />
         <UpdateUserAboutForm />

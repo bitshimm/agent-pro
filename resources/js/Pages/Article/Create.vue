@@ -40,7 +40,7 @@ const submit = () => {
                 <FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
                 <WysiwigTextarea label="Контент" id="content" :error="form.errors.content" v-model="form.content" />
                 <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
-                <Checkbox label="Видимость" id="visibility" :error="form.errors.visibility"
+                <Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
                     v-model:checked="form.visibility" />
             </div>
             <div class="form-bottom">
