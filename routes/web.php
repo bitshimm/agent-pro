@@ -67,19 +67,16 @@ Route::middleware('auth')->group(function () {
     Route::get('sendmail', [ProfileController::class, 'sendmail'])->name('sendmail');
     Route::get('/publish', function (Request $request) {
         $user = Auth::user();
+        // dd($user->socialNetworks);
         $articles = $user->articles()->where('visibility', 1)->get();
         return $finalHtml = view('publish.index', compact('user', 'articles'))->render();
         // return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
     })->name('publish');
     Route::get('/preview', function () {
-       
         $user = Auth::user();
-        return $finalHtml = view('publish.index', compact('user'))->render();
+        $articles = $user->articles()->where('visibility', 1)->get();
+        return $finalHtml = view('publish.index', compact('user', 'articles'))->render();
         // return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
     })->name('preview');
 });
-
-// Route::group(['prefix' => 'laravel-filemanager'], function () {
-//     \UniSharp\LaravelFilemanager\Lfm::routes();
-// });
 require __DIR__ . '/auth.php';

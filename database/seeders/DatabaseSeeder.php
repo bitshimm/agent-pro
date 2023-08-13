@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Article;
+use App\Models\Image;
 use App\Models\SocialNetwork;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,8 +21,10 @@ class DatabaseSeeder extends Seeder
         DB::table('social_networks')->insert(['name' => 'Telegram', 'icon' => '<i class="fa-brands fa-telegram"></i>']);
         DB::table('social_networks')->insert(['name' => 'Вконтакте', 'icon' => '<i class="fa-brands fa-vk"></i>']);
         DB::table('social_networks')->insert(['name' => 'Одноклассники', 'icon' => '<i class="fa-brands fa-square-odnoklassniki"></i>']);
+
         User::factory()
             ->has(Article::factory()->count(5))
+            ->has(Image::factory()->count(10))
             ->create();
     }
 }

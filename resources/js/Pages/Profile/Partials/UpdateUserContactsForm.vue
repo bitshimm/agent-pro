@@ -27,19 +27,19 @@ const submit = () => {
         <div class="form-items">
             
             <div class="form-item text-input">
-                <PhoneInput label="Контактый телефон" :error="form.errors.contact_phone" v-model="form.contact_phone" />
+                <PhoneInput id="contact_phone" label="Контактый телефон" :error="form.errors.contact_phone" v-model="form.contact_phone" />
             </div>
             <div class="form-item text-input">
-                <ResourseTextInput label="Контактый телефон (дополнительный)" :error="form.errors.contact_phone_second" v-model="form.contact_phone_second" />
+                <PhoneInput id="contact_phone_second" label="Контактый телефон (дополнительный)" :error="form.errors.contact_phone_second" v-model="form.contact_phone_second" />
             </div>
             <div class="form-item text-input">
-                <ResourseTextInput label="Контактый email" :error="form.errors.contact_email" v-model="form.contact_email" type="email" />
+                <ResourseTextInput id="contact_email" label="Контактый email" :error="form.errors.contact_email" v-model="form.contact_email" type="email" />
             </div>
             <div class="form-item text-input">
-                <ResourseTextInput label="Контактный адрес" :error="form.errors.contact_address" v-model="form.contact_address" />
+                <ResourseTextInput id="contact_address" label="Контактный адрес" :error="form.errors.contact_address" v-model="form.contact_address" />
             </div>
             <div class="form-item text-input">
-                <ResourseTextInput label="Часы работы" :error="form.errors.contact_opening_hours" v-model="form.contact_opening_hours" />
+                <ResourseTextInput id="contact_opening_hours" label="Часы работы" :error="form.errors.contact_opening_hours" v-model="form.contact_opening_hours" />
             </div>
         </div>
         <div class="form-bottom">

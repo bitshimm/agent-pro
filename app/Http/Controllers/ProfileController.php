@@ -88,9 +88,13 @@ class ProfileController extends Controller
         $userSocialNetworks = $request->user_social_networks;
 
         foreach ($userSocialNetworks as $socialNetworkId => $socialNetworkLink) {
-            $userSocialNetworks[$socialNetworkId] = [
-                'link' => $socialNetworkLink,
-            ];
+            if ($socialNetworkLink) {
+                $userSocialNetworks[$socialNetworkId] = [
+                    'link' => $socialNetworkLink,
+                ];
+            } else {
+                unset($userSocialNetworks[$socialNetworkId]);
+            }
         }
 
         $request->user()->socialNetworks()->sync($userSocialNetworks);
@@ -98,7 +102,8 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit');
     }
 
-    function widgetUpdate(Request $request): RedirectResponse {
+    function widgetUpdate(Request $request): RedirectResponse
+    {
         $request->validate([
             'widget' => ['string'],
         ]);
@@ -112,7 +117,8 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit');
     }
 
-    function aboutUpdate(Request $request): RedirectResponse {
+    function aboutUpdate(Request $request): RedirectResponse
+    {
         // $request->validate([
         //     'about_title' => ['string'],
         //     'about_short_description' => ['string'],
@@ -130,15 +136,16 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit');
     }
 
-    function contactsUpdate(Request $request) : RedirectResponse {
+    function contactsUpdate(Request $request): RedirectResponse
+    {
         $user = $request->user();
 
-        $user->contact_phone = str_replace(['(',')','-'], '', $request->contact_phone);
-        $user->contact_phone_second = str_replace(['(',')','-'], '',$request->contact_phone_second);
+        $user->contact_phone = str_replace(['(', ')', '-'], '', $request->contact_phone);
+        $user->contact_phone_second = str_replace(['(', ')', '-'], '', $request->contact_phone_second);
         $user->contact_email = $request->contact_email;
         $user->contact_address = $request->contact_address;
         $user->contact_opening_hours = $request->contact_opening_hours;
-        
+
         $user->save();
 
         return Redirect::route('profile.edit');

@@ -16,9 +16,15 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
+        $paragraphs = fake()->paragraphs(rand(6, 10));
+        $title = fake()->realText(30);
+        $content = "";
+        foreach ($paragraphs as $paragraph) {
+            $content .= "<p>$paragraph</p>";
+        }
         return [
-            'title' => fake()->name(),
-            'content' => fake()->text(),
+            'title' => $title,
+            'content' => $content,
             'image' => fake()->imageUrl(),
             'sort' => 100,
             'visibility' => fake()->boolean(),
