@@ -16,9 +16,10 @@ class ImageFactory extends Factory
      */
     public function definition(): array
     {
+        $url = fake()->imageUrl();
         return [
-            'path_full' => fake()->imageUrl(),
-            'path_thumb' => fake()->imageUrl(),
+            'path_full' => $url,
+            'path_thumb' => $url,
             'alt' => fake()->realText(20),
             'caption' => fake()->realText(20),
             'sort' => fake()->randomNumber(),

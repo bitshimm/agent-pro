@@ -19,7 +19,7 @@
                 <div class="navbar-brand">
                     <a href="/">
                         @if ($user->logotype)
-                            <img src="{{ $user->logotype }}" alt="">
+                            <img width="200" src="{{ $user->logotype }}" alt="">
                         @endif
                     </a>
                 </div>
@@ -172,33 +172,31 @@
             </div>
         @endif
         <div class="images_container">
-            <div class="images_wrapper" data-glide-el="track">
-                <div class="images f-carousel">
+            <div class="images_wrapper swiper" data-glide-el="track">
+                <div class="images f-carousel swiper-wrapper">
                     @foreach ($user->images as $image)
-                        <a class="image f-carousel__slide" data-caption="{{ $image->caption }}"
-                            data-fancybox="images" data-src="{{ $image->path_full }}">
-                            <img src="{{ $image->path_thumb }}"
+                        <a class="image f-carousel__slide swiper-slide" data-caption="{{ $image->caption }}"
+                            data-fancybox="images" data-src="{{ $image->path_full }}" style="background-image: url('{{ $image->path_thumb }}');">
+
+                            {{-- <img src="{{ $image->path_thumb }}"
                                 @if ($image->alt) alt="{{ $image->alt }}"
-                                @elseif($image->caption) alt="{{ $image->caption }}" @endif>
+                                @elseif($image->caption) alt="{{ $image->caption }}" @endif> --}}
                         </a>
                     @endforeach
                 </div>
-            </div>
-            <div class="images-arrows" data-glide-el="controls">
-                <button class="images-arrow images-arrow-prev" data-glide-dir="<">
+
+                <div class="images-button images-button-prev">
                     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
                         <path
                             d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
                     </svg>
-                </button>
-                <button class="images-arrow images-arrow-next" data-glide-dir=">">
-                    <span class="images-arrow-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
-                            <path
-                                d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-                        </svg>
-                    </span>
-                </button>
+                </div>
+                <div class="images-button images-button-next">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
+                        <path
+                            d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                    </svg>
+                </div>
             </div>
         </div>
     </div>
@@ -217,7 +215,7 @@
             <div class="footer_logotype">
                 <a href="/">
                     @if ($user->logotype)
-                        <img src="{{ $user->logotype }}" alt="">
+                        <img width="200" src="{{ $user->logotype }}" alt="">
                     @endif
                 </a>
             </div>
