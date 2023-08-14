@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\SocialNetwork;
+use App\Services\UploadService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class ProfileController extends Controller
             'contact_email' => $request->user()->contact_email,
             'contact_address' => $request->user()->contact_address,
             'contact_opening_hours' => $request->user()->contact_opening_hours,
+            'logotype' => $request->user()->logotype,
         ]);
     }
 
@@ -145,6 +147,26 @@ class ProfileController extends Controller
         $user->contact_email = $request->contact_email;
         $user->contact_address = $request->contact_address;
         $user->contact_opening_hours = $request->contact_opening_hours;
+
+        $user->save();
+
+        return Redirect::route('profile.edit');
+    }
+
+    function logotypeUpdate(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        $data = $request->validate([
+            'logotype' => 'image|nullable',
+        ]);
+
+        if ($data['logotype']) {
+            if ($user->logotype !== null) {
+                UploadService::unlink($user->logotype);
+            }
+            $user->logotype = UploadService::upload($data['logotype'], 'logotypes');
+        }
 
         $user->save();
 

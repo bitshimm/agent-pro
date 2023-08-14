@@ -43,15 +43,6 @@ class ImageController extends Controller
         return redirect()->route('images.index');
     }
 
-    public function tinymceUpload(StoreRequest $storeRequest)
-    {
-        $data = $storeRequest->validated();
-
-        $path = $this->service->uploadImage($data['image'], 'uploads/' . Auth::user()->name . '/');
-
-        return response()->json(['location' => $path]);
-    }
-
     // /**
     //  * Display the specified resource.
     //  */

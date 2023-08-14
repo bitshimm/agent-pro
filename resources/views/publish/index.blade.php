@@ -17,8 +17,11 @@
                     </svg>
                 </button>
                 <div class="navbar-brand">
-                    <a href="/"><img src="https://via.placeholder.com/200x100.png/0066ff?text=logotype"
-                            alt=""></a>
+                    <a href="/">
+                        @if ($user->logotype)
+                            <img src="{{ $user->logotype }}" alt="">
+                        @endif
+                    </a>
                 </div>
                 <div class="navbar-phone">
                     @if ($user->contact_phone)
@@ -101,7 +104,7 @@
                 Подобрать круиз
             </div>
             <div class="widget">
-                {!! $user->widget !!}
+                {{-- {!! $user->widget !!} --}}
             </div>
         </div>
         <div class="articles_wrapper">
@@ -113,8 +116,8 @@
                     <div class="article">
                         <div class="article_head">
                             <span class="article_date">{{ $article->created_at->format('d/m/Y') }}</span>
-                            @if ($article->image)
-                                <img src="{{ $article->image }}" alt="{{ $article->alt }}">
+                            @if ($article->image_thumb)
+                                <img src="{{ $article->image_thumb }}" alt="{{ $article->title }}">
                             @endif
                         </div>
                         <div class="article_title">
@@ -174,7 +177,9 @@
                     @foreach ($user->images as $image)
                         <a class="image f-carousel__slide" data-caption="{{ $image->caption }}"
                             data-fancybox="images" data-src="{{ $image->path_full }}">
-                            <img src="{{ $image->path_full }}" alt="{{ $image->alt }}">
+                            <img src="{{ $image->path_thumb }}"
+                                @if ($image->alt) alt="{{ $image->alt }}"
+                                @elseif($image->caption) alt="{{ $image->caption }}" @endif>
                         </a>
                     @endforeach
                 </div>
@@ -210,8 +215,11 @@
             </div>
             <div class="footer_title">Наши контакты</div>
             <div class="footer_logotype">
-                <a href="/"><img src="https://via.placeholder.com/200x100.png/0066ff?text=logotype"
-                        alt=""></a>
+                <a href="/">
+                    @if ($user->logotype)
+                        <img src="{{ $user->logotype }}" alt="">
+                    @endif
+                </a>
             </div>
             <div class="footer_contacts">
                 @if ($user->contact_phone)

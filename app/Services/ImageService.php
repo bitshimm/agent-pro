@@ -4,41 +4,22 @@ namespace App\Services;
 
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image as ImageManager;
 
 class ImageService
 {
-    /**
-     * Upload image service
-     * @return string path file
-     */
-    public function uploadImage(\Illuminate\Http\UploadedFile $file, $path = 'images/'): string
-    {
-        $fileExtension = $file->getClientOriginalExtension();
-        $fileName = md5(uniqid()) . '.' . $fileExtension;
-
-        $filePath = $path . $fileName;
-        $image = ImageManager::make($file)
-            ->encode($fileExtension, 90);
-
-        Storage::disk('public')->put($filePath, $image);
-
-        return Storage::url($filePath);
-    }
-
     /**
      * Store service
      */
     public function store(array $data)
     {
-        $data['path_thumb'] = $data['path_full'] = $this->uploadImage($data['image']);
-
+        if ($data['image']) {
+            $file = $data['image'];
+            $data['path_full'] = UploadService::upload($file, 'images');
+            $data['path_thumb'] = UploadService::uploadThumb($file, 'images');
+        }
         unset($data['image']);
 
         Auth::user()->images()->create($data);
-
-        return $data['path_full'];
     }
 
     /**
@@ -47,11 +28,14 @@ class ImageService
     public function update(Image $image, array $data)
     {
         if ($data['image']) {
-            $data['path_thumb'] = $data['path_full'] = $this->uploadImage($data['image']);
+            $file = $data['image'];
+
+            $this->unlinkImages($image);
+
+            $data['path_full'] = UploadService::upload($file, 'images');
+            $data['path_thumb'] = UploadService::uploadThumb($file, 'images');
+
             unset($data['image']);
-            if (file_exists(public_path($image->path_full))) {
-                unlink(public_path($image->path_full));
-            }
         }
         $image->update($data);
     }
@@ -59,10 +43,13 @@ class ImageService
     /**
      * Unlink service
      */
-    public function unlinkImage(string $path)
+    public function unlinkImages(Image $image)
     {
-        if (file_exists(public_path($path))) {
-            unlink(public_path($path));
+        if ($image->path_full !== null) {
+            UploadService::unlink($image->path_full);
+        }
+        if ($image->path_thumb !== null) {
+            UploadService::unlink($image->path_thumb);
         }
     }
 
@@ -71,7 +58,7 @@ class ImageService
      */
     public function destroy(Image $image)
     {
-        $this->unlinkImage($image->path_full);
+        $this->unlinkImages($image);
 
         $image->delete();
     }

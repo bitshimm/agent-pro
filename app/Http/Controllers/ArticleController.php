@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Article;
 use App\Services\ArticleService;
 use App\Http\Requests\Article\StoreRequest;
@@ -71,7 +70,7 @@ class ArticleController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
-        $article->delete();
+        $this->service->destroy($article);
 
         return redirect()->route('articles.index');
     }

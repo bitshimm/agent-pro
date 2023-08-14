@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\SocialNetworkController;
+use App\Http\Controllers\TinymceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile-contacts', [ProfileController::class, 'contactsUpdate'])->name('profile.contacts.update');
     Route::patch('/profile-widget', [ProfileController::class, 'widgetUpdate'])->name('profile.widget.update');
     Route::patch('/profile-about', [ProfileController::class, 'aboutUpdate'])->name('profile.about.update');
+    Route::patch('/profile-logotype', [ProfileController::class, 'logotypeUpdate'])->name('profile.logotype.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
@@ -61,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'destroy'])->name('social-networks.destroy');
 
 
-    Route::post('/tinymceUpload', [ImageController::class, 'tinymceUpload'])->name('tinymce.upload');
+    Route::post('/tinymce-upload', [TinymceController::class, 'upload'])->name('tinymce.upload');
 
     Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
     Route::get('sendmail', [ProfileController::class, 'sendmail'])->name('sendmail');

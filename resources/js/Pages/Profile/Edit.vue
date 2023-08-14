@@ -9,6 +9,7 @@ import UpdateUserSocialNetworksForm from './Partials/UpdateUserSocialNetworksFor
 import UpdateUserWidgetForm from './Partials/UpdateUserWidgetForm.vue';
 import UpdateUserAboutForm from './Partials/UpdateUserAboutForm.vue';
 import UpdateUserContacts from './Partials/UpdateUserContactsForm.vue';
+import UpdateUserLogotypeForm from './Partials/UpdateUserLogotypeForm.vue';
 
 defineProps({
     mustVerifyEmail: {
@@ -31,6 +32,7 @@ defineProps({
                 {{ $page.props.auth.user.name }}
             </h1>
         </template>
+        <UpdateUserLogotypeForm />
         <UpdateUserContacts />
         <UpdateUserSocialNetworksForm />
         <UpdateUserWidgetForm />

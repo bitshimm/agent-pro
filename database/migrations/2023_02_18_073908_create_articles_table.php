@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->nullable()->default(null);
             $table->longText('content')->nullable()->default(null);
             $table->string('image')->nullable()->default(null);
+            $table->string('image_thumb')->nullable()->default(null);
             $table->integer('sort')->default(100);
             $table->boolean('visibility')->default(true);
             $table->timestamps();

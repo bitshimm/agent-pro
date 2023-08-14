@@ -24,8 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'string|required',
             'content' => 'string|required',
-            'image' => 'string|nullable',
-            'new_image' => 'image|nullable',
+            'image' => 'image|nullable',
             'sort' => 'integer',
             'visibility' => 'boolean'
         ];

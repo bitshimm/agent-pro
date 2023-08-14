@@ -16,8 +16,8 @@ const form = useForm({
     content: props.article.content,
     sort: props.article.sort,
     visibility: Boolean(props.article.visibility),
-    image: props.article.image,
-    new_image: null,
+    current_image: props.article.image,
+    image: null,
     _method: 'patch',
 })
 
@@ -42,14 +42,8 @@ const submit = () => {
                 <div class="form-item text-input">
                     <ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title" />
                 </div>
-                <div v-if="form.image">
-                    <FileInput label="Заменить изображение" id="new_image" :error="form.errors.new_image"
-                        v-model="form.new_image" :currentImage="form.image" />
-                </div>
-                <div v-else>
-                    <FileInput label="Изображение" id="new_image" :error="form.errors.new_image"
-                        v-model="form.new_image" />
-                </div>
+                <FileInput :label="form.current_image ? 'Заменить изображение' : 'Изображение'" id="image" :error="form.errors.image"
+                        v-model="form.image" :currentImage="form.current_image" />
                 <WysiwigTextarea label="Контент" id="content" :error="form.errors.content" v-model="form.content" />
                 <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
                 <Checkbox label="Активно" id="visibility" :error="form.errors.visibility"

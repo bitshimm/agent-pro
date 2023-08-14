@@ -16,6 +16,7 @@ class Article extends Model
         'title',
         'content',
         'image',
+        'image_thumb',
         'sort',
         'visibility'
     ];
