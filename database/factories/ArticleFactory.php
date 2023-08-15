@@ -22,10 +22,12 @@ class ArticleFactory extends Factory
         foreach ($paragraphs as $paragraph) {
             $content .= "<p>$paragraph</p>";
         }
+        $url = fake()->imageUrl();
         return [
             'title' => $title,
             'content' => $content,
-            'image' => fake()->imageUrl(),
+            'image' => $url,
+            'image_thumb' => $url,
             'sort' => 100,
             'visibility' => fake()->boolean(),
         ];

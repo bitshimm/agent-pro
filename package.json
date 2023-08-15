@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@tinymce/tinymce-vue": "^5.1.0",
-        "vue-the-mask": "^0.11.1"
+        "vue-the-mask": "^0.11.1",
+        "vue-toast-notification": "^3.1.1"
     }
 }

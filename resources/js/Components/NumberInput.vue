@@ -1,11 +1,11 @@
 <script setup>
 defineProps({
     id: String,
-    min: Number,
-    max: Number,
+    min: String,
+    max: String,
     label: String,
     error: String,
-    modelValue: String,
+    modelValue: Number,
 });
 defineEmits(['update:modelValue']);
 </script>

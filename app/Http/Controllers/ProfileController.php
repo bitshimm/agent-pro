@@ -101,7 +101,7 @@ class ProfileController extends Controller
 
         $request->user()->socialNetworks()->sync($userSocialNetworks);
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('message', 'Социальные сети обновлены.');
     }
 
     function widgetUpdate(Request $request): RedirectResponse
@@ -116,7 +116,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('message', 'Виджет обновлен.');
     }
 
     function aboutUpdate(Request $request): RedirectResponse
@@ -135,7 +135,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('message', '"О нас" обновлено.');
     }
 
     function contactsUpdate(Request $request): RedirectResponse
@@ -150,7 +150,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('message', 'Контакты обновлены.');
     }
 
     function logotypeUpdate(Request $request): RedirectResponse
@@ -170,6 +170,6 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('message', 'Логотип обновлен.');
     }
 }
