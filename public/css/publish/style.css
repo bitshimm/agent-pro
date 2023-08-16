@@ -98,7 +98,9 @@ body.modal-open {
 .header .nav .navbar .navbar-phone a {
     color: var(--navbar-contact-icon-color);
 }
-
+.header .nav .navbar .navbar-collapse {
+    display: block;
+}
 .header .nav .navbar .navbar-collapse .navbar-nav {
     display: flex;
     justify-content: space-evenly;
@@ -532,7 +534,12 @@ body.modal-open {
     display: block;
     font-size: 16px;
 }
-
+.d-block {
+    display: block;
+}
+.d-none {
+    display: none;
+}
 @media(max-width: 1100px) {
     .content {
         grid-template-areas:
@@ -574,11 +581,17 @@ body.modal-open {
 
     .header .nav .navbar .navbar-collapse {
         width: 100%;
-        display: none;
+        transform: translateX(-100%);
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: all 300ms ease;
     }
 
     .header .nav .navbar .navbar-collapse.show {
-        display: block;
+        height: 100%;
+        opacity: 1;
+        transform: translateX(0);
     }
 
     .header .nav .navbar .navbar-collapse .navbar-nav {

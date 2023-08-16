@@ -43,7 +43,7 @@ class ArticleController extends Controller
 
         $this->service->store($data);
 
-        return redirect()->route('articles.index')->with('message', 'Новость создана.');
+        return redirect()->route('articles.index')->with('message', 'Новость создана')->with('status', 'success');
     }
 
     public function show(Article $article): View
@@ -65,13 +65,13 @@ class ArticleController extends Controller
 
         $this->service->update($article, $data);
 
-        return redirect()->route('articles.edit', ['article' => $article->id])->with('message', 'Новость обновлена.');
+        return redirect()->route('articles.edit', ['article' => $article->id])->with('message', 'Новость обновлена')->with('status', 'success');
     }
 
     public function destroy(Article $article): RedirectResponse
     {
         $this->service->destroy($article);
 
-        return redirect()->route('articles.index')->with('message', 'Новость удалена.');
+        return redirect()->route('articles.index')->with('message', 'Новость удалена')->with('status', 'success');
     }
 }

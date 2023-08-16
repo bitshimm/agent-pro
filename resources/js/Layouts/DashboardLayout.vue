@@ -3,28 +3,11 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted, watch, computed } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
-// import SingleFlashMessage from '@/Components/SingleFlashMessage.vue';
-import AlertsList from '@/Components/AlertsList.vue';
+import ToastNotifications from '@/Components/ToastNotifications.vue';
 
 const windowWidth = ref(window.innerWidth)
 const sidebarCollapse = ref(windowWidth.value <= 768);
 const onSidebar = ref(false);
-// import {useToast} from 'vue-toast-notification';
-// import 'vue-toast-notification/dist/theme-sugar.css';
-// const $toast = useToast();
-// const msg = computed(() => usePage().props.flash.message);
-
-// onMounted(() => {
-//     if (msg.value) {
-//         $toast.success(msg.value);
-//     }
-// });
-// watch(msg, (newVal) => {
-//     console.log(newVal);
-//     if (newVal) {
-//         $toast.success(newVal);
-//     }
-// });
 
 const activeRoute = {
     articles: route().current('articles.*'),
@@ -45,14 +28,10 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('resize', () => { windowWidth.value = window.innerWidth })
 });
-
-
-
-
 </script>
 
 <template>
-    <AlertsList />
+    <ToastNotifications />
     <div class="wrapper" :class="{ sidebar_collapse: sidebarCollapse, on_sidebar: onSidebar }">
         <div id="sidebar_overlay" @click="sidebarCollapse = !sidebarCollapse;"></div>
         <nav class="main_header">

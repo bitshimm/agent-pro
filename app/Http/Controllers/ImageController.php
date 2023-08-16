@@ -40,7 +40,7 @@ class ImageController extends Controller
 
         $this->service->store($data);
 
-        return redirect()->route('images.index')->with('message', 'Изобржение добавлено.');
+        return redirect()->route('images.index')->with('message', 'Изобржение добавлено')->with('status', 'success');
     }
 
     // /**
@@ -64,13 +64,13 @@ class ImageController extends Controller
 
         $this->service->update($image, $data);
 
-        return redirect()->route('images.index')->with('message', 'Изобржение обновлено.');
+        return redirect()->route('images.edit', ['image' => $image->id])->with('message', 'Изобржение обновлено')->with('status', 'success');
     }
 
     public function destroy(Image $image): RedirectResponse
     {
         $this->service->destroy($image);
 
-        return redirect()->route('images.index')->with('message', 'Изобржение удалено.');
+        return redirect()->route('images.index')->with('message', 'Изобржение удалено')->with('status', 'success');
     }
 }

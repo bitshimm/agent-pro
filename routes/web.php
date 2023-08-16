@@ -70,13 +70,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/publish', function (Request $request) {
         $user = Auth::user();
         // dd($user->socialNetworks);
-        $articles = $user->articles()->where('visibility', 1)->get();
+        $articles = $user->articles()
+            ->where('visibility', 1)
+            ->orderBy('sort', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return $finalHtml = view('publish.index', compact('user', 'articles'))->render();
         // return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
     })->name('publish');
     Route::get('/preview', function () {
         $user = Auth::user();
-        $articles = $user->articles()->where('visibility', 1)->get();
+        $articles = $user->articles()
+            ->where('visibility', 1)
+            ->orderBy('sort', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return $finalHtml = view('publish.index', compact('user', 'articles'))->render();
         // return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
     })->name('preview');

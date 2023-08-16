@@ -101,7 +101,7 @@ class ProfileController extends Controller
 
         $request->user()->socialNetworks()->sync($userSocialNetworks);
 
-        return Redirect::route('profile.edit')->with('message', 'Социальные сети обновлены.');
+        return Redirect::route('profile.edit')->with('message', 'Социальные сети обновлены')->with('status', 'success');
     }
 
     function widgetUpdate(Request $request): RedirectResponse
@@ -116,7 +116,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('message', 'Виджет обновлен.');
+        return Redirect::route('profile.edit')->with('message', 'Виджет обновлен')->with('status', 'success');
     }
 
     function aboutUpdate(Request $request): RedirectResponse
@@ -135,7 +135,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('message', '"О нас" обновлено.');
+        return Redirect::route('profile.edit')->with('message', '"О нас" обновлено')->with('status', 'success');
     }
 
     function contactsUpdate(Request $request): RedirectResponse
@@ -150,7 +150,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('message', 'Контакты обновлены.');
+        return Redirect::route('profile.edit')->with('message', 'Контакты обновлены')->with('status', 'success');
     }
 
     function logotypeUpdate(Request $request): RedirectResponse
@@ -170,6 +170,6 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return Redirect::route('profile.edit')->with('message', 'Логотип обновлен.');
+        return Redirect::route('profile.edit')->with('message', 'Логотип обновлен')->with('status', 'success');
     }
 }
