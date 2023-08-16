@@ -81,7 +81,7 @@ body.modal-open {
     border: none;
     font-size: 24px;
     cursor: pointer;
-    outline: 1px solid var(--navbar-contact-icon-color);
+    outline: 3px solid var(--navbar-contact-icon-color);
     padding: 5px;
     border-radius: 6px;
     stroke: var(--navbar-contact-icon-color);
@@ -577,11 +577,9 @@ body.modal-open {
         display: block;
     }
 
-
-
     .header .nav .navbar .navbar-collapse {
         width: 100%;
-        transform: translateX(-100%);
+        transform: translateX(-30%) scale(0.7);
         opacity: 0;
         height: 0;
         overflow: hidden;
@@ -591,7 +589,7 @@ body.modal-open {
     .header .nav .navbar .navbar-collapse.show {
         height: 100%;
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
     }
 
     .header .nav .navbar .navbar-collapse .navbar-nav {

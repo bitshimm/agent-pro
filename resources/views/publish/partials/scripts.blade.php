@@ -4,4 +4,4 @@
 
 <script src="/js/swiper/swiper-10.1.0.min.js"></script>
 
-<script src="/publish_static/script.js"></script>
+<script src="/publish_static/script.js?{{ config('version.hash') }}"></script>

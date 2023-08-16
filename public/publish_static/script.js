@@ -12,19 +12,19 @@ Fancybox.bind('[data-fancybox="images"]', {
 const swiper = new Swiper('.swiper', {
     loop: true,
     slidesPerView: 1,
-    spaceBetween: 5,
+    spaceBetween: 16,
     navigation: {
         nextEl: '.images-button-next',
         prevEl: '.images-button-prev',
     },
     breakpoints: {
-        480: {
+        460: {
             slidesPerView: 2,
         },
         640: {
             slidesPerView: 3,
         },
-        800: {
+        992: {
             slidesPerView: 4,
         },
         1280: {
@@ -45,14 +45,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const collapseBlock = document.querySelector('.navbar-collapse');
         if (collapseBlock.classList.contains('show')) {
             collapseBlock.classList.remove('show');
-            setTimeout(function () {
-                collapseBlock.style.display = 'none';
-            }, transitionDelay);
+            // setTimeout(function () {
+            //     collapseBlock.style.display = 'none';
+            // }, transitionDelay);
         } else {
-            collapseBlock.style.display = 'block';
-            setTimeout(function () {
+            // collapseBlock.style.display = 'block';
+            // setTimeout(function () {
                 collapseBlock.classList.add('show');
-            }, 1);
+            // }, 1);
         }
     });
 
