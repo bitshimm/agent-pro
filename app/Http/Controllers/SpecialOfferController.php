@@ -65,7 +65,7 @@ class SpecialOfferController extends Controller
 
         $this->specialOfferService->update($specialOffer, $data);
 
-        return redirect()->route('special-offers.edit', ['special_offer' => $specialOffer->id])->with('message', 'Спец.преложение обновлено')->with('status', 'success');
+        return redirect()->route('special-offers.edit', ['specialOffer' => $specialOffer->id])->with('message', 'Спец.преложение обновлено')->with('status', 'success');
     }
 
     public function destroy(SpecialOffer $specialOffer): RedirectResponse

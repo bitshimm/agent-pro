@@ -93,6 +93,21 @@
         </div>
     @endforeach
     <div class="content">
+        <div class="special_offers_wrapper">
+            <div class="special_offers_collapse">
+                <div class="special_offers_list">
+                    @foreach ($user->specialOffers as $offer)
+                        <div class="special_offers_el">
+                            <img src="{{ $offer->image }}" alt="">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="special_offers_header">
+                <div class="special_offers_caption"></div>
+                <div class="special_offers_toggler"></div>
+            </div>
+        </div>
         <div class="widget_wrapper">
             <div class="widget_title">
                 <span class="widget_title_icon">
@@ -155,7 +170,8 @@
                         {{ $user->about_short_description }}
                     </div>
                     <div class="about_bottom">
-                        <div class="about_btn modal_btn" data-target="#about-{{ $user->id }}">Читать далее</div>
+                        <div class="about_btn modal_btn" data-target="#about-{{ $user->id }}">Читать далее
+                        </div>
                     </div>
                 </div>
             </div>
@@ -176,7 +192,8 @@
                 <div class="images f-carousel swiper-wrapper">
                     @foreach ($user->images as $image)
                         <a class="image f-carousel__slide swiper-slide" data-caption="{{ $image->caption }}"
-                            data-fancybox="images" data-src="{{ $image->path_full }}" style="background-image: url('{{ $image->path_thumb }}');">
+                            data-fancybox="images" data-src="{{ $image->path_full }}"
+                            style="background-image: url('{{ $image->path_thumb }}');">
 
                             {{-- <img src="{{ $image->path_thumb }}"
                                 @if ($image->alt) alt="{{ $image->alt }}"
