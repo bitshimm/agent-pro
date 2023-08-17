@@ -16,11 +16,11 @@ use Inertia\Response;
 class ArticleController extends Controller
 {
 
-    private ArticleService $service;
+    private ArticleService $articleService;
 
     public function __construct(ArticleService $service)
     {
-        $this->service = $service;
+        $this->articleService = $service;
     }
 
     public function index(): Response
@@ -41,7 +41,7 @@ class ArticleController extends Controller
     {
         $data = $storeRequest->validated();
 
-        $this->service->store($data);
+        $this->articleService->store($data);
 
         return redirect()->route('articles.index')->with('message', 'Новость создана')->with('status', 'success');
     }
@@ -63,14 +63,14 @@ class ArticleController extends Controller
     {
         $data = $updateRequest->validated();
 
-        $this->service->update($article, $data);
+        $this->articleService->update($article, $data);
 
         return redirect()->route('articles.edit', ['article' => $article->id])->with('message', 'Новость обновлена')->with('status', 'success');
     }
 
     public function destroy(Article $article): RedirectResponse
     {
-        $this->service->destroy($article);
+        $this->articleService->destroy($article);
 
         return redirect()->route('articles.index')->with('message', 'Новость удалена')->with('status', 'success');
     }

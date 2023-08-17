@@ -390,7 +390,7 @@ body.modal-open {
     display: none;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.75);
-    z-index: 100;
+    z-index: 1069;
     padding: 0 0.5rem;
 }
 

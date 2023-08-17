@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\SocialNetworkController;
+use App\Http\Controllers\SpecialOfferController;
 use App\Http\Controllers\TinymceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +46,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::patch('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+    Route::get('/special-offers', [SpecialOfferController::class, 'index'])->name('special-offers.index');
+    Route::get('/special-offers/create', [SpecialOfferController::class, 'create'])->name('special-offers.create');
+    Route::post('/special-offers', [SpecialOfferController::class, 'store'])->name('special-offers.store');
+    Route::get('/special-offers/{specialOffer}', [SpecialOfferController::class, 'show'])->name('special-offers.show');
+    Route::get('/special-offers/{specialOffer}/edit', [SpecialOfferController::class, 'edit'])->name('special-offers.edit');
+    Route::patch('/special-offers/{specialOffer}', [SpecialOfferController::class, 'update'])->name('special-offers.update');
+    Route::delete('/special-offers/{specialOffer}', [SpecialOfferController::class, 'destroy'])->name('special-offers.destroy');
 
     Route::get('/images', [ImageController::class, 'index'])->name('images.index');
     Route::get('/images/create', [ImageController::class, 'create'])->name('images.create');

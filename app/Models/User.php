@@ -25,8 +25,8 @@ class User extends Authenticatable
         'password',
         'widget',
         'about_title',
-        'adout_short_description',
-        'adout_full_description',
+        'about_short_description',
+        'about_full_description',
         'contact_phone',
         'contact_phone_second',
         'contact_email',
@@ -59,6 +59,14 @@ class User extends Authenticatable
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
+    }
+
+    /**
+     * Get the special offers for the user.
+     */
+    public function specialOffers(): HasMany
+    {
+        return $this->hasMany(SpecialOffer::class);
     }
 
     /**

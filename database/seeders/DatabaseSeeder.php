@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Article;
 use App\Models\Image;
 use App\Models\SocialNetwork;
+use App\Models\SpecialOffer;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         User::factory()
             ->has(Article::factory()->count(5))
             ->has(Image::factory()->count(10))
+            ->has(SpecialOffer::factory()->count(3))
             ->create();
     }
 }

@@ -1,4 +1,5 @@
 <script setup>
+import FormEl from '@/Components/FormEl.vue';
 import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import { onBeforeMount } from 'vue';
@@ -31,9 +32,9 @@ const submit = () => {
             Социальные сети
         </div>
         <div class="form-items">
-            <div class="form-item text-input" v-for="social_network in social_networks">
+            <FormEl v-for="social_network in social_networks">
                 <ResourseTextInput :label="social_network.name" :id="'social_network_' + social_network.id" v-model="form.user_social_networks[social_network.id]" />
-            </div>
+            </FormEl>
         </div>
         <div class="form-bottom">
             <button type="submit" class="btn_indigo ml-auto">

@@ -2,21 +2,17 @@
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
-defineProps({
-    social_networks: {
-        type: Array,
-    },
-});
+const props = defineProps(['special_offers']);
 </script>
 <template>
-    <Head title="Новости" />
+    <Head title="Спец. предложения" />
     <DashboardLayout>
         <template #breadcrumbs>
             <h1>
-                Социальные сети
+                Спец. предложения
             </h1>
         </template>
-        <Link class="btn_indigo" :href="route('social-networks.create')">
+        <Link class="btn_indigo" :href="route('special-offers.create')">
         <!-- <span class="material-symbols-outlined btn-icon">add_circle</span> -->
         <i class="fa-solid fa-plus btn-icon"></i>
         <span class="btn-label">Добавить</span>
@@ -26,20 +22,23 @@ defineProps({
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Название</th>
-                        <th>Иконка</th>
+                        <th>Заголовок</th>
+                        <th>Активно</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="social_network in social_networks">
+                    <tr v-for="specialOffer in special_offers">
                         <td>
-                            <Link class="block social_network_icon" :href="route('social-networks.edit', social_network.id)">{{ social_network.id }}</Link>
+                            <Link class="block" :href="route('special-offers.edit', specialOffer.id)">{{ specialOffer.id }}</Link>
                         </td>
                         <td>
-                            <Link class="block social_network_icon" :href="route('social-networks.edit', social_network.id)">{{ social_network.name }}</Link>
+                            <Link class="block" :href="route('special-offers.edit', specialOffer.id)">{{ specialOffer.title }}</Link>
                         </td>
                         <td>
-                            <Link class="block social_network_icon" :href="route('social-networks.edit', social_network.id)" v-html="social_network.icon"></Link>
+                            <Link class="block" :href="route('special-offers.edit', specialOffer.id)">
+                                <span v-if="specialOffer.visibility">Да</span>
+                                <span v-else>Нет</span>
+                            </Link>
                         </td>
                     </tr>
                 </tbody>

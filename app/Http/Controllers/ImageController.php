@@ -13,11 +13,11 @@ use Inertia\Response;
 
 class ImageController extends Controller
 {
-    private ImageService $service;
+    private ImageService $imageService;
 
     public function __construct(ImageService $service)
     {
-        $this->service = $service;
+        $this->imageService = $service;
     }
 
     public function index(): Response
@@ -38,7 +38,7 @@ class ImageController extends Controller
     {
         $data = $storeRequest->validated();
 
-        $this->service->store($data);
+        $this->imageService->store($data);
 
         return redirect()->route('images.index')->with('message', 'Изобржение добавлено')->with('status', 'success');
     }
@@ -62,14 +62,14 @@ class ImageController extends Controller
     {
         $data = $updateRequest->validated();
 
-        $this->service->update($image, $data);
+        $this->imageService->update($image, $data);
 
         return redirect()->route('images.edit', ['image' => $image->id])->with('message', 'Изобржение обновлено')->with('status', 'success');
     }
 
     public function destroy(Image $image): RedirectResponse
     {
-        $this->service->destroy($image);
+        $this->imageService->destroy($image);
 
         return redirect()->route('images.index')->with('message', 'Изобржение удалено')->with('status', 'success');
     }

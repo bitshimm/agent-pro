@@ -43,12 +43,17 @@ const example_image_upload_handler = (blobInfo, progress) => new Promise((resolv
 
 const config = {
   height: 800,
+
   plugins: [
-    'fullscreen', 'code', 'image', 'preview', 'media', 'link'
+    'preview', 'importcss', 'searchreplace', 'autolink', 'directionality', 'code', 'visualblocks', 
+    'visualchars', 'fullscreen', 'image', 'link', 'media', 'template', 'codesample', 'table', 
+    'charmap', 'nonbreaking', 'anchor', 'insertdatetime', 'advlist', 'lists', 
+    'wordcount', 'help', 'charmap', 'quickbars', 'emoticons',
   ],
-  toolbar1: 'undo redo | bold italic underline | fontsize | fontfamily | blocks | alignleft aligncenter alignright alignjustify | outdent indent | media image | code',
-  toolbar2: 'link',
-  toolbar3: 'customBtn |',
+  toolbar1: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks',
+  toolbar2: 'alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | charmap emoticons',
+  toolbar3: 'insertfile image media link anchor code',
+  toolbar4: 'customBtn',
   font_family_formats: 'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats',
   setup(editor) {
     editor.ui.registry.addButton('customBtn', {
@@ -105,24 +110,81 @@ defineEmits(['update:modelValue']);
 </script>
 
 <template>
-  
-  <div class="form-item wysiwig-textarea" :class="{ error: error }">
-    <span class="form-label">{{ label }}:</span>
-    <div class="form-modal-btn" @click="toggleModal(true)">Открыть окно</div>
-    <div v-if="error" class="form-error">{{ error }}</div>
-    <div class="form-modal-wrapper" :class="{modal_open: showModal}">
-      <div class="form-modal">
-        <div class="form-modal-header">
-          {{ label }}
-          <span class="form-modal-close" @click="toggleModal(false)">
-            <i class="fa-solid fa-xmark"></i>
-          </span>
-        </div>
-        <div class="form-modal-content">
-          <Editor :init="config" :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)" tinymce-script-src="/js/tinymce/tinymce.min.js"
-            class="form-textarea" />
-        </div>
+  <span class="form-label">{{ label }}:</span>
+  <div class="modal-btn" :class="{ error: error }" @click="toggleModal(true)">Открыть окно</div>
+  <div v-if="error" class="form-error">{{ error }}</div>
+  <div class="modal-wrapper" :class="{ modal_open: showModal }">
+    <div class="modal">
+      <div class="modal-header">
+        {{ label }}
+        <span class="modal-close" @click="toggleModal(false)">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+      </div>
+      <div class="modal-body">
+        <Editor :init="config" :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)"
+          tinymce-script-src="/js/tinymce/tinymce.min.js" />
       </div>
     </div>
   </div>
 </template>
+<style scoped>
+.modal-btn {
+  background-color: rgb(226, 232, 240);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(226, 232, 240);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.modal-btn.error {
+  border-color: rgb(185, 28, 28);
+}
+
+.modal-wrapper {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.2);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  z-index: 100;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.modal-wrapper.modal_open {
+  opacity: 1;
+  z-index: 100;
+  transition: opacity 0.3s ease;
+}
+
+.modal {
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  border-radius: 10px;
+  transform: scale(0.5);
+  transition: transform 0.2s ease;
+}
+
+.modal-wrapper.modal_open .modal {
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.modal-header {
+  position: relative;
+  font-size: 20px;
+  margin-bottom: 0.75rem;
+}
+
+.modal-close {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+</style>

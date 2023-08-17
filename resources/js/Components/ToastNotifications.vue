@@ -14,7 +14,9 @@ onMounted(() => {
 });
 
 watch(flash, (newFlash) => {
-    openNotification(newFlash.message, newFlash.type);
+    if (newFlash.message) {
+        openNotification(newFlash.message, newFlash.type);
+    }
 });
 
 function openNotification(message, status) {

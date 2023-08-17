@@ -6,6 +6,7 @@ import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import FileInput from '@/Components/FileInput.vue';
 import NumberInput from '@/Components/NumberInput.vue';
 import Checkbox from "@/Components/Checkbox.vue";
+import FormEl from '@/Components/FormEl.vue';
 
 const props = defineProps(['image']);
 
@@ -35,16 +36,22 @@ const submit = () => {
         </template>
         <form @submit.prevent="submit" class="form">
             <div class="form-items">
-                <FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
-                <div class="form-item text-input">
+                <FormEl>
+                    <FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
+                </FormEl>
+                <FormEl>
                     <ResourseTextInput label="Alt" id="alt" :error="form.errors.alt" v-model="form.alt" />
-                </div>
-                <div class="form-item text-input">
+                </FormEl>
+                <FormEl>
                     <ResourseTextInput label="Caption" id="caption" :error="form.errors.caption" v-model="form.caption" />
-                </div>
-                <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
-                <Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
+                </FormEl>
+                <FormEl>
+                    <NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
+                </FormEl>
+                <FormEl>
+                    <Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
                     v-model:checked="form.visibility" />
+                </FormEl> 
             </div>
             <div class="form-bottom">
                 <button type="submit" class="btn_indigo ml-auto">

@@ -3,6 +3,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 import ResourseTextInput from '@/Components/ResourseTextInput.vue';
+import FormEl from '@/Components/FormEl.vue';
 
 const props = defineProps(['social_network']);
 
@@ -13,7 +14,6 @@ const form = useForm({
 
 const submit = () => {
     form.patch(route('social-networks.update', props.social_network.id), {
-        onSuccess: () => form.reset(),
     });
 };
 </script>
@@ -29,13 +29,13 @@ const submit = () => {
         </template>
         <form @submit.prevent="submit" class="form">
             <div class="form-items">
-                <div class="form-item text-input">
+                <FormEl>
                     <ResourseTextInput label="Название" id="name" :error="form.errors.name" v-model="form.name" autofocus
-                    required />
-                </div>
-                <div class="form-item text-input">
+                        required />
+                </FormEl>
+                <FormEl>
                     <ResourseTextInput label="Иконка" id="icon" :error="form.errors.icon" v-model="form.icon" required />
-                </div>
+                </FormEl>
             </div>
             <div class="py-3">
                 <div>
@@ -43,7 +43,8 @@ const submit = () => {
                 </div>
             </div>
             <div class="form-bottom">
-                <Link class="btn_danger" :href="route('social-networks.destroy', props.social_network.id)" method="delete" as="button">
+                <Link class="btn_danger" :href="route('social-networks.destroy', props.social_network.id)" method="delete"
+                    as="button">
                 <i class="fa-solid fa-trash btn-icon"></i>
                 <span class="btn-label">Удалить</span>
                 </Link>

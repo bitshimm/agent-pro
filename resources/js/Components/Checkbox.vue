@@ -28,9 +28,19 @@ const proxyChecked = computed({
 </script>
 
 <template>
-    <div class="form-item checkbox-input">
-        <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
-        <input type="checkbox" class="form-input" :class="{ error: error }" :value="value" :id="id" v-model="proxyChecked"  />
-        <div v-if="error" class="form-error">{{ error }}</div>
-    </div>
+    <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
+    <input type="checkbox" class="form-input" :class="{ error: error }" :value="value" :id="id" v-model="proxyChecked" />
+    <div v-if="error" class="form-error">{{ error }}</div>
 </template>
+<style scoped>
+.form-label {
+    display: inline-block;
+}
+.form-input {
+    display: inline-block;
+    margin-left: 10px;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+}
+</style>

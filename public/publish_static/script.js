@@ -45,14 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const collapseBlock = document.querySelector('.navbar-collapse');
         if (collapseBlock.classList.contains('show')) {
             collapseBlock.classList.remove('show');
-            // setTimeout(function () {
-            //     collapseBlock.style.display = 'none';
-            // }, transitionDelay);
         } else {
-            // collapseBlock.style.display = 'block';
-            // setTimeout(function () {
-                collapseBlock.classList.add('show');
-            // }, 1);
+            collapseBlock.classList.add('show');
         }
     });
 

@@ -1,6 +1,7 @@
 <script setup>
 import FileInput from '@/Components/FileInput.vue';
-import { useForm, usePage } from '@inertiajs/vue3';
+import FormEl from '@/Components/FormEl.vue';
+import { useForm, usePage, Link } from '@inertiajs/vue3';
 
 const logotype = usePage().props.logotype;
 
@@ -23,7 +24,14 @@ const submit = () => {
             Логотип
         </div>
         <div class="form-items">
-            <FileInput :label="form.current_logotype ? 'Заменить' : 'Добавить'" id="logotype" :error="form.errors.logotype" v-model="form.logotype" :current-image="form.current_logotype" />
+            <FormEl default-col="2">
+                <FileInput :label="form.current_logotype ? 'Заменить' : 'Добавить'" id="logotype"
+                    :error="form.errors.logotype" v-model="form.logotype" :current-image="form.current_logotype" />
+                <!-- <Link class="btn_danger" :href="route('publish')" method="delete" as="button">
+                <i class="fa-solid fa-trash btn-icon"></i>
+                <span class="btn-label">Удалить изображение</span>
+                </Link> -->
+            </FormEl>
         </div>
         <div class="form-bottom">
             <button type="submit" class="btn_indigo ml-auto">

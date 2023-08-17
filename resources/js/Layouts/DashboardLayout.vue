@@ -13,6 +13,7 @@ const activeRoute = {
     articles: route().current('articles.*'),
     images: route().current('images.*'),
     social_networks: route().current('social-networks.*'),
+    special_offers: route().current('special-offers.*'),
     // profile: route().current('profile.*'),
 };
 
@@ -103,6 +104,12 @@ onUnmounted(() => {
                         <Link :href="route('articles.index')" class="nav_link" :class="{ active: activeRoute.articles }">
                         <i class="nav_icon fa-solid fa-newspaper"></i>
                         <span class="nav_title">Новости</span>
+                        </Link>
+                    </li>
+                    <li class="nav_item">
+                        <Link :href="route('special-offers.index')" class="nav_link" :class="{ active: activeRoute.special_offers }">
+                        <i class="nav_icon fa-solid fa-newspaper"></i>
+                        <span class="nav_title">Спец. предложения</span>
                         </Link>
                     </li>
                     <li class="nav_item">

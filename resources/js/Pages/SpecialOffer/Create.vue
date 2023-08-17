@@ -8,7 +8,6 @@ import NumberInput from '@/Components/NumberInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import FormEl from '@/Components/FormEl.vue';
-import FormLabel from '@/Components/FormLabel.vue';
 
 const form = useForm({
     title: '',
@@ -19,17 +18,17 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.post(route('articles.store'), {
+    form.post(route('special-offers.store'), {
         onSuccess: () => form.reset(),
     });
 };
 </script>
 <template>
-    <Head title="Новости" />
+    <Head title="Спец. предложения" />
     <DashboardLayout>
         <template #breadcrumbs>
             <h1>
-                <Link :href="route('articles.index')">Новости</Link>
+                <Link :href="route('special-offers.index')">Спец. предложения</Link>
                 <span class="text-indigo-400 font-medium"> /</span>
                 Создание
             </h1>
@@ -52,7 +51,6 @@ const submit = () => {
                     <Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
                     v-model:checked="form.visibility" />
                 </FormEl>
-                
             </div>
             <div class="form-bottom">
                 <button type="submit" class="btn_indigo ml-auto">

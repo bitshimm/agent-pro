@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\SocialNetwork;
+use App\Models\User;
+use App\Services\ProfileService;
 use App\Services\UploadService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -16,27 +18,36 @@ use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
+    private ProfileService $profileService;
+
+    public function __construct(ProfileService $profileService)
+    {
+        $this->profileService = $profileService;
+    }
+
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): Response
     {
+        $user = $request->user();
+
         // dd( $request->user()->socialNetworks);
         return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'social_networks' => SocialNetwork::orderBy('id')->get(),
-            'user_social_networks' => $request->user()->socialNetworks,
-            'widget' => $request->user()->widget,
-            'about_title' => $request->user()->about_title,
-            'about_short_description' => $request->user()->about_short_description,
-            'about_full_description' => $request->user()->about_full_description,
-            'contact_phone' => $request->user()->contact_phone,
-            'contact_phone_second' => $request->user()->contact_phone_second,
-            'contact_email' => $request->user()->contact_email,
-            'contact_address' => $request->user()->contact_address,
-            'contact_opening_hours' => $request->user()->contact_opening_hours,
-            'logotype' => $request->user()->logotype,
+            'user_social_networks' => $user->socialNetworks,
+            'widget' => $user->widget,
+            'about_title' => $user->about_title,
+            'about_short_description' => $user->about_short_description,
+            'about_full_description' => $user->about_full_description,
+            'contact_phone' => $user->contact_phone,
+            'contact_phone_second' => $user->contact_phone_second,
+            'contact_email' => $user->contact_email,
+            'contact_address' => $user->contact_address,
+            'contact_opening_hours' => $user->contact_opening_hours,
+            'logotype' => $user->logotype,
         ]);
     }
 
@@ -87,88 +98,67 @@ class ProfileController extends Controller
 
     function socialNetworksUpdate(Request $request): RedirectResponse
     {
-        $userSocialNetworks = $request->user_social_networks;
+        $user = $request->user();
 
-        foreach ($userSocialNetworks as $socialNetworkId => $socialNetworkLink) {
-            if ($socialNetworkLink) {
-                $userSocialNetworks[$socialNetworkId] = [
-                    'link' => $socialNetworkLink,
-                ];
-            } else {
-                unset($userSocialNetworks[$socialNetworkId]);
-            }
-        }
-
-        $request->user()->socialNetworks()->sync($userSocialNetworks);
+        $this->profileService->socialNetworksUpdate($user, $request->user_social_networks);
 
         return Redirect::route('profile.edit')->with('message', 'Социальные сети обновлены')->with('status', 'success');
     }
 
     function widgetUpdate(Request $request): RedirectResponse
     {
-        $request->validate([
+        $data = $request->validate([
             'widget' => ['string'],
         ]);
 
         $user = $request->user();
 
-        $user->widget = $request->widget;
-
-        $user->save();
+        $this->profileService->widgetUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', 'Виджет обновлен')->with('status', 'success');
     }
 
     function aboutUpdate(Request $request): RedirectResponse
     {
-        // $request->validate([
-        //     'about_title' => ['string'],
-        //     'about_short_description' => ['string'],
-        //     'about_full_description' => ['string'],
-        // ]);
+        $data = $request->validate([
+            'about_title' => ['string', 'max:255', 'nullable'],
+            'about_short_description' => ['string', 'nullable'],
+            'about_full_description' => ['string', 'nullable'],
+        ]);
 
         $user = $request->user();
 
-        $user->about_title = $request->about_title;
-        $user->about_short_description = $request->about_short_description;
-        $user->about_full_description = $request->about_full_description;
-
-        $user->save();
+        $this->profileService->aboutUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', '"О нас" обновлено')->with('status', 'success');
     }
 
     function contactsUpdate(Request $request): RedirectResponse
     {
+        $data = $request->validate([
+            'contact_phone' => ['string', 'max:255', 'nullable'],
+            'contact_phone_second' => ['string', 'max:255', 'nullable'],
+            'contact_email' => ['email', 'max:255', 'nullable'],
+            'contact_address' => ['string', 'max:255', 'nullable'],
+            'contact_opening_hours' => ['string', 'max:255', 'nullable'],
+        ]);
+
         $user = $request->user();
 
-        $user->contact_phone = str_replace(['(', ')', '-'], '', $request->contact_phone);
-        $user->contact_phone_second = str_replace(['(', ')', '-'], '', $request->contact_phone_second);
-        $user->contact_email = $request->contact_email;
-        $user->contact_address = $request->contact_address;
-        $user->contact_opening_hours = $request->contact_opening_hours;
-
-        $user->save();
+        $this->profileService->contactsUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', 'Контакты обновлены')->with('status', 'success');
     }
 
     function logotypeUpdate(Request $request): RedirectResponse
     {
-        $user = $request->user();
-
         $data = $request->validate([
             'logotype' => 'image|nullable',
         ]);
 
-        if ($data['logotype']) {
-            if ($user->logotype !== null) {
-                UploadService::unlink($user->logotype);
-            }
-            $user->logotype = UploadService::upload($data['logotype'], 'logotypes');
-        }
+        $user = $request->user();
 
-        $user->save();
+        $this->profileService->logotypeUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', 'Логотип обновлен')->with('status', 'success');
     }

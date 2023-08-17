@@ -1,5 +1,5 @@
 <script setup>
-import {mask as vMask} from 'vue-the-mask';
+import { mask as vMask } from 'vue-the-mask';
 defineProps({
     id: String,
     label: String,
@@ -9,10 +9,16 @@ defineProps({
 defineEmits(['update:modelValue']);
 </script>
 <template>
-    <div class="form-item phone-input">
-        <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
-        <input type="tel" v-mask="'+7(###)###-##-##'" placeholder="+7(987)654-32-10" class="form-input" :class="{ error: error }" :value="modelValue" :id="id"
-            @input="$emit('update:modelValue', $event.target.value)">
-        <div v-if="error" class="form-error">{{ error }}</div>
-    </div>
+    <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
+    <input type="tel" v-mask="'+7(###)###-##-##'" placeholder="+7(987)654-32-10" class="form-input"
+        :class="{ error: error }" :value="modelValue" :id="id" @input="$emit('update:modelValue', $event.target.value)">
+    <div v-if="error" class="form-error">{{ error }}</div>
 </template>
+<style>
+.form-input {
+    width: 100%;
+    border-radius: 6px;
+    box-sizing: border-box;
+    border: 1px solid rgb(226, 232, 240);
+}
+</style>

@@ -13,11 +13,11 @@ use Inertia\Response;
 
 class SocialNetworkController extends Controller
 {
-    private SocialNetworkService $service;
+    private SocialNetworkService $socialNetworkService;
 
     public function __construct(SocialNetworkService $service)
     {
-        $this->service = $service;
+        $this->socialNetworkService = $service;
     }
     /**
      * Display a listing of the resource.
@@ -46,7 +46,7 @@ class SocialNetworkController extends Controller
     {
         $data = $storeRequest->validated();
 
-        $this->service->store($data);
+        $this->socialNetworkService->store($data);
 
         return redirect()->route('social-networks.index')->with('message', 'Социальная сеть добавлена')->with('status', 'success');
     }
@@ -76,7 +76,7 @@ class SocialNetworkController extends Controller
     {
         $data = $updateRequest->validated();
 
-        $this->service->update($socialNetwork, $data);
+        $this->socialNetworkService->update($socialNetwork, $data);
 
         return redirect()->route('social-networks.edit', ['socialNetwork' => $socialNetwork->id])->with('message', 'Социальная сеть обновлена')->with('status', 'success');
     }

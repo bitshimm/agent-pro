@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('special_offers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('title')->nullable()->default(null);
+            $table->longText('content')->nullable()->default(null);
+            $table->string('image')->nullable()->default(null);
+            $table->string('image_thumb')->nullable()->default(null);
+            $table->integer('sort')->default(100);
+            $table->boolean('visibility')->default(true);
             $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->softDeletes();
         });
     }
 
