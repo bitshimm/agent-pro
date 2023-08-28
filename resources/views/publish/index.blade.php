@@ -97,9 +97,21 @@
             <div class="special_offers_collapse">
                 <div class="special_offers_list">
                     @foreach ($user->specialOffers as $offer)
-                        <div class="special_offers_el">
+                        <a class="special_offers_el modal_btn" data-target="#specialOffers-{{ $offer->id }}">
                             <img src="{{ $offer->image }}" alt="">
-                        </div>
+						</a>
+						<div class="modal_wrapper" id="specialOffers-{{ $offer->id }}">
+							<div class="modal">
+								<div class="modal_header">
+									<span class="modal_title">{{ $offer->title }}</span>
+									<button class="btn_close"></button>
+								</div>
+								<div class="modal_body">
+									{!! $offer->content !!}
+								</div>
+								{{-- <div class="modal_footer"></div> --}}
+							</div>
+						</div>
                     @endforeach
                 </div>
             </div>
