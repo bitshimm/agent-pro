@@ -6,46 +6,49 @@ import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import FormEl from '@/Components/FormEl.vue';
 
 const form = useForm({
-    name: '',
-    icon: '',
+	name: '',
+	icon: '',
 })
 
 const submit = () => {
-    form.post(route('social-networks.store'), {
-        onSuccess: () => form.reset(),
-    });
+	form.post(route('social-networks.store'), {
+	});
 };
 </script>
 <template>
-    <Head title="Новости" />
-    <DashboardLayout>
-        <template #breadcrumbs>
-            <h1>
-                <Link :href="route('social-networks.index')">Социальные сети</Link>
-                <span class="text-indigo-400 font-medium"> /</span>
-                Создание
-            </h1>
-        </template>
-        <form @submit.prevent="submit" class="form">
-            <div class="form-items">
-                <FormEl>
-                    <ResourseTextInput label="Название" id="name" :error="form.errors.name" v-model="form.name" autofocus required />
-                </FormEl>
-                <FormEl>
-                    <ResourseTextInput label="Иконка" id="icon" :error="form.errors.icon" v-model="form.icon" required />
-                </FormEl>
-            </div>
-            <div class="py-3">
-                <div>
-                    Иконка: <span v-html="form.icon"></span>
-                </div>
-            </div>
-            <div class="form-bottom">
-                <button type="submit" class="btn_indigo ml-auto">
-                    <i class="fa-solid fa-plus btn-icon"></i>
-                    <span class="btn-label">Добавить</span>
-                </button>
-            </div>
-        </form>
-    </DashboardLayout>
+	<Head title="Новости" />
+	<DashboardLayout>
+		<template #breadcrumbs>
+			<h1>
+				<Link :href="route('social-networks.index')">Социальные сети</Link>
+				<span class="text-indigo-400 font-medium"> /</span>
+				Создание
+			</h1>
+		</template>
+		<section class="section">
+			<form @submit.prevent="submit" class="form">
+				<div class="form-items">
+					<FormEl>
+						<ResourseTextInput label="Название" id="name" :error="form.errors.name" v-model="form.name"
+							autofocus required />
+					</FormEl>
+					<FormEl>
+						<ResourseTextInput label="Иконка" id="icon" :error="form.errors.icon" v-model="form.icon"
+							required />
+					</FormEl>
+				</div>
+				<div class="py-3">
+					<div>
+						Иконка: <span v-html="form.icon"></span>
+					</div>
+				</div>
+				<div class="form-bottom">
+					<button type="submit" class="btn_indigo ml-auto">
+						<i class="fa-solid fa-plus btn-icon"></i>
+						<span class="btn-label">Добавить</span>
+					</button>
+				</div>
+			</form>
+		</section>
+	</DashboardLayout>
 </template>

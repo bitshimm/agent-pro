@@ -93,33 +93,6 @@
         </div>
     @endforeach
     <div class="content">
-        <div class="special_offers_wrapper">
-            <div class="special_offers_collapse">
-                <div class="special_offers_list">
-                    @foreach ($user->specialOffers as $offer)
-                        <a class="special_offers_el modal_btn" data-target="#specialOffers-{{ $offer->id }}">
-                            <img src="{{ $offer->image }}" alt="">
-						</a>
-						<div class="modal_wrapper" id="specialOffers-{{ $offer->id }}">
-							<div class="modal">
-								<div class="modal_header">
-									<span class="modal_title">{{ $offer->title }}</span>
-									<button class="btn_close"></button>
-								</div>
-								<div class="modal_body">
-									{!! $offer->content !!}
-								</div>
-								{{-- <div class="modal_footer"></div> --}}
-							</div>
-						</div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="special_offers_header">
-                <div class="special_offers_caption"></div>
-                <div class="special_offers_toggler"></div>
-            </div>
-        </div>
         <div class="widget_wrapper">
             <div class="widget_title">
                 <span class="widget_title_icon">
@@ -170,6 +143,33 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+        </div>
+		<div class="special_offers_wrapper">
+            <div class="special_offers_collapse">
+				<div class="special_offers_title">Спецпредложения</div>
+                <div class="special_offers_list">
+                    @foreach ($user->specialOffers as $offer)
+                        <a class="special_offers_el modal_btn" data-target="#specialOffers-{{ $offer->id }}">
+                            <img src="{{ $offer->image }}" alt="">
+						</a>
+						<div class="modal_wrapper" id="specialOffers-{{ $offer->id }}">
+							<div class="modal">
+								<div class="modal_header">
+									<span class="modal_title">{{ $offer->title }}</span>
+									<button class="btn_close"></button>
+								</div>
+								<div class="modal_body">
+									{!! $offer->content !!}
+								</div>
+							</div>
+						</div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="special_offers_header">
+                <div class="special_offers_caption"></div>
+                <div class="special_offers_toggler"></div>
             </div>
         </div>
         @if ($user->about_title && $user->about_short_description && $user->about_full_description)

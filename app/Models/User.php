@@ -62,6 +62,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the articles for the user.
+     */
+    public function pages(): HasMany
+    {
+        return $this->hasMany(Page::class);
+    }
+
+    /**
      * Get the special offers for the user.
      */
     public function specialOffers(): HasMany

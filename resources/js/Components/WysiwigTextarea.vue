@@ -166,6 +166,7 @@ defineEmits(['update:modelValue']);
 	opacity: 0;
 	transition: opacity 0.3s ease;
 	display: none;
+	padding: 0 0.5rem;
 }
 
 .modal-wrapper.modalOpen {
@@ -173,11 +174,12 @@ defineEmits(['update:modelValue']);
 }
 
 .modal {
-	padding: 1rem 1.5rem;
 	background-color: #fff;
 	border-radius: 10px;
 	transform: translateY(-50px);
-	transition: transform 0.2s ease;
+	transition: transform .2s ease;
+	max-width: 850px;
+	margin: 1.75rem auto;
 }
 
 .modal-wrapper.modalOpen .modal {
@@ -185,15 +187,16 @@ defineEmits(['update:modelValue']);
 }
 
 .modal-header {
+	padding: 1rem;
 	position: relative;
 	font-size: 20px;
-	margin-bottom: 0.75rem;
 }
 
 .modal-close {
 	cursor: pointer;
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 50%;
+	right: 20px;
+	transform: translateY(-50%);
 }
 </style>

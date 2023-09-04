@@ -3,7 +3,6 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 import ResourseTextInput from '@/Components/ResourseTextInput.vue';
-import FileInput from '@/Components/FileInput.vue';
 import NumberInput from '@/Components/NumberInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
@@ -11,24 +10,23 @@ import FormEl from '@/Components/FormEl.vue';
 
 const form = useForm({
 	title: '',
-	image: null,
 	content: '',
 	sort: 100,
 	visibility: true
 })
 
 const submit = () => {
-	form.post(route('special-offers.store'), {
-		onSuccess: () => form.reset(),
+	form.post(route('pages.store'), {
+
 	});
 };
 </script>
 <template>
-	<Head title="Спец. предложения" />
+	<Head title="Страницы" />
 	<DashboardLayout>
 		<template #breadcrumbs>
 			<h1>
-				<Link :href="route('special-offers.index')">Спец. предложения</Link>
+				<Link :href="route('articles.index')">Страницы</Link>
 				<span class="text-indigo-400 font-medium"> /</span>
 				Создание
 			</h1>
@@ -39,9 +37,6 @@ const submit = () => {
 					<FormEl>
 						<ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title"
 							autofocus />
-					</FormEl>
-					<FormEl>
-						<FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
 					</FormEl>
 					<FormEl>
 						<WysiwigTextarea label="Контент" id="content" :error="form.errors.content" v-model="form.content" />

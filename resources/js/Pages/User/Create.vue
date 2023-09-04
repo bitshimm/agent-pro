@@ -3,33 +3,29 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 import ResourseTextInput from '@/Components/ResourseTextInput.vue';
-import FileInput from '@/Components/FileInput.vue';
-import NumberInput from '@/Components/NumberInput.vue';
-import Checkbox from "@/Components/Checkbox.vue";
 import FormEl from '@/Components/FormEl.vue';
-
-const props = defineProps(['image']);
+import FileInput from '@/Components/FileInput.vue';
 
 const form = useForm({
-	image: null,
-	alt: '',
-	caption: '',
-	sort: 100,
-	visibility: true,
-});
+	name: '',
+	logotype: null,
+	email: '',
+	password: '',
+	password_confirmation: '',
+})
 
 const submit = () => {
-	form.post(route('images.store'), {
+	form.post(route('users.store'), {
 
 	});
 };
 </script>
 <template>
-	<Head title="Изображения" />
+	<Head title="Пользователи" />
 	<DashboardLayout>
 		<template #breadcrumbs>
 			<h1>
-				<Link :href="route('images.index')">Изображения</Link>
+				<Link :href="route('users.index')">Пользователи</Link>
 				<span class="text-indigo-400 font-medium"> /</span>
 				Создание
 			</h1>
@@ -38,21 +34,23 @@ const submit = () => {
 			<form @submit.prevent="submit" class="form">
 				<div class="form-items">
 					<FormEl>
-						<FileInput label="Изображение" id="image" :error="form.errors.image" v-model="form.image" />
+						<ResourseTextInput label="Имя" id="name" :error="form.errors.name" v-model="form.name" autofocus />
 					</FormEl>
 					<FormEl>
-						<ResourseTextInput label="Alt" id="alt" :error="form.errors.alt" v-model="form.alt" />
+						<FileInput label="Логотип" id="logotype"
+							:error="form.errors.logotype" v-model="form.logotype" />
 					</FormEl>
 					<FormEl>
-						<ResourseTextInput label="Подпись" id="caption" :error="form.errors.caption"
-							v-model="form.caption" />
+						<ResourseTextInput type="email" label="Email" id="email" :error="form.errors.email"
+							v-model="form.email" />
 					</FormEl>
 					<FormEl>
-						<NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
+						<ResourseTextInput type="password" label="Пароль" id="password" :error="form.errors.password"
+							v-model="form.password" />
 					</FormEl>
 					<FormEl>
-						<Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
-							v-model:checked="form.visibility" />
+						<ResourseTextInput type="password" label="Подтвердите пароль" id="password_confirmation"
+							:error="form.errors.password_confirmation" v-model="form.password_confirmation" />
 					</FormEl>
 				</div>
 				<div class="form-bottom">

@@ -560,7 +560,9 @@ body.modal-open {
     max-width: 0;
     transition: all 300ms ease;
 }
-
+.special_offers_title {
+	display: none;
+}
 .special_offers_collapse.show {
     opacity: 1;
 }
