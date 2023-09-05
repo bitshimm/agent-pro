@@ -15,8 +15,8 @@ const form = useForm({
 });
 
 const submit = () => {
-	form.patch(route('profile.contacts.update'), {
-
+	form.patch(route('users.contacts.update', user.id), {
+		
 	});
 };
 </script>

@@ -1,16 +1,19 @@
 <script setup>
+import FileInput from '@/Components/FileInput.vue';
 import FormEl from '@/Components/FormEl.vue';
-import { useForm, usePage } from '@inertiajs/vue3';
+import { useForm, usePage, Link } from '@inertiajs/vue3';
 
 const user = usePage().props.user;
 
 const form = useForm({
-	widget: user.widget
+	current_logotype: user.logotype,
+	logotype: null,
+	_method: 'patch',
 });
 
 const submit = () => {
-	form.patch(route('profile.widget.update'), {
-		
+	form.post(route('users.logotype.update', user.id), {
+
 	});
 };
 
@@ -19,15 +22,12 @@ const submit = () => {
 	<section class="section">
 		<form class="form" @submit.prevent="submit">
 			<div class="form-header">
-				Виджет
+				Логотип
 			</div>
 			<div class="form-items">
 				<FormEl default-col="2">
-					<label for="widget" class="form-label">Вставьте код:</label>
-					<textarea class="w-full block"
-						style="resize: none; height: 200px; border-radius: 6px;border: 1px solid rgb(226, 232, 240);"
-						v-model="form.widget" id="widget"></textarea>
-					<div v-if="form.errors.widget" class="form-error">{{ form.errors.widget }}</div>
+					<FileInput :label="form.current_logotype ? 'Заменить' : 'Добавить'" id="logotype"
+						:error="form.errors.logotype" v-model="form.logotype" :current-image="form.current_logotype" />
 				</FormEl>
 			</div>
 			<div class="form-bottom">

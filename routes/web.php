@@ -46,7 +46,13 @@ Route::middleware('auth')->group(function () {
 	Route::post('/users', [UserController::class, 'store'])->name('users.store');
 	Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 	Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-	Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
+	Route::patch('/users/information/{user}', [UserController::class, 'informationUpdate'])->name('users.information.update');
+	Route::patch('/users/password/{user}', [UserController::class, 'passwordUpdate'])->name('users.password.update');
+	Route::patch('/users/logotype/{user}', [UserController::class, 'logotypeUpdate'])->name('users.logotype.update');
+	Route::patch('/users/contacts/{user}', [UserController::class, 'contactsUpdate'])->name('users.contacts.update');
+	Route::patch('/users/social-networks/{user}', [UserController::class, 'socialNetworksUpdate'])->name('users.social-networks.update');
+	Route::patch('/users/widget/{user}', [UserController::class, 'widgetUpdate'])->name('users.widget.update');
+	Route::patch('/users/about/{user}', [UserController::class, 'aboutUpdate'])->name('users.about.update');
 	Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 	Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

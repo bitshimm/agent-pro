@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\SocialNetwork;
-use App\Models\User;
-use App\Services\ProfileService;
-use App\Services\UploadService;
+use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,11 +16,11 @@ use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
-    private ProfileService $profileService;
+    private UserService $userService;
 
-    public function __construct(ProfileService $profileService)
+    public function __construct(UserService $userService)
     {
-        $this->profileService = $profileService;
+        $this->userService = $userService;
     }
 
     /**
@@ -38,16 +36,7 @@ class ProfileController extends Controller
             'status' => session('status'),
             'social_networks' => SocialNetwork::orderBy('id')->get(),
             'user_social_networks' => $user->socialNetworks,
-            'widget' => $user->widget,
-            'about_title' => $user->about_title,
-            'about_short_description' => $user->about_short_description,
-            'about_full_description' => $user->about_full_description,
-            'contact_phone' => $user->contact_phone,
-            'contact_phone_second' => $user->contact_phone_second,
-            'contact_email' => $user->contact_email,
-            'contact_address' => $user->contact_address,
-            'contact_opening_hours' => $user->contact_opening_hours,
-            'logotype' => $user->logotype,
+			'user' => $user,
         ]);
     }
 
@@ -88,7 +77,7 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    function sendmail()
+    public function sendmail()
     {
         Mail::raw('Hello World!', function ($msg) {
             $msg->to('b.shiman@flotconsult.ru')->subject('Test Email');
@@ -96,29 +85,29 @@ class ProfileController extends Controller
         return 'success';
     }
 
-    function socialNetworksUpdate(Request $request): RedirectResponse
+    public function socialNetworksUpdate(Request $request): RedirectResponse
     {
         $user = $request->user();
 
-        $this->profileService->socialNetworksUpdate($user, $request->user_social_networks);
+        $this->userService->socialNetworksUpdate($user, $request->user_social_networks);
 
         return Redirect::route('profile.edit')->with('message', 'Социальные сети обновлены')->with('status', 'success');
     }
 
-    function widgetUpdate(Request $request): RedirectResponse
+    public function widgetUpdate(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'widget' => ['string'],
+            'widget' => ['string', 'nullable'],
         ]);
 
         $user = $request->user();
 
-        $this->profileService->widgetUpdate($user, $data);
+        $this->userService->widgetUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', 'Виджет обновлен')->with('status', 'success');
     }
 
-    function aboutUpdate(Request $request): RedirectResponse
+    public function aboutUpdate(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'about_title' => ['string', 'max:255', 'nullable'],
@@ -128,12 +117,12 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        $this->profileService->aboutUpdate($user, $data);
+        $this->userService->aboutUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', '"О нас" обновлено')->with('status', 'success');
     }
 
-    function contactsUpdate(Request $request): RedirectResponse
+    public function contactsUpdate(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'contact_phone' => ['string', 'max:255', 'nullable'],
@@ -145,12 +134,12 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        $this->profileService->contactsUpdate($user, $data);
+        $this->userService->contactsUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', 'Контакты обновлены')->with('status', 'success');
     }
 
-    function logotypeUpdate(Request $request): RedirectResponse
+    public function logotypeUpdate(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'logotype' => 'image|nullable',
@@ -158,7 +147,7 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
-        $this->profileService->logotypeUpdate($user, $data);
+        $this->userService->logotypeUpdate($user, $data);
 
         return Redirect::route('profile.edit')->with('message', 'Логотип обновлен')->with('status', 'success');
     }

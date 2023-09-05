@@ -13,7 +13,7 @@ const form = useForm({
 });
 
 const submit = () => {
-	form.patch(route('profile.about.update'), {
+	form.patch(route('users.about.update', user.id), {
 
 	});
 };

@@ -3,17 +3,17 @@ import FileInput from '@/Components/FileInput.vue';
 import FormEl from '@/Components/FormEl.vue';
 import { useForm, usePage, Link } from '@inertiajs/vue3';
 
-const logotype = usePage().props.logotype;
+const user = usePage().props.user;
 
 const form = useForm({
-	current_logotype: logotype,
+	current_logotype: user.logotype,
 	logotype: null,
 	_method: 'patch',
 });
 
 const submit = () => {
 	form.post(route('profile.logotype.update'), {
-		// onSuccess: () => form.reset(),
+
 	});
 };
 
