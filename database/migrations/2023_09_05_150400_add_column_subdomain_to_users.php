@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('social_networks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->text('icon');
-            $table->timestamps();
-            
-            $table->softDeletes();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('subdomain')->unique()->after('email');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('social_networks');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('subdomain');
+        });
     }
 };

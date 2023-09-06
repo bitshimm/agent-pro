@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\SubdomainUpdateRequest;
 use App\Models\SocialNetwork;
 use App\Models\User;
 use App\Services\UserService;
@@ -67,6 +68,20 @@ class UserController extends Controller
 			'social_networks' => SocialNetwork::orderBy('id')->get(),
 			'user_social_networks' => $user->socialNetworks,
 		]);
+	}
+
+	/**
+	 * Update the user's subdomain.
+	 */
+	public function subdomainUpdate(SubdomainUpdateRequest $subdomainUpdateRequest, User $user): RedirectResponse
+	{
+		$data = $subdomainUpdateRequest->validated();
+
+		// dd($data);
+
+		$this->userService->subdomainUpdate($user, $data);
+
+		return Redirect::route('users.edit', $user->id)->with('message', 'Поддомен пользователя обновлен')->with('status', 'success');
 	}
 
 	/**

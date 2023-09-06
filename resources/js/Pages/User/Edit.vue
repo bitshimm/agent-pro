@@ -2,6 +2,7 @@
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3';
+import UpdateSubdomainForm from './Partials/UpdateSubdomainForm.vue';
 import UpdateUserInformationForm from './Partials/UpdateUserInformationForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateLogotypeForm from './Partials/UpdateLogotypeForm.vue';
@@ -23,6 +24,7 @@ const props = defineProps(['user']);
 				{{ props.user.name }}
 			</h1>
 		</template>
+		<UpdateSubdomainForm />
 		<UpdateUserInformationForm />
 		<UpdatePasswordForm />
 		<UpdateLogotypeForm />

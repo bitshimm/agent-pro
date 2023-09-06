@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('caption')->nullable()->default(null);
             $table->string('alt')->nullable()->default(null);

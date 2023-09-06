@@ -26,6 +26,11 @@ class UserService
 		User::create($data);
 	}
 
+	public function subdomainUpdate(User $user, array $data): void
+	{
+		$user->update($data);
+	}
+
 	public function logotypeUpdate(User $user, array $data): void
 	{
 		if ($data['logotype']) {

@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
 	Route::post('/users', [UserController::class, 'store'])->name('users.store');
 	Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 	Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+	Route::patch('/users/subdomain/{user}', [UserController::class, 'subdomainUpdate'])->name('users.subdomain.update');
 	Route::patch('/users/information/{user}', [UserController::class, 'informationUpdate'])->name('users.information.update');
 	Route::patch('/users/password/{user}', [UserController::class, 'passwordUpdate'])->name('users.password.update');
 	Route::patch('/users/logotype/{user}', [UserController::class, 'logotypeUpdate'])->name('users.logotype.update');

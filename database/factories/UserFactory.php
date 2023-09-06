@@ -25,6 +25,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'contact_email' => fake()->unique()->safeEmail(),
             'logotype' => fake()->imageUrl(),
+            'subdomain' => fake()->unique()->domainWord(),
         ];
     }
 
