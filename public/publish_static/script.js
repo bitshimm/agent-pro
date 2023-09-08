@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const navbarToggler = document.querySelector('.navbar-toggler');
     const specialOffersToggler = document.querySelector('.special_offers_toggler');
     const specialOffersCaption = document.querySelector('.special_offers_caption');
-
     const specialOffersTogglerIconOpen = '<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">' +
         '<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"></path>' +
         '</svg>';
@@ -52,35 +51,38 @@ document.addEventListener("DOMContentLoaded", function () {
     const transitionDelay = 300;
 
 
+	
     /**
      * init Special Offers
      */
-    specialOffersToggler.innerHTML = specialOffersTogglerIconClose;
-    specialOffersCaption.innerHTML = specialOffersTogglerCaptionClose;
+	if (specialOffersToggler && specialOffersToggler) {
+		specialOffersToggler.innerHTML = specialOffersTogglerIconClose;
+		specialOffersCaption.innerHTML = specialOffersTogglerCaptionClose;
+		specialOffersToggler.addEventListener('click', () => {
+			const toggler = specialOffersToggler;
+			const caption = specialOffersCaption;
+			const collapseBlock = document.querySelector('.special_offers_collapse');
+	
+			console.log(collapseBlock.scrollWidth);
+			if (toggler.classList.contains('active')) {
+				collapseBlock.classList.remove('show');
+				collapseBlock.style.maxHeight = null;
+				collapseBlock.style.maxWidth = null;
+				toggler.classList.remove('active');
+				toggler.innerHTML = specialOffersTogglerIconClose;
+				caption.innerHTML = specialOffersTogglerCaptionClose;
+			} else {
+				collapseBlock.classList.add('show');
+				collapseBlock.style.maxHeight = collapseBlock.scrollHeight + 'px';
+				collapseBlock.style.maxWidth = collapseBlock.scrollWidth + 'px';
+				toggler.classList.add('active');
+				toggler.innerHTML = specialOffersTogglerIconOpen;
+				caption.innerHTML = specialOffersTogglerCaptionOpen;
+			}
+		});
+	}
 
-
-    specialOffersToggler.addEventListener('click', () => {
-        const toggler = specialOffersToggler;
-        const caption = specialOffersCaption;
-        const collapseBlock = document.querySelector('.special_offers_collapse');
-
-        console.log(collapseBlock.scrollWidth);
-        if (toggler.classList.contains('active')) {
-            collapseBlock.classList.remove('show');
-            collapseBlock.style.maxHeight = null;
-            collapseBlock.style.maxWidth = null;
-            toggler.classList.remove('active');
-            toggler.innerHTML = specialOffersTogglerIconClose;
-            caption.innerHTML = specialOffersTogglerCaptionClose;
-        } else {
-            collapseBlock.classList.add('show');
-            collapseBlock.style.maxHeight = collapseBlock.scrollHeight + 'px';
-            collapseBlock.style.maxWidth = collapseBlock.scrollWidth + 'px';
-            toggler.classList.add('active');
-            toggler.innerHTML = specialOffersTogglerIconOpen;
-            caption.innerHTML = specialOffersTogglerCaptionOpen;
-        }
-    });
+    
     navbarToggler.addEventListener('click', () => {
         const collapseBlock = document.querySelector('.navbar-collapse');
 
@@ -95,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function openModal(selector) {
         const modal = document.querySelector(selector);
-
+		
         if (!document.body.classList.contains('modal-open') && !modal.classList.contains('show')) {
             modal.style.display = 'block';
             setTimeout(() => {

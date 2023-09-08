@@ -4,18 +4,19 @@ import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import { onBeforeMount } from 'vue';
 
-
 const social_networks = usePage().props.social_networks;
-const user_social_networks = usePage().props.user_social_networks;
+const user = usePage().props.auth.user;
 
 const form = useForm({
-	user_social_networks: {}
+	user_social_networks: [],
 });
+
 onBeforeMount(() => {
-	user_social_networks.map((user_social_network) => {
-		form.user_social_networks[user_social_network.pivot.social_network_id] = user_social_network.pivot.link
+	user.social_networks.map((el) => {
+		form.user_social_networks[el.pivot.social_network_id] = el.pivot.link
 	})
-})
+});
+
 const submit = () => {
 	form.patch(route('profile.social-networks.update'), {
 

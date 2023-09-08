@@ -10,6 +10,7 @@ import UpdateUserWidgetForm from './Partials/UpdateUserWidgetForm.vue';
 import UpdateUserAboutForm from './Partials/UpdateUserAboutForm.vue';
 import UpdateUserContacts from './Partials/UpdateUserContactsForm.vue';
 import UpdateUserLogotypeForm from './Partials/UpdateUserLogotypeForm.vue';
+import UpdateUserMetaForm from './Partials/UpdateUserMetaForm.vue';
 
 defineProps({
     mustVerifyEmail: {
@@ -37,6 +38,7 @@ defineProps({
         <UpdateUserSocialNetworksForm />
         <UpdateUserWidgetForm />
         <UpdateUserAboutForm />
+        <UpdateUserMetaForm />
 		<!-- <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" /> -->
 		<!-- <UpdatePasswordForm /> -->
 

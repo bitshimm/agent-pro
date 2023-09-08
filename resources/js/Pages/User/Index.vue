@@ -24,6 +24,7 @@ defineProps({
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Поддомен</th>
                         <th>Имя</th>
                         <th>Email</th>
                     </tr>
@@ -32,6 +33,9 @@ defineProps({
                     <tr v-for="user in users">
                         <td>
                             <Link class="block" :href="route('users.edit', user.id)">{{ user.id }}</Link>
+                        </td>
+                        <td>
+                            <Link class="block" :href="route('users.edit', user.id)">{{ user.subdomain }}</Link>
                         </td>
                         <td>
                             <Link class="block" :href="route('users.edit', user.id)">{{ user.name }}</Link>

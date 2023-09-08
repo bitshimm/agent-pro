@@ -8,12 +8,14 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SocialNetworkController;
 use App\Http\Controllers\SpecialOfferController;
 use App\Http\Controllers\TinymceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -32,29 +34,47 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware('auth')->group(function () {
+	Route::group(['middleware' => 'role:admin,manager'], function () {
+		Route::get('/users', [UserController::class, 'index'])->name('users.index');
+		Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+		Route::post('/users', [UserController::class, 'store'])->name('users.store');
+		Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+		Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+
+		Route::patch('/users/subdomain/{user}', [UserController::class, 'subdomainUpdate'])->name('users.subdomain.update');
+		Route::patch('/users/information/{user}', [UserController::class, 'informationUpdate'])->name('users.information.update');
+		Route::patch('/users/password/{user}', [UserController::class, 'passwordUpdate'])->name('users.password.update');
+		Route::patch('/users/logotype/{user}', [UserController::class, 'logotypeUpdate'])->name('users.logotype.update');
+		Route::patch('/users/contacts/{user}', [UserController::class, 'contactsUpdate'])->name('users.contacts.update');
+		Route::patch('/users/social-networks/{user}', [UserController::class, 'socialNetworksUpdate'])->name('users.social-networks.update');
+		Route::patch('/users/widget/{user}', [UserController::class, 'widgetUpdate'])->name('users.widget.update');
+		Route::patch('/users/about/{user}', [UserController::class, 'aboutUpdate'])->name('users.about.update');
+		Route::patch('/users/meta/{user}', [UserController::class, 'metaUpdate'])->name('users.meta.update');
+
+		Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+		Route::group(['middleware' => 'role:admin'], function () {
+			Route::patch('/users/role/{user}', [UserController::class, 'roleUpdate'])->name('users.role.update');
+
+			Route::get('/social-networks', [SocialNetworkController::class, 'index'])->name('social-networks.index');
+			Route::get('/social-networks/create', [SocialNetworkController::class, 'create'])->name('social-networks.create');
+			Route::post('/social-networks', [SocialNetworkController::class, 'store'])->name('social-networks.store');
+			Route::get('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'show'])->name('social-networks.show');
+			Route::get('/social-networks/{socialNetwork}/edit', [SocialNetworkController::class, 'edit'])->name('social-networks.edit');
+			Route::patch('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'update'])->name('social-networks.update');
+			Route::delete('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'destroy'])->name('social-networks.destroy');
+		});
+	});
+
 	Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 	Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+	Route::patch('/profile-logotype', [ProfileController::class, 'logotypeUpdate'])->name('profile.logotype.update');
 	Route::patch('/profile-social-networks', [ProfileController::class, 'socialNetworksUpdate'])->name('profile.social-networks.update');
 	Route::patch('/profile-contacts', [ProfileController::class, 'contactsUpdate'])->name('profile.contacts.update');
 	Route::patch('/profile-widget', [ProfileController::class, 'widgetUpdate'])->name('profile.widget.update');
 	Route::patch('/profile-about', [ProfileController::class, 'aboutUpdate'])->name('profile.about.update');
-	Route::patch('/profile-logotype', [ProfileController::class, 'logotypeUpdate'])->name('profile.logotype.update');
+	Route::patch('/profile-meta', [ProfileController::class, 'metaUpdate'])->name('profile.meta.update');
 	Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-	Route::get('/users', [UserController::class, 'index'])->name('users.index');
-	Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-	Route::post('/users', [UserController::class, 'store'])->name('users.store');
-	Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-	Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-	Route::patch('/users/subdomain/{user}', [UserController::class, 'subdomainUpdate'])->name('users.subdomain.update');
-	Route::patch('/users/information/{user}', [UserController::class, 'informationUpdate'])->name('users.information.update');
-	Route::patch('/users/password/{user}', [UserController::class, 'passwordUpdate'])->name('users.password.update');
-	Route::patch('/users/logotype/{user}', [UserController::class, 'logotypeUpdate'])->name('users.logotype.update');
-	Route::patch('/users/contacts/{user}', [UserController::class, 'contactsUpdate'])->name('users.contacts.update');
-	Route::patch('/users/social-networks/{user}', [UserController::class, 'socialNetworksUpdate'])->name('users.social-networks.update');
-	Route::patch('/users/widget/{user}', [UserController::class, 'widgetUpdate'])->name('users.widget.update');
-	Route::patch('/users/about/{user}', [UserController::class, 'aboutUpdate'])->name('users.about.update');
-	Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 	Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 	Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
@@ -88,39 +108,10 @@ Route::middleware('auth')->group(function () {
 	Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
 	Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
-	Route::get('/social-networks', [SocialNetworkController::class, 'index'])->name('social-networks.index');
-	Route::get('/social-networks/create', [SocialNetworkController::class, 'create'])->name('social-networks.create');
-	Route::post('/social-networks', [SocialNetworkController::class, 'store'])->name('social-networks.store');
-	Route::get('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'show'])->name('social-networks.show');
-	Route::get('/social-networks/{socialNetwork}/edit', [SocialNetworkController::class, 'edit'])->name('social-networks.edit');
-	Route::patch('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'update'])->name('social-networks.update');
-	Route::delete('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'destroy'])->name('social-networks.destroy');
-
-
 	Route::post('/tinymce-upload', [TinymceController::class, 'upload'])->name('tinymce.upload');
 
 	Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
 	Route::get('sendmail', [ProfileController::class, 'sendmail'])->name('sendmail');
-	Route::get('/publish', function (Request $request) {
-		$user = Auth::user();
-		// dd($user->socialNetworks);
-		$articles = $user->articles()
-			->where('visibility', 1)
-			->orderBy('sort', 'desc')
-			->orderBy('created_at', 'desc')
-			->get();
-		return $finalHtml = view('publish.index', compact('user', 'articles'))->render();
-		// return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
-	})->name('publish');
-	Route::get('/preview', function () {
-		$user = Auth::user();
-		$articles = $user->articles()
-			->where('visibility', 1)
-			->orderBy('sort', 'desc')
-			->orderBy('created_at', 'desc')
-			->get();
-		return $finalHtml = view('publish.index', compact('user', 'articles'))->render();
-		// return Storage::disk('agent-sites')->put( $user->name . '/index.html', $finalHtml);
-	})->name('preview');
+	Route::get('/site/publish', [SiteController::class, 'publish'])->name('site.publish');
 });
 require __DIR__ . '/auth.php';

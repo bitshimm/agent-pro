@@ -52,7 +52,7 @@ return [
         ],
         'agent-sites' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/agent-sites'),
+            'root' => public_path('agent-sites'),
             'visibility' => 'public',
             'throw' => false,
         ],

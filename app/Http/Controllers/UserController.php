@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\SubdomainUpdateRequest;
+use App\Models\Role;
 use App\Models\SocialNetwork;
 use App\Models\User;
 use App\Services\UserService;
@@ -67,7 +68,19 @@ class UserController extends Controller
 			'user' => $user,
 			'social_networks' => SocialNetwork::orderBy('id')->get(),
 			'user_social_networks' => $user->socialNetworks,
+			'roles' => Role::orderBy('id')->get(),
 		]);
+	}
+
+	public function roleUpdate(Request $request, User $user): RedirectResponse
+	{
+		$validated = $request->validate([
+			'role_id' => ['integer', 'exists:roles,id'],
+		]);
+
+		$user->update($validated);
+
+		return Redirect::route('users.edit', $user->id)->with('message', 'Роль пользователя обновлена')->with('status', 'success');
 	}
 
 	/**
@@ -191,6 +204,21 @@ class UserController extends Controller
 		$this->userService->aboutUpdate($user, $data);
 
 		return Redirect::route('users.edit', $user->id)->with('message', '"О нас" пользователя обновлено')->with('status', 'success');
+	}
+
+	/**
+	 * Update the user's meta information.
+	 */
+	public function metaUpdate(Request $request, User $user): RedirectResponse
+	{
+		$data = $request->validate([
+			'meta_title' => ['string', 'max:255', 'nullable'],
+			'meta_description' => ['string', 'max:255', 'nullable'],
+		]);
+
+		$this->userService->metaUpdate($user, $data);
+
+		return Redirect::route('users.edit', $user->id)->with('message', 'Meta информация пользователя обновлена')->with('status', 'success');
 	}
 
 	/**

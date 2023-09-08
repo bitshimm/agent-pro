@@ -79,6 +79,11 @@ class UserService
 		$user->update($data);
 	}
 
+	public function metaUpdate(User $user, array $data): void
+	{
+		$user->update($data);
+	}
+
 	public function destroy(User $user)
 	{
 		$user->delete();

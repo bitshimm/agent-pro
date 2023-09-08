@@ -5,7 +5,9 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import ToastNotifications from '@/Components/ToastNotifications.vue';
 
-const windowWidth = ref(window.innerWidth)
+const isAdmin = usePage().props.auth.isAdmin;
+const isManager = usePage().props.auth.isManager;
+const windowWidth = ref(window.innerWidth);
 const sidebarCollapse = ref(windowWidth.value <= 768);
 const onSidebar = ref(false);
 
@@ -16,7 +18,6 @@ const activeRoute = {
 	social_networks: route().current('social-networks.*'),
 	special_offers: route().current('special-offers.*'),
 	users: route().current('users.*'),
-	// profile: route().current('profile.*'),
 };
 
 onMounted(() => {
@@ -46,13 +47,13 @@ onUnmounted(() => {
 				</li>
 
 				<li class="nav_item mt-auto">
-					<Link :href="route('preview')" class="nav_link">
+					<Link href="#" class="nav_link">
 					<i class="nav_icon fa-solid fa-eye mr-2"></i>
 					<span class="nav_title">Предпросмотр</span>
 					</Link>
 				</li>
 				<li class="nav_item">
-					<Link :href="route('publish')" class="nav_link">
+					<Link :href="route('site.publish')" class="nav_link">
 					<i class="nav_icon fa-solid fa-upload mr-2"></i>
 					<span class="nav_title">Опубликовать</span>
 					</Link>
@@ -102,7 +103,7 @@ onUnmounted(() => {
 			</div>
 			<nav>
 				<ul class="nav">
-					<li class="nav_item">
+					<li class="nav_item" v-if="isAdmin || isManager">
 						<Link :href="route('users.index')" class="nav_link" :class="{ active: activeRoute.users }">
 						<i class="nav_icon fa-solid fa-users"></i>
 						<span class="nav_title">Пользователи</span>
@@ -133,7 +134,7 @@ onUnmounted(() => {
 						<span class="nav_title">Изображения</span>
 						</Link>
 					</li>
-					<li class="nav_item">
+					<li class="nav_item" v-if="isAdmin">
 						<Link :href="route('social-networks.index')" class="nav_link"
 							:class="{ active: activeRoute.social_networks }">
 						<i class="nav_icon fa-solid fa-circle-nodes"></i>

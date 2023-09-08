@@ -7,6 +7,7 @@ import FormEl from '@/Components/FormEl.vue';
 import FileInput from '@/Components/FileInput.vue';
 
 const form = useForm({
+	subdomain: '',
 	name: '',
 	logotype: null,
 	email: '',
@@ -34,7 +35,10 @@ const submit = () => {
 			<form @submit.prevent="submit" class="form">
 				<div class="form-items">
 					<FormEl>
-						<ResourseTextInput label="Имя" id="name" :error="form.errors.name" v-model="form.name" autofocus />
+						<ResourseTextInput label="Поддомен" id="subdomain" :error="form.errors.subdomain" v-model="form.subdomain" autofocus />
+					</FormEl>
+					<FormEl>
+						<ResourseTextInput label="Имя" id="name" :error="form.errors.name" v-model="form.name" />
 					</FormEl>
 					<FormEl>
 						<FileInput label="Логотип" id="logotype"

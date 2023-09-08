@@ -4,6 +4,7 @@ namespace App\Http\Requests\User;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SubdomainUpdateRequest extends FormRequest
 {
@@ -23,11 +24,11 @@ class SubdomainUpdateRequest extends FormRequest
 	public function rules(): array
 	{
 		/**
-		 * [a-z\d]+ (первый символ буква или цифра  один или более)
-		 * [a-z\d-]+ (буква/цифоа/дефис один или более) 
+		 * [a-z\d]{1,63} (первые символы буква или цифра)
+		 * (-[a-z\d]{1,63})* (буква/цифоа/дефис один или более. если дефис, то чередуется) 
 		 */
 		return [
-			'subdomain' => ['regex:/^[a-z\d]{1,63}(-[a-z\d]{1,63})*$/'],
+			'subdomain' => ['regex:/^[a-z\d]{1,63}(-[a-z\d]{1,63})*$/', Rule::unique(User::class)->ignore($this->user()->id)],
 		];
 	}
 
@@ -40,6 +41,7 @@ class SubdomainUpdateRequest extends FormRequest
 	{
 		return [
 			'subdomain.regex' => 'Поддомен должен содержать от 1 до 63 символов (латинских букв, цифр, дефисов).',
+			'subdomain.unique' => 'Поддомен уже занят.',
 		];
 	}
 }

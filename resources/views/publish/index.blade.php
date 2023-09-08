@@ -2,7 +2,8 @@
 <html lang="ru">
 
 <head>
-    @include('publish.partials.head')
+    @include('publish.partials.head-meta')
+    @include('publish.partials.head-css')
 </head>
 
 <body class="body-background">
@@ -32,11 +33,21 @@
                 </div>
                 <div class="navbar-collapse">
                     <ul class="navbar-nav">
-                        @foreach ($user->articles as $article)
+                        @foreach ($pages as $page)
                             <li class="nav-item">
-                                <a data-target="#navpages-{{ $article->id }}"
-                                    class="modal_btn">{{ $article->title }}</a>
+                                <a data-target="#pages-{{ $page->id }}" class="modal_btn">{{ $page->title }}</a>
                             </li>
+                            <div class="modal_wrapper" id="pages-{{ $page->id }}">
+                                <div class="modal">
+                                    <div class="modal_header">
+                                        <span class="modal_title">{{ $page->title }}</span>
+                                        <button class="btn_close"></button>
+                                    </div>
+                                    <div class="modal_body">
+                                        {!! $page->content !!}
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </ul>
                 </div>
@@ -78,100 +89,102 @@
             </div>
         </nav>
     </div>
-    @foreach ($user->articles as $article)
-        <div class="modal_wrapper" id="navpages-{{ $article->id }}">
-            <div class="modal">
-                <div class="modal_header">
-                    <span class="modal_title">{{ $article->title }}</span>
-                    <button class="btn_close"></button>
-                </div>
-                <div class="modal_body">
-                    {{ $article->content }}
-                </div>
-                {{-- <div class="modal_footer"></div> --}}
-            </div>
-        </div>
-    @endforeach
     <div class="content">
-        <div class="widget_wrapper">
-            <div class="widget_title">
-                <span class="widget_title_icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
-                        <path
-                            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-                    </svg>
-                </span>
-                Подобрать круиз
+        @if ($user->widget)
+            <div class="widget_wrapper">
+                <div class="widget_title">
+                    <span class="widget_title_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                            <path
+                                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                        </svg>
+                    </span>
+                    Подобрать круиз
+                </div>
+                <div class="widget">
+                    {!! $user->widget !!}
+                </div>
             </div>
-            <div class="widget">
-                {{-- {!! $user->widget !!} --}}
-            </div>
-        </div>
-        <div class="articles_wrapper">
-            <div class="articles_wrapper_head">
-                <span>НОВОСТИ</span>
-            </div>
-            <div class="articles">
-                @foreach ($articles as $article)
-                    <div class="article">
-                        <div class="article_head">
-                            <span class="article_date">{{ $article->created_at->format('d/m/Y') }}</span>
-                            @if ($article->image_thumb)
-                                <img src="{{ $article->image_thumb }}" alt="{{ $article->title }}">
-                            @endif
-                        </div>
-                        <div class="article_title">
-                            {{ $article->title }}
-                        </div>
-                        <div class="article_hr"></div>
-                        <div class="article_bottom">
-                            <div class="article_btn modal_btn" data-target="#articles-{{ $article->id }}">
-                                Подробнее
+        @endif
+        @if ($articles->count())
+            <div class="articles_wrapper">
+                <div class="articles_wrapper_head">
+                    <span>НОВОСТИ</span>
+                </div>
+                <div class="articles">
+                    @foreach ($articles as $article)
+                        <div class="article">
+                            <div class="article_head">
+                                <span class="article_date">{{ $article->created_at->format('d/m/Y') }}</span>
+                                @if ($article->image_thumb)
+                                    <img src="{{ $article->image_thumb }}" alt="{{ $article->title }}">
+                                @endif
+                            </div>
+                            <div class="article_title">
+                                {{ $article->title }}
+                            </div>
+                            <div class="article_hr"></div>
+                            <div class="article_bottom">
+                                <div class="article_btn modal_btn" data-target="#articles-{{ $article->id }}">
+                                    Подробнее
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal_wrapper" id="articles-{{ $article->id }}">
-                        <div class="modal">
-                            <div class="modal_header">
-                                <span class="modal_title">{{ $article->title }}</span>
-                                <button class="btn_close"></button>
+                        <div class="modal_wrapper" id="articles-{{ $article->id }}">
+                            <div class="modal">
+                                <div class="modal_header">
+                                    <span class="modal_title">{{ $article->title }}</span>
+                                    <button class="btn_close"></button>
+                                </div>
+                                <div class="modal_body">
+                                    {!! $article->content !!}
+                                </div>
                             </div>
-                            <div class="modal_body">
-                                {!! $article->content !!}
-                            </div>
-                            {{-- <div class="modal_footer"></div> --}}
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-		<div class="special_offers_wrapper">
-            <div class="special_offers_collapse">
-				<div class="special_offers_title">Спецпредложения</div>
-                <div class="special_offers_list">
-                    @foreach ($user->specialOffers as $offer)
-                        <a class="special_offers_el modal_btn" data-target="#specialOffers-{{ $offer->id }}">
-                            <img src="{{ $offer->image }}" alt="">
-						</a>
-						<div class="modal_wrapper" id="specialOffers-{{ $offer->id }}">
-							<div class="modal">
-								<div class="modal_header">
-									<span class="modal_title">{{ $offer->title }}</span>
-									<button class="btn_close"></button>
-								</div>
-								<div class="modal_body">
-									{!! $offer->content !!}
-								</div>
-							</div>
-						</div>
                     @endforeach
                 </div>
             </div>
-            <div class="special_offers_header">
-                <div class="special_offers_caption"></div>
-                <div class="special_offers_toggler"></div>
+        @endif
+        @if ($specialOffers->count())
+            <div class="special_offers_wrapper">
+                <div class="special_offers_collapse">
+                    <div class="special_offers_list">
+                        @foreach ($specialOffers as $offer)
+                            <a class="special_offers_el modal_btn" data-target="#specialOffers-{{ $offer->id }}">
+                                <img src="{{ $offer->image }}" alt="">
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="special_offers_header">
+                    <div class="special_offers_caption"></div>
+                    <div class="special_offers_toggler"></div>
+                </div>
             </div>
-        </div>
+            <div class="special_offers_wrapper-sm">
+				<div class="special_offers_title">СПЕЦПРЕДЛОЖЕНИЯ</div>
+                <div class="special_offers_list">
+                    @foreach ($specialOffers as $offer)
+                        <a class="special_offers_el modal_btn" data-target="#specialOffers-{{ $offer->id }}">
+                            <img src="{{ $offer->image }}" alt="">
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+            @foreach ($specialOffers as $offer)
+                <div class="modal_wrapper" id="specialOffers-{{ $offer->id }}">
+                    <div class="modal">
+                        <div class="modal_header">
+                            <span class="modal_title">{{ $offer->title }}</span>
+                            <button class="btn_close"></button>
+                        </div>
+                        <div class="modal_body">
+                            {!! $offer->content !!}
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
         @if ($user->about_title && $user->about_short_description && $user->about_full_description)
             <div class="about_wrapper">
                 <div class="about">
@@ -202,14 +215,17 @@
         <div class="images_container">
             <div class="images_wrapper swiper" data-glide-el="track">
                 <div class="images f-carousel swiper-wrapper">
-                    @foreach ($user->images as $image)
-                        <a class="image f-carousel__slide swiper-slide" data-caption="{{ $image->caption }}"
+                    @foreach ($images as $image)
+                        {{-- <a class="image f-carousel__slide swiper-slide" data-caption="{{ $image->caption }}"
                             data-fancybox="images" data-src="{{ $image->path_full }}"
-                            style="background-image: url('{{ $image->path_thumb }}');">
+                            style="background-image: url('{{ $image->path_thumb }}');"> --}}
 
-                            {{-- <img src="{{ $image->path_thumb }}"
+							<a class="image f-carousel__slide swiper-slide" data-fancybox="images" data-src="{{ $image->path_full }}">
+								<img src="{{ $image->path_thumb }}" style="object-fit: cover; object-position: center; height: 100%; width: 100%;"
                                 @if ($image->alt) alt="{{ $image->alt }}"
-                                @elseif($image->caption) alt="{{ $image->caption }}" @endif> --}}
+                                @elseif($image->caption) alt="{{ $image->caption }}" @endif>
+							</a>
+                            
                         </a>
                     @endforeach
                 </div>
@@ -229,7 +245,6 @@
             </div>
         </div>
     </div>
-
     <div class="footer_wrapper">
         <div class="footer">
             <div id="footer-triangle">

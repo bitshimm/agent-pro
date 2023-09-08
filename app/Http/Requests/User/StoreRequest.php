@@ -22,11 +22,30 @@ class StoreRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		/**
+		 * [a-z\d]{1,63} (первые символы буква или цифра)
+		 * (-[a-z\d]{1,63})* (буква/цифоа/дефис один или более. если дефис, то чередуется) 
+		 */
 		return [
+			'subdomain' => ['regex:/^[a-z\d]{1,63}(-[a-z\d]{1,63})*$/', 'unique:'.User::class],
 			'name' => 'required|string|max:255',
 			'logotype' => 'image|nullable',
 			'email' => 'required|string|email|max:255|unique:' . User::class,
 			'password' => ['required', 'confirmed']
+		];
+	}
+
+	/**
+	 * Get the error messages for the defined validation rules.
+	 *
+	 * @return array<string, string>
+	 */
+	public function messages(): array
+	{
+		return [
+			'email.unique' => 'Email уже занят.',
+			'subdomain.regex' => 'Поддомен должен содержать от 1 до 63 символов (латинских букв, цифр, дефисов).',
+			'subdomain.unique' => 'Поддомен уже занят.',
 		];
 	}
 }
