@@ -6,4 +6,4 @@
 <link rel="stylesheet" href="{{ $host }}/css/fancybox/fancybox.min.css" />
 <link rel="stylesheet" href="{{ $host }}/css/swiper/swiper-10.1.0.min.css" />
 
-<link rel="stylesheet" href="{{ $host }}/css/publish/style.css?{{ config('version.hash') }}">
+<link rel="stylesheet" href="{{ $host }}/siteStatic/style.css?{{ config('version.hash') }}">

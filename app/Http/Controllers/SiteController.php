@@ -7,21 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Services\SiteService;
 
 class SiteController extends Controller
 {
-	public string $host;
+	public SiteService $siteService;
 	public string $domain = "cruisel.pro";
 
-	public function __construct()
+	public function __construct(SiteService $siteService)
 	{
-		$this->host = env("APP_HOST", "");
+		$this->siteService = $siteService;
 	}
 
 	public function publish()
 	{
-		$host = $this->host;
-		$domain = $this->domain;
 		/**
 		 * @var User $user
 		 */
@@ -31,30 +30,9 @@ class SiteController extends Controller
 			back()->with('message', 'Не установлен поддомен')->with('status', 'error');
 		}
 
-		$articles = $user->articles()
-			->where('visibility', 1)
-			->orderBy('sort', 'desc')
-			->orderBy('created_at', 'desc')
-			->get();
-		$pages = $user->pages()
-			->where('visibility', 1)
-			->orderBy('sort', 'desc')
-			->orderBy('created_at', 'desc')
-			->get();
-		$specialOffers = $user->specialOffers()
-			->where('visibility', 1)
-			->orderBy('sort', 'desc')
-			->orderBy('created_at', 'desc')
-			->get();
-		$images = $user->images()
-			->where('visibility', 1)
-			->orderBy('sort', 'desc')
-			->orderBy('created_at', 'desc')
-			->get();
+		$html = $this->siteService->getPublishHtml($user);
 
-		$html = view('publish.index', compact('user', 'articles', 'pages', 'specialOffers', 'images', 'host'))->render();
-
-		Storage::disk('agent-sites')->put($user->subdomain . '.' . $this->domain .'/index.html', $html);
+		Storage::disk('agent-sites')->put($user->subdomain . '.' . $this->domain . '/index.html', $html);
 
 		return $html;
 		return back()->with('message', 'Сайт опубликован')->with('status', 'success');

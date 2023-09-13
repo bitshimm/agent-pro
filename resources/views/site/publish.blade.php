@@ -2,8 +2,8 @@
 <html lang="ru">
 
 <head>
-    @include('publish.partials.head-meta')
-    @include('publish.partials.head-css')
+    @include('site.partials.head-meta')
+    @include('site.partials.head-css')
 </head>
 
 <body class="body-background">
@@ -359,7 +359,7 @@
 
         </div>
     </div>
-    @include('publish.partials.scripts')
+    @include('site.partials.scripts')
 </body>
 
 </html>
