@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\SocialNetwork;
+use App\Models\Theme;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -30,13 +31,20 @@ class ProfileController extends Controller
 	{
 		$user = $request->user();
 
-		// dd( $request->user()->socialNetworks);
+		$themes = Theme::select('themes.*')
+			->join('users', 'users.id', '=', 'themes.user_id')
+			->join('roles', 'roles.id', '=', 'users.role_id')
+			->where('themes.user_id', $user->id)
+			->orwhere('roles.slug', 'admin')
+			->get();
+
 		return Inertia::render('Profile/Edit', [
 			'mustVerifyEmail' => $user instanceof MustVerifyEmail,
 			'status' => session('status'),
 			'social_networks' => SocialNetwork::orderBy('id')->get(),
 			'user_social_networks' => $user->socialNetworks,
 			'user' => $user,
+			'themes' => $themes,
 		]);
 	}
 
@@ -83,6 +91,19 @@ class ProfileController extends Controller
 			$msg->to('b.shiman@flotconsult.ru')->subject('Test Email');
 		});
 		return 'success';
+	}
+
+	public function themeUpdate(Request $request): RedirectResponse
+	{
+		$data = $request->validate([
+			'theme_id' => ['integer', 'exists:themes,id'],
+		]);
+
+		$user = $request->user();
+
+		$user->update($data);
+
+		return Redirect::route('profile.edit')->with('message', 'Тема обновлена')->with('status', 'success');
 	}
 
 	public function logotypeUpdate(Request $request): RedirectResponse

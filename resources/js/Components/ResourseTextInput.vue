@@ -45,4 +45,8 @@ export default {
 .form-input.error {
     border-color: rgb(185, 28, 28);
 }
+.form-input[type="color"] {
+	padding: 0;
+	height: 40px;
+}
 </style>

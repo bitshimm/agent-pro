@@ -8,7 +8,7 @@ use App\Models\Page;
 use App\Models\SpecialOffer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Theme;
 
 class SiteService
 {
@@ -19,18 +19,35 @@ class SiteService
 		$this->host = env("APP_HOST", "");
 	}
 
-	public function getPublishHtml(User $user): string {
+	public function getPublishHtml(User $user): string
+	{
 		$host = $this->host;
 		$user->logotype = self::getLogotype($user);
+		$theme = self::getTheme($user);
+		$themeProperties = $theme ? $theme->properties : null;
 		$articles = self::getArticles($user);
 		$pages = self::getPages($user);
 		$specialOffers = self::getSpecialOffers($user);
 		$images = self::getImages($user);
-		$html = view('site.publish', compact('user', 'articles', 'pages', 'specialOffers', 'images', 'host'))->render();
+		$html = view('site.publish', compact('user', 'articles', 'pages', 'specialOffers', 'images', 'host', 'theme', 'themeProperties'))->render();
 		return $html;
 	}
 
-	private function getLogotype($user): string
+	private function getTheme(User $user): mixed
+	{
+		/**
+		 * @var Theme $theme
+		 */
+
+		$theme = $user->theme;
+
+		if ($theme) {
+			$theme->background = self::setImgCurrentUrl($theme->background);
+		}
+		return $theme;
+	}
+
+	private function getLogotype(User $user): string
 	{
 		return self::setImgCurrentUrl($user->logotype);
 	}

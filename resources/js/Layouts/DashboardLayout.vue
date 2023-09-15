@@ -12,6 +12,7 @@ const sidebarCollapse = ref(windowWidth.value <= 768);
 const onSidebar = ref(false);
 
 const activeRoute = {
+	themes: route().current('themes.*'),
 	articles: route().current('articles.*'),
 	pages: route().current('pages.*'),
 	images: route().current('images.*'),
@@ -103,6 +104,12 @@ onUnmounted(() => {
 			</div>
 			<nav>
 				<ul class="nav">
+					<li class="nav_item" v-if="isAdmin || isManager">
+						<Link :href="route('themes.index')" class="nav_link" :class="{ active: activeRoute.themes }">
+						<i class="nav_icon fa-solid fa-users"></i>
+						<span class="nav_title">Темы</span>
+						</Link>
+					</li>
 					<li class="nav_item" v-if="isAdmin || isManager">
 						<Link :href="route('users.index')" class="nav_link" :class="{ active: activeRoute.users }">
 						<i class="nav_icon fa-solid fa-users"></i>

@@ -69,6 +69,7 @@ class UserController extends Controller
 			'social_networks' => SocialNetwork::orderBy('id')->get(),
 			'user_social_networks' => $user->socialNetworks,
 			'roles' => Role::orderBy('id')->get(),
+			'roles' => Role::orderBy('id')->get(),
 		]);
 	}
 
@@ -89,8 +90,6 @@ class UserController extends Controller
 	public function subdomainUpdate(SubdomainUpdateRequest $subdomainUpdateRequest, User $user): RedirectResponse
 	{
 		$data = $subdomainUpdateRequest->validated();
-
-		// dd($data);
 
 		$this->userService->subdomainUpdate($user, $data);
 

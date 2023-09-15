@@ -57,6 +57,13 @@ return [
             'throw' => false,
         ],
 
+        'backgrounds-themes' => [
+            'driver' => 'local',
+            'root' => public_path('backgrounds-themes'),
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

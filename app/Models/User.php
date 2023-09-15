@@ -25,6 +25,7 @@ class User extends Authenticatable
 		'email',
 		'password',
 		'role_id',
+		'theme_id',
 		'subdomain',
 		'logotype',
 		'widget',
@@ -64,6 +65,11 @@ class User extends Authenticatable
 		return $this->belongsTo(Role::class);
 	}
 
+	public function theme(): BelongsTo
+	{
+		return $this->belongsTo(Theme::class);
+	}
+
 	public function isAdmin()
 	{
 		if ($this->role->slug == 'admin') {
@@ -86,6 +92,14 @@ class User extends Authenticatable
 	public function articles(): HasMany
 	{
 		return $this->hasMany(Article::class);
+	}
+
+	/**
+	 * Get the themes for the user.
+	 */
+	public function themes(): HasMany
+	{
+		return $this->hasMany(Theme::class);
 	}
 
 	/**

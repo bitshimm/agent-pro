@@ -26,10 +26,10 @@
 
 	--about-border-color: #fff;
 	--about-bg-color: #040410;
-	--about--title-color: #5b95e9;
-	--about--shortdesc-color: #fff;
-	--about--btn-bg-color: #ff9c00;
-	--about--btn-color: #000;
+	--about-title-color: #5b95e9;
+	--about-shortdesc-color: #fff;
+	--about-btn-bg-color: #ff9c00;
+	--about-btn-color: #000;
 
 	--images-border-color: #78b1ff;
 	--images-chevron-color: #000;
@@ -279,13 +279,13 @@ body.modal-open {
 	font-size: 30px;
 	line-height: 1.2;
 	text-align: center;
-	color: var(--about--title-color);
+	color: var(--about-title-color);
 }
 
 .content .about_wrapper .about_short_description {
 	line-height: 24px;
 	padding: 16px 0;
-	color: var(--about--shortdesc-color);
+	color: var(--about-shortdesc-color);
 }
 
 .content .about_wrapper .about_bottom {
@@ -297,8 +297,8 @@ body.modal-open {
 	margin: 0 auto;
 	border-radius: 20px;
 	line-height: 24px;
-	background-color: var(--about--btn-bg-color);
-	color: var(--about--btn-color);
+	background-color: var(--about-btn-bg-color);
+	color: var(--about-btn-color);
 }
 
 .images_container {

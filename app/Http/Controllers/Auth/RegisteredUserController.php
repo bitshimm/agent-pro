@@ -44,8 +44,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if (Storage::disk('public')->exists('uploads/' . $request->name) === false) {
-            Storage::disk('public')->makeDirectory('uploads/' . $request->name);
+        if (Storage::disk('public')->exists('uploads/' . $request->subdomain) === false) {
+            Storage::disk('public')->makeDirectory('uploads/' . $request->subdomain);
         }
 
         event(new Registered($user));

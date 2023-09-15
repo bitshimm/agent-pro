@@ -36,8 +36,8 @@ class UsersACLRepository implements ACLRepository
         return [
             ['disk' => 'public', 'path' => '/', 'access' => 1],                                  // main folder - read
             ['disk' => 'public', 'path' => 'uploads', 'access' => 1],                              // only read
-            ['disk' => 'public', 'path' => 'uploads/'. Auth::user()->name, 'access' => 1],        // only read
-            ['disk' => 'public', 'path' => 'uploads/'. Auth::user()->name .'/*', 'access' => 2],  // read and write
+            ['disk' => 'public', 'path' => 'uploads/'. Auth::user()->subdomain, 'access' => 1],        // only read
+            ['disk' => 'public', 'path' => 'uploads/'. Auth::user()->subdomain .'/*', 'access' => 2],  // read and write
         ];
     }
 }

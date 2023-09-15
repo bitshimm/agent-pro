@@ -11,12 +11,9 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SocialNetworkController;
 use App\Http\Controllers\SpecialOfferController;
+use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\TinymceController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +65,7 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 	Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+	Route::patch('/profile-theme', [ProfileController::class, 'themeUpdate'])->name('profile.theme.update');
 	Route::patch('/profile-logotype', [ProfileController::class, 'logotypeUpdate'])->name('profile.logotype.update');
 	Route::patch('/profile-social-networks', [ProfileController::class, 'socialNetworksUpdate'])->name('profile.social-networks.update');
 	Route::patch('/profile-contacts', [ProfileController::class, 'contactsUpdate'])->name('profile.contacts.update');
@@ -107,6 +105,14 @@ Route::middleware('auth')->group(function () {
 	Route::get('/images/{image}/edit', [ImageController::class, 'edit'])->name('images.edit');
 	Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
 	Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
+
+	Route::get('/themes', [ThemeController::class, 'index'])->name('themes.index');
+	Route::get('/themes/create', [ThemeController::class, 'create'])->name('themes.create');
+	Route::post('/themes', [ThemeController::class, 'store'])->name('themes.store');
+	Route::get('/themes/{theme}', [ThemeController::class, 'show'])->name('themes.show');
+	Route::get('/themes/{theme}/edit', [ThemeController::class, 'edit'])->name('themes.edit');
+	Route::patch('/themes/{theme}', [ThemeController::class, 'update'])->name('themes.update');
+	// Route::delete('/themes/{theme}', [ThemeController::class, 'destroy'])->name('themes.destroy');
 
 	Route::post('/tinymce-upload', [TinymceController::class, 'upload'])->name('tinymce.upload');
 

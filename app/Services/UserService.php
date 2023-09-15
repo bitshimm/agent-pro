@@ -17,8 +17,8 @@ class UserService
 			$data['logotype'] = UploadService::upload($file, 'usersLogotypes');
 		}
 
-		if (Storage::disk('public')->exists('uploads/' . $data['name']) === false) {
-			Storage::disk('public')->makeDirectory('uploads/' . $data['name']);
+		if (Storage::disk('public')->exists('uploads/' . $data['subdomain']) === false) {
+			Storage::disk('public')->makeDirectory('uploads/' . $data['subdomain']);
 		}
 
 		$data['password'] = Hash::make($data['password']);

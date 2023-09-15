@@ -8,8 +8,6 @@ import NumberInput from '@/Components/NumberInput.vue';
 import Checkbox from "@/Components/Checkbox.vue";
 import FormEl from '@/Components/FormEl.vue';
 
-const props = defineProps(['image']);
-
 const form = useForm({
 	image: null,
 	alt: '',

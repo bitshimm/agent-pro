@@ -1,10 +1,7 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
+import UpdateThemeForm from './Partials/UpdateThemeForm.vue';
 import UpdateUserSocialNetworksForm from './Partials/UpdateUserSocialNetworksForm.vue';
 import UpdateUserWidgetForm from './Partials/UpdateUserWidgetForm.vue';
 import UpdateUserAboutForm from './Partials/UpdateUserAboutForm.vue';
@@ -33,6 +30,7 @@ defineProps({
                 {{ $page.props.auth.user.name }}
             </h1>
         </template>
+        <UpdateThemeForm />
         <UpdateUserLogotypeForm />
         <UpdateUserContacts />
         <UpdateUserSocialNetworksForm />
