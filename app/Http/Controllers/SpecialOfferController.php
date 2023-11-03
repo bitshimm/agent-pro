@@ -6,9 +6,7 @@ use App\Http\Requests\SpecialOffer\StoreRequest;
 use App\Http\Requests\SpecialOffer\UpdateRequest;
 use App\Models\SpecialOffer;
 use App\Services\SpecialOfferService;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,62 +14,56 @@ use Inertia\Response;
 class SpecialOfferController extends Controller
 {
 
-    private SpecialOfferService $specialOfferService;
+	private SpecialOfferService $specialOfferService;
 
-    public function __construct(SpecialOfferService $service)
-    {
-        $this->specialOfferService = $service;
-    }
+	public function __construct(SpecialOfferService $service)
+	{
+		$this->specialOfferService = $service;
+	}
 
-    public function index(): Response
-    {
-        $specialOffers = Auth::user()->specialOffers()->orderBy('id', 'desc')->get();
+	public function index(): Response
+	{
+		$specialOffers = Auth::user()->specialOffers()->orderBy('id', 'desc')->get();
 
-        return Inertia::render('SpecialOffer/Index', [
-            'special_offers' => $specialOffers,
-        ]);
-    }
+		return Inertia::render('SpecialOffer/Index', [
+			'special_offers' => $specialOffers,
+		]);
+	}
 
-    public function create(): Response
-    {
-        return Inertia::render('SpecialOffer/Create');
-    }
+	public function create(): Response
+	{
+		return Inertia::render('SpecialOffer/Create');
+	}
 
-    public function store(StoreRequest $storeRequest): RedirectResponse
-    {
-        $data = $storeRequest->validated();
+	public function store(StoreRequest $storeRequest): RedirectResponse
+	{
+		$data = $storeRequest->validated();
 
-        $this->specialOfferService->store($data);
+		$this->specialOfferService->store($data);
 
-        return redirect()->route('special-offers.index')->with('message', 'Спец.преложение создано')->with('status', 'success');
-    }
+		return redirect()->route('special-offers.index')->with('message', 'Спец.преложение создано')->with('status', 'success');
+	}
 
-    // public function show(SpecialOffer $specialOffer): View
-    // {
-    //     return view('special-offers.show', compact('specialOffer'));
-    // }
+	public function edit(SpecialOffer $specialOffer): Response
+	{
+		return Inertia::render('SpecialOffer/Edit', [
+			'special_offer' => $specialOffer,
+		]);
+	}
 
+	public function update(UpdateRequest $updateRequest, SpecialOffer $specialOffer): RedirectResponse
+	{
+		$data = $updateRequest->validated();
 
-    public function edit(SpecialOffer $specialOffer): Response
-    {
-        return Inertia::render('SpecialOffer/Edit', [
-            'special_offer' => $specialOffer,
-        ]);
-    }
+		$this->specialOfferService->update($specialOffer, $data);
 
-    public function update(UpdateRequest $updateRequest, SpecialOffer $specialOffer): RedirectResponse
-    {
-        $data = $updateRequest->validated();
+		return redirect()->route('special-offers.edit', ['specialOffer' => $specialOffer->id])->with('message', 'Спец.преложение обновлено')->with('status', 'success');
+	}
 
-        $this->specialOfferService->update($specialOffer, $data);
+	public function destroy(SpecialOffer $specialOffer): RedirectResponse
+	{
+		$this->specialOfferService->destroy($specialOffer);
 
-        return redirect()->route('special-offers.edit', ['specialOffer' => $specialOffer->id])->with('message', 'Спец.преложение обновлено')->with('status', 'success');
-    }
-
-    public function destroy(SpecialOffer $specialOffer): RedirectResponse
-    {
-        $this->specialOfferService->destroy($specialOffer);
-
-        return redirect()->route('special-offers.index')->with('message', 'Спец.преложение удалено')->with('status', 'success');
-    }
+		return redirect()->route('special-offers.index')->with('message', 'Спец.преложение удалено')->with('status', 'success');
+	}
 }

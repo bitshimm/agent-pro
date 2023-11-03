@@ -9,18 +9,18 @@ use Illuminate\Support\Facades\Auth;
 
 class PageService
 {
-    public function store($data)
-    {
-        Auth::user()->pages()->create($data);
-    }
+	public function store(array $data): void
+	{
+		Auth::user()->pages()->create($data);
+	}
 
-    public function update(Page $page, $data)
-    {
-        $page->update($data);
-    }
+	public function update(Page $page, array $data): void
+	{
+		$page->update($data);
+	}
 
-    public function destroy(Page $page)
-    {
-        $page->delete();
-    }
+	public function destroy(Page $page): void
+	{
+		$page->delete();
+	}
 }

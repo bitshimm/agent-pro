@@ -53,6 +53,7 @@ const submit = () => {
 					<i class="fa-solid fa-pen btn-icon"></i>
 					<span class="btn-label">Обновить</span>
 				</button>
-		</div>
-	</form>
-</section></template>
+			</div>
+		</form>
+	</section>
+</template>

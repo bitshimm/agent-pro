@@ -10,39 +10,39 @@ import UpdateUserLogotypeForm from './Partials/UpdateUserLogotypeForm.vue';
 import UpdateUserMetaForm from './Partials/UpdateUserMetaForm.vue';
 
 defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
+	mustVerifyEmail: {
+		type: Boolean,
+	},
+	status: {
+		type: String,
+	},
 });
 </script>
 
 <template>
-    <Head title="Профиль" />
+	<Head title="Профиль" />
 
-    <DashboardLayout>
-        <template #breadcrumbs>
-            <h1>
-                <Link :href="route('home')">Главная</Link>
-                <span class="text-indigo-400 font-medium"> /</span>
-                {{ $page.props.auth.user.name }}
-            </h1>
-        </template>
-        <UpdateThemeForm />
-        <UpdateUserLogotypeForm />
-        <UpdateUserContacts />
-        <UpdateUserSocialNetworksForm />
-        <UpdateUserWidgetForm />
-        <UpdateUserAboutForm />
-        <UpdateUserMetaForm />
+	<DashboardLayout>
+		<template #breadcrumbs>
+			<h1>
+				<Link :href="route('home')">Главная</Link>
+				<span class="text-indigo-400 font-medium"> /</span>
+				{{ $page.props.auth.user.name }}
+			</h1>
+		</template>
+		<UpdateThemeForm />
+		<UpdateUserLogotypeForm />
+		<UpdateUserContacts />
+		<UpdateUserSocialNetworksForm />
+		<UpdateUserWidgetForm />
+		<UpdateUserAboutForm />
+		<UpdateUserMetaForm />
 		<!-- <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" /> -->
 		<!-- <UpdatePasswordForm /> -->
 
-        <!-- <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+		<!-- <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <DeleteUserForm class="max-w-xl" />
         </div> -->
 
-    </DashboardLayout>
+	</DashboardLayout>
 </template>

@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Theme extends Model
 {
@@ -28,9 +27,12 @@ class Theme extends Model
 		'properties' => 'array',
 	];
 
-	public function users(): HasMany
+	/**
+	 * Get the user that owns the theme.
+	 */
+	public function user(): BelongsTo
 	{
-		return $this->hasMany(User::class);
+		return $this->belongsTo(User::class);
 	}
 
 	public static function getPropertiesAliases(): array
@@ -254,7 +256,7 @@ class Theme extends Model
 				'footer-socialnetwork-hover-bg-color' => '#ff9c00',
 				'footer-socialnetwork-hover-color' => '#fff',
 			],
-			
+
 			'blueSky' => [
 				'navbar_navitem_color' => '#fff',
 				'navbar_navitem_border_color' => '#6aa2af',

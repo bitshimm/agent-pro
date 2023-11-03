@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
@@ -117,7 +115,10 @@ Route::middleware('auth')->group(function () {
 	Route::post('/tinymce-upload', [TinymceController::class, 'upload'])->name('tinymce.upload');
 
 	Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
-	Route::get('sendmail', [ProfileController::class, 'sendmail'])->name('sendmail');
+
 	Route::get('/site/publish', [SiteController::class, 'publish'])->name('site.publish');
 });
+
+Route::post('/site/callbackForm', [SiteController::class, 'callbackForm']);
+
 require __DIR__ . '/auth.php';

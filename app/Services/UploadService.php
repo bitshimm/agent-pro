@@ -8,38 +8,38 @@ use Intervention\Image\Facades\Image;
 
 class UploadService
 {
-    public static function upload(UploadedFile $file, $folder = null, $disk = 'public', $filename = null): String
-    {
-        $fileName = !is_null($filename) ? $filename : md5(uniqid());
-        $fileExtension = $file->getClientOriginalExtension();
-        $filePath = $folder . '/' . $fileName . '.' . $fileExtension;
+	public static function upload(UploadedFile $file, $folder = null, $disk = 'public', $filename = null): string
+	{
+		$fileName = !is_null($filename) ? $filename : md5(uniqid());
+		$fileExtension = $file->getClientOriginalExtension();
+		$filePath = $folder . '/' . $fileName . '.' . $fileExtension;
 
-        $image = Image::make($file)
-            ->encode($fileExtension, 90);
+		$image = Image::make($file)
+			->encode($fileExtension, 90);
 
-        Storage::disk($disk)->put($filePath, $image);
+		Storage::disk($disk)->put($filePath, $image);
 
-        return Storage::url($filePath);
-    }
+		return Storage::url($filePath);
+	}
 
-    public static function uploadThumb(UploadedFile $file, $folder = null, $disk = 'public', $filename = null): String
-    {
-        $fileName = !is_null($filename) ? $filename : md5(uniqid());
-        $fileExtension = $file->getClientOriginalExtension();
-        $filePath = $folder . 'Thumbs/' . $fileName . '.' . $fileExtension;
+	public static function uploadThumb(UploadedFile $file, $folder = null, $disk = 'public', $filename = null): string
+	{
+		$fileName = !is_null($filename) ? $filename : md5(uniqid());
+		$fileExtension = $file->getClientOriginalExtension();
+		$filePath = $folder . 'Thumbs/' . $fileName . '.' . $fileExtension;
 
-        $image = Image::make($file)
-            ->encode($fileExtension, 50);
+		$image = Image::make($file)
+			->encode($fileExtension, 50);
 
-        Storage::disk($disk)->put($filePath, $image);
+		Storage::disk($disk)->put($filePath, $image);
 
-        return Storage::url($filePath);
-    }
+		return Storage::url($filePath);
+	}
 
-    public static function unlink($path)
-    {
-        if (file_exists(public_path($path))) {
-            unlink(public_path($path));
-        }
-    }
+	public static function unlink(string $path): void
+	{
+		if (file_exists(public_path($path))) {
+			unlink(public_path($path));
+		}
+	}
 }

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ $host }}/css/fontawesome/css/fontawesome.min.css">
 
 <link rel="stylesheet" href="{{ $host }}/css/fancybox/fancybox.min.css" />
-<link rel="stylesheet" href="{{ $host }}/css/swiper/swiper-10.1.0.min.css" />
+<link rel="stylesheet" href="{{ $host }}/css/glide/glide.core.min.css" />
 
 <link rel="stylesheet" href="{{ $host }}/siteStatic/style.css?{{ config('version.hash') }}">
 
@@ -19,7 +19,9 @@
         @endif
     }
 
-    body {
-        background-image: url('{{ $theme->background }}');
-    }
+    @if ($theme && $theme->background)
+        .wrapper {
+            background-image: url('{{ $theme->background }}');
+        }
+    @endif
 </style>

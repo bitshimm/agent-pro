@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
-	public function store($data): void
+	public function store(array $data): void
 	{
 		if ($data['logotype']) {
 			$file = $data['logotype'];

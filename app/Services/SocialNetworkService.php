@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class SocialNetworkService
 {
-    public function store($data)
-    {
-        SocialNetwork::create($data);
-    }
+	public function store(array $data): void
+	{
+		SocialNetwork::create($data);
+	}
 
-    public function update($socialNetwork, $data)
-    {
-        $socialNetwork->update($data);
-    }
+	public function update(SocialNetwork $socialNetwork, array $data): void
+	{
+		$socialNetwork->update($data);
+	}
 }

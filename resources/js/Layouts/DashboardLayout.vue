@@ -54,10 +54,10 @@ onUnmounted(() => {
 					</Link>
 				</li>
 				<li class="nav_item">
-					<Link :href="route('site.publish')" class="nav_link">
+					<a :href="route('site.publish')" class="nav_link" target="_blank">
 					<i class="nav_icon fa-solid fa-upload mr-2"></i>
 					<span class="nav_title">Опубликовать</span>
-					</Link>
+					</a>
 				</li>
 
 				<li class="nav_item ml-auto">
@@ -104,9 +104,9 @@ onUnmounted(() => {
 			</div>
 			<nav>
 				<ul class="nav">
-					<li class="nav_item" v-if="isAdmin || isManager">
+					<li class="nav_item">
 						<Link :href="route('themes.index')" class="nav_link" :class="{ active: activeRoute.themes }">
-						<i class="nav_icon fa-solid fa-users"></i>
+						<i class="nav_icon fa-solid fa-paint-roller"></i>
 						<span class="nav_title">Темы</span>
 						</Link>
 					</li>

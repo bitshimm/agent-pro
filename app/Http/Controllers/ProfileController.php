@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\Mail;
+
 
 class ProfileController extends Controller
 {
@@ -35,7 +35,8 @@ class ProfileController extends Controller
 			->join('users', 'users.id', '=', 'themes.user_id')
 			->join('roles', 'roles.id', '=', 'users.role_id')
 			->where('themes.user_id', $user->id)
-			->orwhere('roles.slug', 'admin')
+			->orWhere('roles.slug', 'admin')
+			->orWhere('roles.slug', 'manager')
 			->get();
 
 		return Inertia::render('Profile/Edit', [
@@ -83,14 +84,6 @@ class ProfileController extends Controller
 		$request->session()->regenerateToken();
 
 		return Redirect::to('/');
-	}
-
-	public function sendmail()
-	{
-		Mail::raw('Hello World!', function ($msg) {
-			$msg->to('b.shiman@flotconsult.ru')->subject('Test Email');
-		});
-		return 'success';
 	}
 
 	public function themeUpdate(Request $request): RedirectResponse

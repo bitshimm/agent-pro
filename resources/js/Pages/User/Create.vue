@@ -35,14 +35,14 @@ const submit = () => {
 			<form @submit.prevent="submit" class="form">
 				<div class="form-items">
 					<FormEl>
-						<ResourseTextInput label="Поддомен" id="subdomain" :error="form.errors.subdomain" v-model="form.subdomain" autofocus />
+						<ResourseTextInput label="Поддомен" id="subdomain" :error="form.errors.subdomain"
+							v-model="form.subdomain" autofocus />
 					</FormEl>
 					<FormEl>
 						<ResourseTextInput label="Имя" id="name" :error="form.errors.name" v-model="form.name" />
 					</FormEl>
 					<FormEl>
-						<FileInput label="Логотип" id="logotype"
-							:error="form.errors.logotype" v-model="form.logotype" />
+						<FileInput label="Логотип" id="logotype" :error="form.errors.logotype" v-model="form.logotype" />
 					</FormEl>
 					<FormEl>
 						<ResourseTextInput type="email" label="Email" id="email" :error="form.errors.email"

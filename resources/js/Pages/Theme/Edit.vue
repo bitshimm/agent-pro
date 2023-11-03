@@ -37,13 +37,16 @@ const submit = () => {
 			<form @submit.prevent="submit" class="form">
 				<div class="form-items">
 					<FormEl default-col="2">
-						<ResourseTextInput label="Название" :id="name" :error="form.errors.name" v-model="form.name" required />
+						<ResourseTextInput label="Название" :id="name" :error="form.errors.name" v-model="form.name"
+							required />
 					</FormEl>
 					<FormEl default-col="2">
-						<FileInput label="Фон" id="image" :error="form.errors.background" v-model="form.background" :currentImage="form.current_background" />
+						<FileInput label="Фон" id="image" :error="form.errors.background" v-model="form.background"
+							:currentImage="form.current_background" />
 					</FormEl>
 					<FormEl v-for="property, key in form.properties">
-						<ResourseTextInput type="color" :label="property.name" :id="key" :error="form.errors.properties" v-model="property.value" />
+						<ResourseTextInput type="color" :label="property.name" :id="key" :error="form.errors.properties"
+							v-model="property.value" />
 					</FormEl>
 				</div>
 				<div class="form-bottom">
@@ -58,5 +61,4 @@ const submit = () => {
 				</div>
 			</form>
 		</section>
-	</DashboardLayout>
-</template>
+	</DashboardLayout></template>

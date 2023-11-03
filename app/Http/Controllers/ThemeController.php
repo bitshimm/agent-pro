@@ -10,9 +10,17 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\User;
+use App\Services\ThemeService;
 
 class ThemeController extends Controller
 {
+	private ThemeService $themeService;
+
+	public function __construct(ThemeService $service)
+	{
+		$this->themeService = $service;
+	}
+
 	/**
 	 * Display a listing of the themes.
 	 */
@@ -23,7 +31,8 @@ class ThemeController extends Controller
 			->join('users', 'users.id', '=', 'themes.user_id')
 			->join('roles', 'roles.id', '=', 'users.role_id')
 			->where('themes.user_id', $user->id)
-			->orwhere('roles.slug', 'admin')
+			->orWhere('roles.slug', 'admin')
+			->orWhere('roles.slug', 'manager')
 			->get();
 
 		return Inertia::render('Theme/Index', [
@@ -38,6 +47,7 @@ class ThemeController extends Controller
 	public function create(): Response
 	{
 		$properties = Theme::getPropertiesAliases();
+
 		return Inertia::render('Theme/Create', [
 			'properties' => $properties,
 		]);
@@ -48,44 +58,30 @@ class ThemeController extends Controller
 	 */
 	public function store(Request $request): RedirectResponse
 	{
-
 		$data = $request->validate([
 			'name' => ['string', 'max:255', 'required'],
 			'background' => ['image', 'required'],
 			'properties' => [],
 		]);
 
-		if ($data['background']) {
-			$file = $data['background'];
-			$data['background'] = UploadService::upload($file, 'themesBackgrounds');
-			$data['background_thumb'] = UploadService::uploadThumb($file, 'themesBackgrounds');
-		}
-
-		/**
-		 * @var User $user
-		 */
-		$user = Auth::user();
-
-		$user->themes()->create($data);
+		$this->themeService->store($data);
 
 		return redirect()->route('themes.index')->with('message', 'Тема создана')->with('status', 'success');
 	}
-
-	/**
-	 * Display the theme.
-	 */
-	// public function show(string $id)
-	// {
-	// 	//
-	// }
 
 	/**
 	 * Show the form for editing the theme.
 	 */
 	public function edit(Theme $theme): Response
 	{
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
 		return Inertia::render('Theme/Edit', [
 			'theme' => $theme,
+			'canEditTheme' => $theme->user->id === $user->id,
 		]);
 	}
 
@@ -100,23 +96,7 @@ class ThemeController extends Controller
 			'properties' => [],
 		]);
 
-		if ($data['background']) {
-            $file = $data['background'];
-
-			if ($theme->background !== null) {
-				UploadService::unlink($theme->background);
-			}
-			if ($theme->background_thumb !== null) {
-				UploadService::unlink($theme->background_thumb);
-			}
-
-            $data['background'] = UploadService::upload($file, 'themesBackgrounds');
-            $data['background_thumb'] = UploadService::uploadThumb($file, 'themesBackgrounds');
-        } else {
-            unset($data['background']);
-        }
-
-		$theme->update($data);
+		$this->themeService->update($theme, $data);
 
 		return redirect()->route('themes.edit', ['theme' => $theme->id])->with('message', 'Тема обновлена')->with('status', 'success');
 	}

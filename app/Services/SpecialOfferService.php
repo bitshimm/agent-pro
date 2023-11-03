@@ -9,46 +9,46 @@ use Illuminate\Support\Facades\Auth;
 
 class SpecialOfferService
 {
-    public function store($data)
-    {
-        if ($data['image']) {
-            $file = $data['image'];
-            $data['image'] = UploadService::upload($file, 'specialOfferImages');
-            $data['image_thumb'] = UploadService::uploadThumb($file, 'specialOfferImages');
-        }
+	public function store(array $data): void
+	{
+		if ($data['image']) {
+			$file = $data['image'];
+			$data['image'] = UploadService::upload($file, 'specialOfferImages');
+			$data['image_thumb'] = UploadService::uploadThumb($file, 'specialOfferImages');
+		}
 
-        Auth::user()->specialOffers()->create($data);
-    }
+		Auth::user()->specialOffers()->create($data);
+	}
 
-    public function update(SpecialOffer $specialOffer, $data)
-    {
-        if ($data['image']) {
-            $file = $data['image'];
+	public function update(SpecialOffer $specialOffer, array $data): void
+	{
+		if ($data['image']) {
+			$file = $data['image'];
 
-            $this->unlinkSpecialOfferImages($specialOffer);
+			$this->unlinkSpecialOfferImages($specialOffer);
 
-            $data['image'] = UploadService::upload($file, 'specialOfferImages');
-            $data['image_thumb'] = UploadService::uploadThumb($file, 'specialOfferImages');
-        } else {
-            unset($data['image']);
-        }
-        $specialOffer->update($data);
-    }
+			$data['image'] = UploadService::upload($file, 'specialOfferImages');
+			$data['image_thumb'] = UploadService::uploadThumb($file, 'specialOfferImages');
+		} else {
+			unset($data['image']);
+		}
+		$specialOffer->update($data);
+	}
 
-    public function destroy(SpecialOffer $specialOffer)
-    {
-        $this->unlinkSpecialOfferImages($specialOffer);
+	public function destroy(SpecialOffer $specialOffer): void
+	{
+		$this->unlinkSpecialOfferImages($specialOffer);
 
-        $specialOffer->delete();
-    }
+		$specialOffer->delete();
+	}
 
-    private function unlinkSpecialOfferImages(SpecialOffer $specialOffer)
-    {
-        if ($specialOffer->image !== null) {
-            UploadService::unlink($specialOffer->image);
-        }
-        if ($specialOffer->image_thumb !== null) {
-            UploadService::unlink($specialOffer->image_thumb);
-        }
-    }
+	private function unlinkSpecialOfferImages(SpecialOffer $specialOffer): void
+	{
+		if ($specialOffer->image !== null) {
+			UploadService::unlink($specialOffer->image);
+		}
+		if ($specialOffer->image_thumb !== null) {
+			UploadService::unlink($specialOffer->image_thumb);
+		}
+	}
 }

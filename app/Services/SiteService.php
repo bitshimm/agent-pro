@@ -13,15 +13,24 @@ use App\Models\Theme;
 class SiteService
 {
 	public string $host;
+	public string $home_page;
 
 	public function __construct()
 	{
-		$this->host = env("APP_HOST", "");
+		$this->host = env("APP_HOST", "#");
+
+		if ((bool) env('APP_DEBUG', false)) {
+			$this->home_page = "#";
+		} else {
+			$this->home_page = "/";
+		}
 	}
 
 	public function getPublishHtml(User $user): string
 	{
 		$host = $this->host;
+		$homePage = $this->home_page;
+		$subdomain = $user->subdomain;
 		$user->logotype = self::getLogotype($user);
 		$theme = self::getTheme($user);
 		$themeProperties = $theme ? $theme->properties : null;
@@ -29,7 +38,7 @@ class SiteService
 		$pages = self::getPages($user);
 		$specialOffers = self::getSpecialOffers($user);
 		$images = self::getImages($user);
-		$html = view('site.publish', compact('user', 'articles', 'pages', 'specialOffers', 'images', 'host', 'theme', 'themeProperties'))->render();
+		$html = view('site.publish', compact('homePage', 'user', 'articles', 'pages', 'specialOffers', 'images', 'host', 'theme', 'themeProperties', 'subdomain'))->render();
 		return $html;
 	}
 
@@ -38,10 +47,9 @@ class SiteService
 		/**
 		 * @var Theme $theme
 		 */
-
 		$theme = $user->theme;
 
-		if ($theme) {
+		if ($theme && $theme->background) {
 			$theme->background = self::setImgCurrentUrl($theme->background);
 		}
 		return $theme;
@@ -49,7 +57,10 @@ class SiteService
 
 	private function getLogotype(User $user): string
 	{
-		return self::setImgCurrentUrl($user->logotype);
+		if ($user->logotype) {
+			return self::setImgCurrentUrl($user->logotype);
+		}
+		return '';
 	}
 
 	private function getArticles(User $user): Collection
@@ -60,9 +71,9 @@ class SiteService
 			->orderBy('created_at', 'desc')
 			->get()
 			->transform(function (Article $item) {
-				$item->image = self::setImgCurrentUrl($item->image);
-				$item->image_thumb = self::setImgCurrentUrl($item->image_thumb);
-				$item->content = self::setImgCurrentUrl($item->content);
+				if ($item->image) $item->image = self::setImgCurrentUrl($item->image);
+				if ($item->image_thumb) $item->image_thumb = self::setImgCurrentUrl($item->image_thumb);
+				if ($item->content) $item->content = self::setImgCurrentUrl($item->content);
 				return $item;
 			});
 	}
@@ -75,7 +86,7 @@ class SiteService
 			->orderBy('created_at', 'desc')
 			->get()
 			->transform(function (Page $item) {
-				$item->content = self::setImgCurrentUrl($item->content);
+				if ($item->content) $item->content = self::setImgCurrentUrl($item->content);
 				return $item;
 			});
 	}
@@ -88,9 +99,9 @@ class SiteService
 			->orderBy('created_at', 'desc')
 			->get()
 			->transform(function (SpecialOffer $item) {
-				$item->image = self::setImgCurrentUrl($item->image);
-				$item->image_thumb = self::setImgCurrentUrl($item->image_thumb);
-				$item->content = self::setImgCurrentUrl($item->content);
+				if ($item->image) $item->image = self::setImgCurrentUrl($item->image);
+				if ($item->image_thumb) $item->image_thumb = self::setImgCurrentUrl($item->image_thumb);
+				if ($item->content) $item->content = self::setImgCurrentUrl($item->content);
 				return $item;
 			});
 	}
@@ -103,8 +114,8 @@ class SiteService
 			->orderBy('created_at', 'desc')
 			->get()
 			->transform(function (Image $item) {
-				$item->path_full = self::setImgCurrentUrl($item->path_full);
-				$item->path_thumb = self::setImgCurrentUrl($item->path_thumb);
+				if ($item->path_full) $item->path_full = self::setImgCurrentUrl($item->path_full);
+				if ($item->path_thumb) $item->path_thumb = self::setImgCurrentUrl($item->path_thumb);
 				return $item;
 			});
 	}

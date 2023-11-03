@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Mail\CallbackShipped;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Services\SiteService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class SiteController extends Controller
 {
@@ -36,5 +37,22 @@ class SiteController extends Controller
 
 		return $html;
 		return back()->with('message', 'Сайт опубликован')->with('status', 'success');
+	}
+
+	public function callbackForm(Request $request)
+	{
+		$data = $request->validate([
+			'name' => ['string', 'required'],
+			'phone' => ['string', 'required'],
+			'subdomain' => ['string', 'required'],
+		]);
+
+		$agent = User::where('subdomain', $data['subdomain'])->firstOrFail();
+
+		Mail::to($agent->email)->send(new CallbackShipped($data['name'], $data['phone']));
+
+		return response()->json([
+			'status' => 'success',
+		]);
 	}
 }

@@ -3,7 +3,7 @@ version: "3"
 services:
   nginx:
     image: 'nginx:latest'
-    container_name: nginx
+    container_name: agent-pro-nginx
     volumes:
       - ./docker/nginx:/etc/nginx/conf.d/
       - .:/var/www/agent-pro/
@@ -16,7 +16,7 @@ services:
     build:
       context: ./docker/php/
       dockerfile: Dockerfile
-    container_name: app
+    container_name: agent-pro-app
     volumes:
       - .:/var/www/agent-pro/
     ports:
@@ -25,7 +25,7 @@ services:
       - mysql
   mysql:
     image: mysql:latest
-    container_name: mysql
+    container_name: agent-pro-mysql
     restart: always
     volumes:
       - ./docker/mysql:/var/lib/mysql
@@ -38,7 +38,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
   redis:
     image: 'redis:alpine'
-    container_name: redis
+    container_name: agent-pro-redis
     ports:
       - '7003:6379'
     volumes:

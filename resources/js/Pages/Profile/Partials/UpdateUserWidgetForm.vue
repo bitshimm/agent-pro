@@ -10,7 +10,7 @@ const form = useForm({
 
 const submit = () => {
 	form.patch(route('profile.widget.update'), {
-		
+
 	});
 };
 

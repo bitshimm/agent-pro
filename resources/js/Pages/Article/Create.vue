@@ -38,10 +38,6 @@ const submit = () => {
 			<form @submit.prevent="submit" class="form">
 				<div class="form-items">
 					<FormEl>
-						<ResourseTextInput label="Заголовок" id="title" type="color" :error="form.errors.title" v-model="form.title"
-							autofocus />
-					</FormEl>
-					<FormEl>
 						<ResourseTextInput label="Заголовок" id="title" :error="form.errors.title" v-model="form.title"
 							autofocus />
 					</FormEl>

@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
 		//admin user
 		User::factory()
 			->for($adminRole)
-			->has(Article::factory()->count(5))
+			->has(Article::factory()->count(10))
 			->has(Page::factory()->count(5))
 			->has(Image::factory()->count(10))
 			->has(SpecialOffer::factory()->count(3))

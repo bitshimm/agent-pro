@@ -161,6 +161,7 @@ body {
 	background-color: #ff5252;
 	transition: all 0.2s ease;
 }
+
 .btn_danger:hover {
 	background-color: #bb2d3b;
 }
@@ -189,6 +190,10 @@ body {
 	color: rgb(51, 65, 85);
 }
 
+.data_table tbody tr:hover {
+	background-color: rgba(241, 245, 249, 1);
+}
+
 .data_table th {
 	text-align: left;
 	padding: 1rem;
@@ -197,7 +202,9 @@ body {
 .data_table td {
 	/* padding: 0.5rem 1rem 0.5rem 1rem; */
 	/* padding: 1rem; */
-	border-top: 1px solid #adb5bd;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: rgba(226, 232, 240, 1);
 }
 
 .data_table td a {
@@ -242,9 +249,7 @@ body {
 	transition: all 0.3s ease-out;
 }
 
-.on_sidebar .main_sidebar .nav_icon {
-	
-}
+.on_sidebar .main_sidebar .nav_icon {}
 
 .on_sidebar .main_sidebar .nav_title {
 	display: inline;
