@@ -7,7 +7,9 @@ import FileInput from '@/Components/FileInput.vue';
 import FormEl from '@/Components/FormEl.vue';
 import { onMounted } from 'vue';
 
-const props = defineProps(['theme']);
+const props = defineProps({
+	theme: Object,
+});
 
 const form = useForm({
 	name: props.theme.name,

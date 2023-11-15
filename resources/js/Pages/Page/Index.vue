@@ -1,10 +1,9 @@
 <script setup>
+import Pagination from '@/Components/Pagination.vue';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 defineProps({
-	pages: {
-		type: Array,
-	},
+	pages: Object,
 });
 </script>
 <template>
@@ -30,7 +29,7 @@ defineProps({
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="page in pages">
+					<tr v-for="page in pages.data">
 						<td>
 							<Link class="block" :href="route('pages.edit', page.id)">{{ page.title }}</Link>
 						</td>
@@ -47,5 +46,6 @@ defineProps({
 				</tbody>
 			</table>
 		</div>
+		<Pagination class="mt-6" :links="pages.links" />
 	</DashboardLayout>
 </template>

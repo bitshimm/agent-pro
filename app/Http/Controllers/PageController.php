@@ -23,7 +23,7 @@ class PageController extends Controller
 	}
 
 	public function index() : Response {
-		$pages = Auth::user()->pages()->orderBy('id', 'desc')->get();
+		$pages = Auth::user()->pages()->orderBy('id', 'desc')->paginate(7);
 
 		return Inertia::render('Page/Index', [
 			'pages' => $pages,

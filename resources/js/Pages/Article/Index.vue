@@ -4,9 +4,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
-	articles: {
-		type: Array,
-	},
+	articles: Object,
 });
 </script>
 <template>
@@ -45,7 +43,7 @@ defineProps({
 						</td>
 						<td>
 							<a :href="article.image" v-if="article.image" target="_blank"
-								class="underline  паукпукпкупкуп6">ссылка</a>
+								class="underline">ссылка</a>
 						</td>
 						<td>
 							<Link class="block" :href="route('articles.edit', article.id)">{{ article.sort }}</Link>

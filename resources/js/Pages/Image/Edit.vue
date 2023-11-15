@@ -9,7 +9,9 @@ import NumberInput from '@/Components/NumberInput.vue';
 import Checkbox from "@/Components/Checkbox.vue";
 import FormEl from '@/Components/FormEl.vue';
 
-const props = defineProps(['image']);
+const props = defineProps({
+	image: Object,
+});
 
 const form = useForm({
 	path_full: props.image.path_full,

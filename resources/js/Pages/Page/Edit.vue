@@ -10,7 +10,9 @@ import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import FormEl from '@/Components/FormEl.vue';
 
-const props = defineProps(['page']);
+const props = defineProps({
+	page: Object,
+});
 
 const form = useForm({
 	title: props.page.title,

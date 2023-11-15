@@ -10,12 +10,8 @@ import UpdateUserLogotypeForm from './Partials/UpdateUserLogotypeForm.vue';
 import UpdateUserMetaForm from './Partials/UpdateUserMetaForm.vue';
 
 defineProps({
-	mustVerifyEmail: {
-		type: Boolean,
-	},
-	status: {
-		type: String,
-	},
+	mustVerifyEmail: Boolean,
+	status: String
 });
 </script>
 

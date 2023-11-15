@@ -24,7 +24,7 @@ class ArticleController extends Controller
 
 	public function index(): Response
 	{
-		$articles = Auth::user()->articles()->orderBy('id', 'desc')->paginate(1);
+		$articles = Auth::user()->articles()->orderBy('id', 'desc')->paginate(7);
 
 		return Inertia::render('Article/Index', [
 			'articles' => $articles,

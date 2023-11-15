@@ -23,7 +23,7 @@ class SpecialOfferController extends Controller
 
 	public function index(): Response
 	{
-		$specialOffers = Auth::user()->specialOffers()->orderBy('id', 'desc')->get();
+		$specialOffers = Auth::user()->specialOffers()->orderBy('id', 'desc')->paginate(7);
 
 		return Inertia::render('SpecialOffer/Index', [
 			'special_offers' => $specialOffers,

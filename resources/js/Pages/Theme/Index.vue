@@ -2,9 +2,7 @@
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 defineProps({
-	themes: {
-		type: Array,
-	},
+	themes: Array,
 });
 </script>
 

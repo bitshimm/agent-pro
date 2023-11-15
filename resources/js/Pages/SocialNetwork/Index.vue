@@ -3,9 +3,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
-	social_networks: {
-		type: Array,
-	},
+	social_networks: Array,
 });
 </script>
 <template>

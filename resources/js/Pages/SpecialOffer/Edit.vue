@@ -10,7 +10,9 @@ import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import FormEl from '@/Components/FormEl.vue';
 
-const props = defineProps(['special_offer']);
+const props = defineProps({
+	special_offer: Object,
+});
 
 const form = useForm({
 	title: props.special_offer.title,

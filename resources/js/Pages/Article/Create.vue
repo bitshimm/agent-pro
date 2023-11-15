@@ -8,7 +8,6 @@ import NumberInput from '@/Components/NumberInput.vue';
 import WysiwigTextarea from "@/Components/WysiwigTextarea.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import FormEl from '@/Components/FormEl.vue';
-import FormLabel from '@/Components/FormLabel.vue';
 
 const form = useForm({
 	title: '',

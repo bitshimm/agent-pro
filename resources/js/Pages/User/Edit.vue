@@ -14,7 +14,9 @@ import UpdateAboutForm from './Partials/UpdateAboutForm.vue';
 import DeleteForm from './Partials/DeleteForm.vue';
 import UpdateMetaForm from './Partials/UpdateMetaForm.vue';
 
-const props = defineProps(['user']);
+const props = defineProps({
+	user: Object,
+});
 const isAdmin = usePage().props.auth.isAdmin;
 const isManager = usePage().props.auth.isManager;
 

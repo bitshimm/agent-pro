@@ -2,7 +2,9 @@
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
-const props = defineProps(['special_offers']);
+const props = defineProps({
+	special_offers: Object,
+});
 </script>
 <template>
 	<Head title="Спец. предложения" />
@@ -28,7 +30,7 @@ const props = defineProps(['special_offers']);
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="specialOffer in special_offers">
+					<tr v-for="specialOffer in special_offers.data">
 						<td>
 							<Link class="block" :href="route('special-offers.edit', specialOffer.id)">
 							{{ specialOffer.title }}
@@ -51,5 +53,6 @@ const props = defineProps(['special_offers']);
 				</tbody>
 			</table>
 		</div>
+		<Pagination class="mt-6" :links="special_offers.links" />
 	</DashboardLayout>
 </template>

@@ -5,7 +5,9 @@ import { Head, Link, useForm } from '@inertiajs/vue3'
 import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import FormEl from '@/Components/FormEl.vue';
 
-const props = defineProps(['social_network']);
+const props = defineProps({
+	social_network: Object,
+});
 
 const form = useForm({
 	name: props.social_network.name,
