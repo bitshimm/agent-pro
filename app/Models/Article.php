@@ -18,7 +18,7 @@ class Article extends Model
         'image',
         'image_thumb',
         'sort',
-        'visibility'
+        'active'
     ];
 
     /**

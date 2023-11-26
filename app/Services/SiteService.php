@@ -12,14 +12,14 @@ use App\Models\Theme;
 
 class SiteService
 {
-	public string $host;
+	public string $url;
 	public string $home_page;
 
 	public function __construct()
 	{
-		$this->host = env("APP_HOST", "#");
+		$this->url = config('app.url');
 
-		if ((bool) env('APP_DEBUG', false)) {
+		if (config('app.debug')) {
 			$this->home_page = "#";
 		} else {
 			$this->home_page = "/";
@@ -28,7 +28,7 @@ class SiteService
 
 	public function getPublishHtml(User $user): string
 	{
-		$host = $this->host;
+		$url = $this->url;
 		$homePage = $this->home_page;
 		$subdomain = $user->subdomain;
 		$user->logotype = self::getLogotype($user);
@@ -38,7 +38,7 @@ class SiteService
 		$pages = self::getPages($user);
 		$specialOffers = self::getSpecialOffers($user);
 		$images = self::getImages($user);
-		$html = view('site.publish', compact('homePage', 'user', 'articles', 'pages', 'specialOffers', 'images', 'host', 'theme', 'themeProperties', 'subdomain'))->render();
+		$html = view('site.publish', compact('homePage', 'user', 'articles', 'pages', 'specialOffers', 'images', 'url', 'theme', 'themeProperties', 'subdomain'))->render();
 		return $html;
 	}
 
@@ -66,8 +66,9 @@ class SiteService
 	private function getArticles(User $user): Collection
 	{
 		return $user->articles()
-			->where('visibility', 1)
+			->where('active', 1)
 			->orderBy('sort', 'desc')
+			->latest()
 			->orderBy('created_at', 'desc')
 			->get()
 			->transform(function (Article $item) {
@@ -81,7 +82,7 @@ class SiteService
 	private function getPages(User $user): Collection
 	{
 		return $user->pages()
-			->where('visibility', 1)
+			->where('active', 1)
 			->orderBy('sort', 'desc')
 			->orderBy('created_at', 'desc')
 			->get()
@@ -94,7 +95,7 @@ class SiteService
 	private function getSpecialOffers(User $user): Collection
 	{
 		return $user->specialOffers()
-			->where('visibility', 1)
+			->where('active', 1)
 			->orderBy('sort', 'desc')
 			->orderBy('created_at', 'desc')
 			->get()
@@ -109,7 +110,7 @@ class SiteService
 	private function getImages(User $user): Collection
 	{
 		return $user->images()
-			->where('visibility', 1)
+			->where('active', 1)
 			->orderBy('sort', 'desc')
 			->orderBy('created_at', 'desc')
 			->get()
@@ -122,6 +123,6 @@ class SiteService
 
 	private function setImgCurrentUrl(string $string): string
 	{
-		return str_replace("/storage/", $this->host . "/storage/", $string);
+		return str_replace("/storage/", $this->url . "/storage/", $string);
 	}
 }

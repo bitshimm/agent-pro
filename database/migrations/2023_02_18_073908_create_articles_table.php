@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image')->nullable()->default(null);
             $table->string('image_thumb')->nullable()->default(null);
             $table->integer('sort')->default(100);
-            $table->boolean('visibility')->default(true);
+            $table->boolean('active')->default(true);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

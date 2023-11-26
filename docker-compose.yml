@@ -43,3 +43,9 @@ services:
       - '7003:6379'
     volumes:
       - './docker/redis:/data'
+  mailpit:
+    image: 'axllent/mailpit:latest'
+    container_name: agent-pro-mailpit
+    ports:
+      - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+      - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'

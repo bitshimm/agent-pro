@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('path_full');
             $table->string('path_thumb');
             $table->integer('sort')->default(100);
-            $table->boolean('visibility')->default(1);
+            $table->boolean('active')->default(1);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

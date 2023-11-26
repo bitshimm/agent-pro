@@ -23,7 +23,7 @@ class ImageFactory extends Factory
             'alt' => fake()->realText(20),
             'caption' => fake()->realText(20),
             'sort' => fake()->randomNumber(),
-            'visibility' => fake()->boolean(),
+            'active' => fake()->boolean(),
         ];
     }
 }

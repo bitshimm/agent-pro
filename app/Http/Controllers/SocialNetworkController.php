@@ -47,7 +47,7 @@ class SocialNetworkController extends Controller
 
 		$this->socialNetworkService->store($data);
 
-		return redirect()->route('social-networks.index')->with('message', 'Социальная сеть добавлена')->with('status', 'success');
+		return redirect()->route('social-networks.index')->with('message', __('messages.social_network_created'))->with('status', 'success');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class SocialNetworkController extends Controller
 
 		$this->socialNetworkService->update($socialNetwork, $data);
 
-		return redirect()->route('social-networks.edit', ['socialNetwork' => $socialNetwork->id])->with('message', 'Социальная сеть обновлена')->with('status', 'success');
+		return redirect()->route('social-networks.edit', ['socialNetwork' => $socialNetwork->id])->with('message', __('messages.social_network_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -79,6 +79,6 @@ class SocialNetworkController extends Controller
 	{
 		$socialNetwork->delete();
 
-		return redirect()->route('social-networks.index')->with('message', 'Социальная сеть удалена')->with('status', 'success');
+		return redirect()->route('social-networks.index')->with('message', __('messages.social_network_deleted'))->with('status', 'success');
 	}
 }

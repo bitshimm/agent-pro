@@ -18,7 +18,7 @@ class SpecialOffer extends Model
         'image',
         'image_thumb',
         'sort',
-        'visibility'
+        'active'
     ];
 
     /**

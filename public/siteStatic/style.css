@@ -63,6 +63,7 @@ body {
 	background-size: cover;
 	background-position: top center;
 	background-attachment: fixed;
+	min-height: 100vh;
 }
 
 body.modal-open {
@@ -351,12 +352,12 @@ body.modal-open {
 	opacity: 1;
 }
 
-/* .images_container .images_wrapper .images .image img {
-    width: 100%;
-    display: block;
-    height: 100%;
-    object-fit: cover;
-} */
+.images_container .images_wrapper .images .image img {
+	object-fit: cover;
+	object-position: center;
+	height: 100%;
+	width: 100%;
+}
 
 .images-button {
 	user-select: none;
@@ -390,6 +391,10 @@ body.modal-open {
 	transform: translateY(-50%);
 }
 
+/* .splide:not(.is-overflow) .splide__arrows {
+	display: none;
+} */
+
 .modal_wrapper {
 	position: fixed;
 	top: 0;
@@ -401,7 +406,7 @@ body.modal-open {
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.75);
 	z-index: 1069;
-	padding: 0 17px;
+	padding: 0 34px;
 	transition: 300ms ease;
 }
 
@@ -432,6 +437,7 @@ body.modal-open {
 }
 
 .modal .modal_header {
+	gap: 15px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -669,10 +675,13 @@ body.modal-open {
 }
 
 .callback-form {
-	display: flex;
+	/* display: flex;
 	flex-wrap: wrap;
 	gap: 30px;
-	justify-content: space-around;
+	justify-content: space-around; */
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .callback-form .callback-form-input {
@@ -727,6 +736,10 @@ body.modal-open {
 }
 
 @media(max-width: 992px) {
+	body.modal-open {
+		padding-right: 0;
+	}
+
 	.footer_wrapper {
 		padding: 0;
 	}
@@ -778,8 +791,8 @@ body.modal-open {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	body.modal-open {
-		padding-right: 0;
+	.modal_wrapper {
+		padding: 0 17px;
 	}
 
 	.footer_wrapper .footer {
@@ -790,6 +803,13 @@ body.modal-open {
 		display: none;
 	}
 
+	.callback-form {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.callback-form .callback-form-input[type="submit"] {
+		grid-column: span 2;
+	}
 }
 
 @media(max-width: 460px) {
@@ -800,5 +820,13 @@ body.modal-open {
 	.special_offers_wrapper-sm .special_offers_list .special_offers_el img {
 		width: 100%;
 		height: auto;
+	}
+
+	.callback-form {
+		grid-template-columns: repeat(1, 1fr);
+	}
+
+	.callback-form .callback-form-input[type="submit"] {
+		grid-column: span 1;
 	}
 }

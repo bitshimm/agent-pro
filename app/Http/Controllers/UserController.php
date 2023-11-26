@@ -56,7 +56,7 @@ class UserController extends Controller
 
 		$this->userService->store($data);
 
-		return redirect()->route('users.index')->with('message', 'Пользователь создан')->with('status', 'success');
+		return redirect()->route('users.index')->with('message', __('messages.user_created'))->with('status', 'success');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class UserController extends Controller
 
 		$user->update($validated);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Роль пользователя обновлена')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_role_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -93,7 +93,7 @@ class UserController extends Controller
 
 		$this->userService->subdomainUpdate($user, $data);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Поддомен пользователя обновлен')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_subdomain_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -113,7 +113,7 @@ class UserController extends Controller
 
 		$user->save();
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Информация пользователя обновлена')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_information_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -130,7 +130,7 @@ class UserController extends Controller
 			'password' => Hash::make($validated['password']),
 		]);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Пароль пользователя обновлен')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_password_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -144,7 +144,7 @@ class UserController extends Controller
 
 		$this->userService->logotypeUpdate($user, $data);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Логотип пользователя обновлен')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_logotype_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -162,7 +162,7 @@ class UserController extends Controller
 
 		$this->userService->contactsUpdate($user, $data);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Контакты пользователя обновлены')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_contacts_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -172,7 +172,7 @@ class UserController extends Controller
 	{
 		$this->userService->socialNetworksUpdate($user, $request->user_social_networks);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Социальные сети пользователя обновлены')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_social_networks_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -186,7 +186,7 @@ class UserController extends Controller
 
 		$this->userService->widgetUpdate($user, $data);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Виджет пользователя обновлен')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_widget_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -202,7 +202,7 @@ class UserController extends Controller
 
 		$this->userService->aboutUpdate($user, $data);
 
-		return Redirect::route('users.edit', $user->id)->with('message', '"О нас" пользователя обновлено')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_about_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -217,7 +217,7 @@ class UserController extends Controller
 
 		$this->userService->metaUpdate($user, $data);
 
-		return Redirect::route('users.edit', $user->id)->with('message', 'Meta информация пользователя обновлена')->with('status', 'success');
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_meta_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -227,6 +227,6 @@ class UserController extends Controller
 	{
 		$this->userService->destroy($user);
 
-		return redirect()->route('users.index')->with('message', 'Пользователь удален')->with('status', 'success');
+		return redirect()->route('users.index')->with('message', __('messages.user_deleted'))->with('status', 'success');
 	}
 }

@@ -13,7 +13,7 @@ const form = useForm({
 	alt: '',
 	caption: '',
 	sort: 100,
-	visibility: true,
+	active: true,
 });
 
 const submit = () => {
@@ -49,8 +49,8 @@ const submit = () => {
 						<NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
 					</FormEl>
 					<FormEl>
-						<Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
-							v-model:checked="form.visibility" />
+						<Checkbox label="Активно" id="active" :error="form.errors.active"
+							v-model:checked="form.active" />
 					</FormEl>
 				</div>
 				<div class="form-bottom">

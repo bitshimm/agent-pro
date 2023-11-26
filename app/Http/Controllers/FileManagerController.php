@@ -1,18 +1,14 @@
 <?php
-  
+
 namespace App\Http\Controllers;
-  
+
 use Illuminate\Http\Request;
-  
+use Illuminate\Contracts\View\View;
+
 class FileManagerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {   
-        return view('filemanager');
-    }
+	public function index(Request $request): View
+	{
+		return view('filemanager');
+	}
 }

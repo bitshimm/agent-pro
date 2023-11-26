@@ -18,7 +18,7 @@ class Image extends Model
         'alt',
         'caption',
         'sort',
-        'visibility'
+        'active'
     ];
 
     /**

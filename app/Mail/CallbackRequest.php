@@ -2,20 +2,22 @@
 
 namespace App\Mail;
 
+use Dotenv\Util\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
 
-class CallbackShipped extends Mailable
+class CallbackRequest extends Mailable
 {
 	use Queueable, SerializesModels;
 
 	/**
 	 * Create a new message instance.
 	 */
-	public function __construct(public string $name, public string $phone)
+	public function __construct(public string $name, public string $phone, public string $agentEmail, public string $agentUrl)
 	{
 		//
 	}
@@ -27,6 +29,7 @@ class CallbackShipped extends Mailable
 	{
 		return new Envelope(
 			subject: 'Форма обратной связи',
+			from: new Address($this->agentEmail, $this->agentUrl),
 		);
 	}
 

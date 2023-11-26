@@ -66,7 +66,7 @@ class ThemeController extends Controller
 
 		$this->themeService->store($data);
 
-		return redirect()->route('themes.index')->with('message', 'Тема создана')->with('status', 'success');
+		return redirect()->route('themes.index')->with('message', __('messages.theme_created'))->with('status', 'success');
 	}
 
 	/**
@@ -98,7 +98,7 @@ class ThemeController extends Controller
 
 		$this->themeService->update($theme, $data);
 
-		return redirect()->route('themes.edit', ['theme' => $theme->id])->with('message', 'Тема обновлена')->with('status', 'success');
+		return redirect()->route('themes.edit', ['theme' => $theme->id])->with('message', __('messages.theme_updated'))->with('status', 'success');
 	}
 
 	/**

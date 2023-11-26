@@ -2,8 +2,8 @@
 <html lang="ru">
 
 <head>
-    @include('site.partials.head-meta')
-    @include('site.partials.head-css')
+	@include('site.partials.head-meta')
+	@include('site.partials.head-css')
 </head>
 
 <body>
@@ -214,43 +214,42 @@
 				</div>
 			@endif
 			<div class="images_container">
-				{{-- <div class="images_wrapper swiper" data-glide-el="track">
-					<div class="images f-carousel swiper-wrapper">
+				{{-- <div class="images_wrapper swiper">
+					<div class="images swiper-wrapper">
 						@foreach ($images as $image)
-								<a class="image f-carousel__slide swiper-slide" data-fancybox="images" data-src="{{ $image->path_full }}">
-									<img src="{{ $image->path_thumb }}" style="object-fit: cover; object-position: center; height: 100%; width: 100%;"
+							<a class="image swiper-slide" data-fancybox="images" data-src="{{ $image->path_full }}">
+								<img src="{{ $image->path_thumb }}"
+									style="object-fit: cover; object-position: center; height: 100%; width: 100%;"
 									@if ($image->alt) alt="{{ $image->alt }}"
 									@elseif($image->caption) alt="{{ $image->caption }}" @endif>
-								</a>
 							</a>
 						@endforeach
 					</div>
-	
-					<div class="images-button images-button-prev">
+					<div class="images-button images-button-prev swiper-button-prev">
 						<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
 							<path
 								d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
 						</svg>
 					</div>
-					<div class="images-button images-button-next">
+					<div class="images-button images-button-next swiper-button-next">
 						<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
 							<path
 								d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
 						</svg>
 					</div>
 				</div> --}}
-				<div class="glide">
+				{{-- <div class="glide">
 					<div class="images_wrapper glide__track" data-glide-el="track">
-					  <ul class="images glide__slides">
-						@foreach ($images as $image)
+						<ul class="images glide__slides">
+							@foreach ($images as $image)
 								<a class="image glide__slide" data-fancybox="images" data-src="{{ $image->path_full }}">
-									<img src="{{ $image->path_thumb }}" style="object-fit: cover; object-position: center; height: 100%; width: 100%;"
-									@if ($image->alt) alt="{{ $image->alt }}"
-									@elseif($image->caption) alt="{{ $image->caption }}" @endif>
+									<img src="{{ $image->path_thumb }}"
+										style="object-fit: cover; object-position: center; height: 100%; width: 100%;"
+										@if ($image->alt) alt="{{ $image->alt }}"
+								@elseif($image->caption) alt="{{ $image->caption }}" @endif>
 								</a>
-							</a>
-						@endforeach
-					  </ul>
+							@endforeach
+						</ul>
 					</div>
 					<div class="glide__arrows" data-glide-el="controls">
 						<div class="images-button images-button-prev glide__arrow glide__arrow--left" data-glide-dir="<">
@@ -259,23 +258,48 @@
 									d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
 							</svg>
 						</div>
-						<div class="images-button images-button-next glide__arrow glide__arrow--right"  data-glide-dir=">">
+						<div class="images-button images-button-next glide__arrow glide__arrow--right" data-glide-dir=">">
 							<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
 								<path
 									d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
 							</svg>
 						</div>
-						{{-- <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-						<button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button> --}}
-					  </div>
-				  </div>
+					</div>
+				</div> --}}
+				<div class="splide" role="group" aria-label="iamges slider">
+					<div class="splide__track images_wrapper">
+						<ul class="splide__list images">
+							@foreach ($images as $image)
+								<a class="image splide__slide" data-fancybox="images" data-src="{{ $image->path_full }}">
+									<img src="{{ $image->path_thumb }}"
+										@if ($image->alt) alt="{{ $image->alt }}"
+								@elseif($image->caption) alt="{{ $image->caption }}" @endif>
+								</a>
+							@endforeach
+						</ul>
+					</div>
+					<div class="splide__arrows">
+						<div class="splide__arrow splide__arrow--prev images-button images-button-prev">
+							<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
+								<path
+									d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
+							</svg>
+						</div>
+						<div class="splide__arrow splide__arrow--next images-button images-button-next">
+							<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512">
+								<path
+									d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+							</svg>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="footer_wrapper">
 			<div class="footer">
 				<div id="footer-triangle">
-					<svg width="30px" height="30px" viewBox="0 0 24.00 24.00" fill="none"
-						xmlns="http://www.w3.org/2000/svg" transform="matrix(1, 0, 0, 1, 0, 0)">
+					<svg width="30px" height="30px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
+						transform="matrix(1, 0, 0, 1, 0, 0)">
 						<path
 							d="M20.4086 9.35258C22.5305 10.5065 22.5305 13.4935 20.4086 14.6474L7.59662 21.6145C5.53435 22.736 3 21.2763 3 18.9671L3 5.0329C3 2.72368 5.53435 1.26402 7.59661 2.38548L20.4086 9.35258Z"
 							stroke-width="0.4800000000000001"></path>
@@ -358,8 +382,7 @@
 					@if ($user->socialNetworks->count())
 						<span class="footer_contact">
 							<span class="footer-contacts-icon">
-								<svg width="16px" height="16px" viewBox="0 0 32 32"
-									xmlns="http://www.w3.org/2000/svg">
+								<svg width="16px" height="16px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
 									<g id="Icon-Set" transform="translate(-100.000000, -255.000000)">
 										<path
 											d="M116,281 C114.832,281 113.704,280.864 112.62,280.633 L107.912,283.463 L107.975,278.824 C104.366,276.654 102,273.066 102,269 C102,262.373 108.268,257 116,257 C123.732,257 130,262.373 130,269 C130,275.628 123.732,281 116,281 L116,281 Z M116,255 C107.164,255 100,261.269 100,269 C100,273.419 102.345,277.354 106,279.919 L106,287 L113.009,282.747 C113.979,282.907 114.977,283 116,283 C124.836,283 132,276.732 132,269 C132,261.269 124.836,255 116,255 L116,255 Z"
@@ -382,14 +405,22 @@
 						</span>
 					@endif
 				</div>
-	
+
 			</div>
 		</div>
 	</div>
 	<div class="modal-bg">
 
 	</div>
-    @include('site.partials.scripts')
+	<input id="url" type="hidden" value='{{ $url }}'>
+	<input id="subdomain" type="hidden" value='{{ $subdomain }}'>
+	<input id="themeProperties" type="hidden" value='@json($themeProperties)'>
+	@if ($theme && $theme->background)
+		<input id="themeBackground" type="hidden" value='{{ $theme->background }}'>
+	@else
+		<input id="themeBackground" type="hidden" value=''>
+	@endif
+	@include('site.partials.scripts')
 </body>
 
 </html>

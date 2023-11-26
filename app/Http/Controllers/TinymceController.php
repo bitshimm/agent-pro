@@ -14,7 +14,7 @@ class TinymceController extends Controller
             'image' => 'required|image',
         ]);
 
-        $path = UploadService::upload($data['image'], 'uploads/' . Auth::user()->name);
+        $path = UploadService::upload($data['image'], 'uploads/' . Auth::user()->subdomain);
 
         return response()->json(['location' => $path]);
     }

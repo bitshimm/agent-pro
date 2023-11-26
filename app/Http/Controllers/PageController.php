@@ -15,14 +15,15 @@ use Inertia\Response;
 
 class PageController extends Controller
 {
-    private PageService $pageService;
+	private PageService $pageService;
 
 	public function __construct(PageService $service)
 	{
 		$this->pageService = $service;
 	}
 
-	public function index() : Response {
+	public function index(): Response
+	{
 		$pages = Auth::user()->pages()->orderBy('id', 'desc')->paginate(7);
 
 		return Inertia::render('Page/Index', [
@@ -30,43 +31,45 @@ class PageController extends Controller
 		]);
 	}
 
-	public function create() : Response {
+	public function create(): Response
+	{
 		return Inertia::render('Page/Create');
 	}
 
-	public function store(StoreRequest $storeRequest) : RedirectResponse {
+	public function store(StoreRequest $storeRequest): RedirectResponse
+	{
 		$data = $storeRequest->validated();
 
 		$this->pageService->store($data);
 
-		return redirect()->route('pages.index')->with('message', 'Страница создана')->with('status', 'success');
+		return redirect()->route('pages.index')->with('message', __('messages.page_created'))->with('status', 'success');
 	}
 
 	public function show(Page $page): View
-    {
-        return view('page.show', compact('page'));
-    }
+	{
+		return view('page.show', compact('page'));
+	}
 
 	public function edit(Page $page): Response
-    {
-        return Inertia::render('Page/Edit', [
-            'page' => $page,
-        ]);
-    }
+	{
+		return Inertia::render('Page/Edit', [
+			'page' => $page,
+		]);
+	}
 
 	public function update(UpdateRequest $updateRequest, Page $page): RedirectResponse
-    {
-        $data = $updateRequest->validated();
+	{
+		$data = $updateRequest->validated();
 
-        $this->pageService->update($page, $data);
+		$this->pageService->update($page, $data);
 
-        return redirect()->route('pages.edit', ['page' => $page->id])->with('message', 'Страница обновлена')->with('status', 'success');
-    }
+		return redirect()->route('pages.edit', ['page' => $page->id])->with('message', __('messages.page_updated'))->with('status', 'success');
+	}
 
 	public function destroy(Page $page): RedirectResponse
-    {
-        $this->pageService->destroy($page);
+	{
+		$this->pageService->destroy($page);
 
-        return redirect()->route('pages.index')->with('message', 'Страница удалена')->with('status', 'success');
-    }
+		return redirect()->route('pages.index')->with('message', __('messages.page_deleted'))->with('status', 'success');
+	}
 }

@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
             'content' => 'string|required',
             'image' => 'image|nullable',
             'sort' => 'integer',
-            'visibility' => 'boolean'
+            'active' => 'boolean'
         ];
     }
 

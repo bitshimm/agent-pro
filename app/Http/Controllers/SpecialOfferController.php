@@ -41,7 +41,7 @@ class SpecialOfferController extends Controller
 
 		$this->specialOfferService->store($data);
 
-		return redirect()->route('special-offers.index')->with('message', 'Спец.преложение создано')->with('status', 'success');
+		return redirect()->route('special-offers.index')->with('message', __('messages.special_offer_created'))->with('status', 'success');
 	}
 
 	public function edit(SpecialOffer $specialOffer): Response
@@ -57,13 +57,13 @@ class SpecialOfferController extends Controller
 
 		$this->specialOfferService->update($specialOffer, $data);
 
-		return redirect()->route('special-offers.edit', ['specialOffer' => $specialOffer->id])->with('message', 'Спец.преложение обновлено')->with('status', 'success');
+		return redirect()->route('special-offers.edit', ['specialOffer' => $specialOffer->id])->with('message', __('messages.special_offer_updated'))->with('status', 'success');
 	}
 
 	public function destroy(SpecialOffer $specialOffer): RedirectResponse
 	{
 		$this->specialOfferService->destroy($specialOffer);
 
-		return redirect()->route('special-offers.index')->with('message', 'Спец.преложение удалено')->with('status', 'success');
+		return redirect()->route('special-offers.index')->with('message', __('messages.special_offer_deleted'))->with('status', 'success');
 	}
 }

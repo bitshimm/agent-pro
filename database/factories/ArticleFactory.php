@@ -29,7 +29,7 @@ class ArticleFactory extends Factory
             'image' => $url,
             'image_thumb' => $url,
             'sort' => 100,
-            'visibility' => fake()->boolean(),
+            'active' => fake()->boolean(),
         ];
     }
 }

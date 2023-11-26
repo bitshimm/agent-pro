@@ -16,7 +16,7 @@ class Page extends Model
         'title',
         'content',
         'sort',
-        'visibility'
+        'active'
     ];
 
 	/**

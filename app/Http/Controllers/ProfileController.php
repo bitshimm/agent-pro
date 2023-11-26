@@ -96,7 +96,7 @@ class ProfileController extends Controller
 
 		$user->update($data);
 
-		return Redirect::route('profile.edit')->with('message', 'Тема обновлена')->with('status', 'success');
+		return Redirect::route('profile.edit')->with('message', __('messages.theme_updated'))->with('status', 'success');
 	}
 
 	public function logotypeUpdate(Request $request): RedirectResponse
@@ -109,7 +109,7 @@ class ProfileController extends Controller
 
 		$this->userService->logotypeUpdate($user, $data);
 
-		return Redirect::route('profile.edit')->with('message', 'Логотип обновлен')->with('status', 'success');
+		return Redirect::route('profile.edit')->with('message', __('messages.logotype_updated'))->with('status', 'success');
 	}
 
 	public function socialNetworksUpdate(Request $request): RedirectResponse
@@ -118,7 +118,7 @@ class ProfileController extends Controller
 
 		$this->userService->socialNetworksUpdate($user, $request->user_social_networks);
 
-		return Redirect::route('profile.edit')->with('message', 'Социальные сети обновлены')->with('status', 'success');
+		return Redirect::route('profile.edit')->with('message', __('messages.social_networks_updated'))->with('status', 'success');
 	}
 
 	public function widgetUpdate(Request $request): RedirectResponse
@@ -131,7 +131,7 @@ class ProfileController extends Controller
 
 		$this->userService->widgetUpdate($user, $data);
 
-		return Redirect::route('profile.edit')->with('message', 'Виджет обновлен')->with('status', 'success');
+		return Redirect::route('profile.edit')->with('message', __('messages.widget_updated'))->with('status', 'success');
 	}
 
 	public function contactsUpdate(Request $request): RedirectResponse
@@ -148,7 +148,7 @@ class ProfileController extends Controller
 
 		$this->userService->contactsUpdate($user, $data);
 
-		return Redirect::route('profile.edit')->with('message', 'Контакты обновлены')->with('status', 'success');
+		return Redirect::route('profile.edit')->with('message', __('messages.contacts_updated'))->with('status', 'success');
 	}
 
 	public function aboutUpdate(Request $request): RedirectResponse
@@ -163,7 +163,7 @@ class ProfileController extends Controller
 
 		$this->userService->aboutUpdate($user, $data);
 
-		return Redirect::route('profile.edit')->with('message', '"О нас" обновлено')->with('status', 'success');
+		return Redirect::route('profile.edit')->with('message', __('messages.about_updated'))->with('status', 'success');
 	}
 
 	public function metaUpdate(Request $request): RedirectResponse
@@ -177,6 +177,6 @@ class ProfileController extends Controller
 
 		$this->userService->metaUpdate($user, $data);
 
-		return Redirect::route('profile.edit')->with('message', 'Meta информация обновлена')->with('status', 'success');
+		return Redirect::route('profile.edit')->with('message', __('messages.meta_updated'))->with('status', 'success');
 	}
 }

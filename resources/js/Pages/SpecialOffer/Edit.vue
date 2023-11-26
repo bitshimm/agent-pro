@@ -18,7 +18,7 @@ const form = useForm({
 	title: props.special_offer.title,
 	content: props.special_offer.content,
 	sort: props.special_offer.sort,
-	visibility: Boolean(props.special_offer.visibility),
+	active: Boolean(props.special_offer.active),
 	current_image: props.special_offer.image,
 	image: null,
 	_method: 'patch',
@@ -56,8 +56,8 @@ const submit = () => {
 						<NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
 					</FormEl>
 					<FormEl>
-						<Checkbox label="Активно" id="visibility" :error="form.errors.visibility"
-							v-model:checked="form.visibility" />
+						<Checkbox label="Активно" id="active" :error="form.errors.active"
+							v-model:checked="form.active" />
 					</FormEl>
 				</div>
 				<div class="form-bottom">
@@ -66,7 +66,7 @@ const submit = () => {
 					<i class="fa-solid fa-trash btn-icon"></i>
 					<span class="btn-label">Удалить</span>
 					</Link>
-					<button type="submit" class="btn_indigo ml-auto">
+					<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
 						<i class="fa-solid fa-check btn-icon"></i>
 						<span class="btn-label">Сохранить</span>
 					</button>

@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
             'caption' => 'string|nullable',
             'alt' => 'string|nullable',
             'sort' => 'integer',
-            'visibility' => 'boolean'
+            'active' => 'boolean'
         ];
     }
 }

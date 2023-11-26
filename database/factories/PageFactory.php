@@ -26,7 +26,7 @@ class PageFactory extends Factory
             'title' => $title,
             'content' => $content,
             'sort' => 100,
-            'visibility' => fake()->boolean(),
+            'active' => fake()->boolean(),
         ];
     }
 }

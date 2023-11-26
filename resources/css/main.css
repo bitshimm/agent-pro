@@ -392,4 +392,12 @@ section.section {
 	}
 }
 
-/* .tox-notification {display: none !important;}  */
+/* *:disabled {
+	background-color: dimgrey;
+	color: linen;
+	opacity: 1;
+} */
+*:disabled:hover {
+	background-color: lightgray;
+	cursor: not-allowed;
+}

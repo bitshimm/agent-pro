@@ -36,7 +36,7 @@ const submit = () => {
 				</FormEl>
 			</div>
 			<div class="form-bottom">
-				<button type="submit" class="btn_indigo ml-auto">
+				<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
 					<i class="fa-solid fa-pen btn-icon"></i>
 					<span class="btn-label">Обновить</span>
 				</button>

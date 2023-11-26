@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\CallbackShipped;
+use App\Mail\CallbackRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
@@ -28,15 +28,19 @@ class SiteController extends Controller
 		$user = Auth::user();
 
 		if (!$user->subdomain) {
-			back()->with('message', 'Не установлен поддомен')->with('status', 'error');
+			back()->with('message', __('messages.subdomain_isNull'))->with('status', 'error');
 		}
 
 		$html = $this->siteService->getPublishHtml($user);
 
-		Storage::disk('agent-sites')->put($user->subdomain . '.' . $this->domain . '/index.html', $html);
+		$pathToHtml = $user->subdomain . '.' . $this->domain . '/index.html';
+
+		$currentHtml = Storage::disk('agent-sites')->get($pathToHtml);
+
+		Storage::disk('agent-sites')->put($pathToHtml, $html);
 
 		return $html;
-		return back()->with('message', 'Сайт опубликован')->with('status', 'success');
+		return back()->with('message', __('messages.site_published'))->with('status', 'success');
 	}
 
 	public function callbackForm(Request $request)
@@ -49,7 +53,7 @@ class SiteController extends Controller
 
 		$agent = User::where('subdomain', $data['subdomain'])->firstOrFail();
 
-		Mail::to($agent->email)->send(new CallbackShipped($data['name'], $data['phone']));
+		Mail::to($agent->email)->send(new CallbackRequest($data['name'], $data['phone'], $agent->email, sprintf("%s.%s", $agent->subdomain, $this->domain)));
 
 		return response()->json([
 			'status' => 'success',

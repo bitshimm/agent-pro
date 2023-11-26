@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
 			'content' => 'string|required',
 			'image' => 'image|required',
 			'sort' => 'integer',
-			'visibility' => 'boolean'
+			'active' => 'boolean'
 		];
 	}
 
