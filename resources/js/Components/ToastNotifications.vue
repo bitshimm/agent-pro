@@ -5,6 +5,7 @@ import { useToast } from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
 const flash = computed(() => usePage().props.flash);
+const errors = computed(() => usePage().props.errors);
 const toast = useToast();
 
 onMounted(() => {
@@ -15,14 +16,20 @@ onMounted(() => {
 
 watch(flash, (newFlash) => {
     if (newFlash.message) {
-        openNotification(newFlash.message, newFlash.type);
+        openNotification(newFlash.message, newFlash.status);
+    }
+});
+
+watch(errors, (newErrors) => {
+    if (Object.keys(newErrors).length !== 0) {
+        openNotification('Произошла ошибка при отправке формы', 'error');
     }
 });
 
 function openNotification(message, status) {
     toast.open({
         message: message,
-        type:  status,
+        type: status,
         duration: 4000,
     });
 }
