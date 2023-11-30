@@ -2,8 +2,9 @@
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
-import ResourseTextInput from '@/Components/ResourseTextInput.vue';
-import FormEl from '@/Components/FormEl.vue';
+import Panel from '@/Components/Form/Panel.vue';
+import Text from '@/Components/Form/Text.vue';
+import Submit from '@/Components/Form/Submit.vue';
 
 const form = useForm({
 	name: '',
@@ -25,30 +26,17 @@ const submit = () => {
 				Создание
 			</h1>
 		</template>
-		<section class="section">
-			<form @submit.prevent="submit" class="form">
-				<div class="form-items">
-					<FormEl>
-						<ResourseTextInput label="Название" id="name" :error="form.errors.name" v-model="form.name"
-							autofocus required />
-					</FormEl>
-					<FormEl>
-						<ResourseTextInput label="Иконка" id="icon" :error="form.errors.icon" v-model="form.icon"
-							required />
-					</FormEl>
-				</div>
+		<form @submit.prevent="submit">
+			<Panel>
+				<Text label="Название" id="name" v-model="form.name" :error="form.errors.name" />
+				<Text label="Иконка" id="icon" v-model="form.icon" :error="form.errors.icon" />
 				<div class="py-3">
 					<div>
 						Иконка: <span v-html="form.icon"></span>
 					</div>
 				</div>
-				<div class="form-bottom">
-					<button type="submit" class="btn_indigo ml-auto">
-						<i class="fa-solid fa-plus btn-icon"></i>
-						<span class="btn-label">Добавить</span>
-					</button>
-				</div>
-			</form>
-		</section>
+				<Submit label="Добавить" :disabled="!form.isDirty" />
+			</Panel>
+		</form>
 	</DashboardLayout>
 </template>

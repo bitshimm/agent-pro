@@ -25,11 +25,11 @@ const model = computed({
 
 <template>
     <div class="flex flex-wrap py-4">
-        <div class="w-full md:w-1/5 px-1">
-            <label v-if="label" :for="id" class="pt-2">{{ label }}:</label>
+        <div class="w-full lg:w-1/5 pr-4">
+            <label v-if="label" :for="id" class="pt-2 cursor-pointer">{{ label }}:</label>
         </div>
-        <div class="w-full md:w-4/5 px-1">
-            <input class="border rounded-md border-slate-200 w-6 h-6" :class="{ 'border-red-600': error }" type="checkbox"
+        <div class="w-full lg:w-4/5 lg:max-w-md">
+            <input class="border rounded-md w-6 h-6" :class="[error ? 'border-red-600' : 'border-slate-200']" type="checkbox"
                 :value="value" :id="id" v-model="model" />
             <div v-if="error" class="text-red-600">{{ error }}</div>
         </div>

@@ -8,9 +8,8 @@ import Number from '@/Components/Form/Number.vue';
 import Text from '@/Components/Form/Text.vue';
 import Wysiwig from '@/Components/Form/Wysiwig.vue';
 import BooleanField from '@/Components/Form/Boolean.vue';
+import Image from '@/Components/Form/Image.vue';
 import Submit from '@/Components/Form/Submit.vue';
-import FormEl from '@/Components/FormEl.vue';
-import FileInput from '@/Components/FileInput.vue';
 
 const props = defineProps({
 	article: Object,
@@ -41,18 +40,15 @@ const submit = () => {
 				{{ form.title }}
 			</h1>
 		</template>
-		<Panel>
-			<form @submit.prevent="submit">
+		<form @submit.prevent="submit">
+			<Panel>
 				<Text label="Заголовок" id="title" v-model="form.title" :error="form.errors.title" />
-				<FormEl>
-					<FileInput :label="form.current_image ? 'Заменить изображение' : 'Изображение'" id="image"
-						:error="form.errors.image" v-model="form.image" :currentImage="form.current_image" />
-				</FormEl>
+				<Image label="Изображение" id="image" v-model="form.image" :currentImage="form.current_image" :error="form.errors.image" />
 				<Wysiwig label="Контент" id="content" v-model="form.content" :error="form.errors.content" />
-				<Number label="Сортировка" id="sort" v-model="form.sort" :error="form.errors.sort" />
+				<Number label="Сортировка" id="sort" v-model="form.sort" :error="form.errors.sort" min="0" />
 				<BooleanField label="Активно" id="active" v-model="form.active" :error="form.errors.active" />
 				<Submit label="Сохранить" :disabled="!form.isDirty" />
-			</form>
-		</Panel>
+			</Panel>
+		</form>
 	</DashboardLayout>
 </template>

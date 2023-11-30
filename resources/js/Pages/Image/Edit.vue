@@ -3,11 +3,12 @@ import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3';
 
-import ResourseTextInput from '@/Components/ResourseTextInput.vue';
-import FileInput from '@/Components/FileInput.vue';
-import NumberInput from '@/Components/NumberInput.vue';
-import Checkbox from "@/Components/Checkbox.vue";
-import FormEl from '@/Components/FormEl.vue';
+import Panel from '@/Components/Form/Panel.vue';
+import Number from '@/Components/Form/Number.vue';
+import Text from '@/Components/Form/Text.vue';
+import BooleanField from '@/Components/Form/Boolean.vue';
+import Image from '@/Components/Form/Image.vue';
+import Submit from '@/Components/Form/Submit.vue';
 
 const props = defineProps({
 	image: Object,
@@ -39,39 +40,15 @@ const submit = () => {
 				{{ form.caption }}
 			</h1>
 		</template>
-		<section class="section">
-			<form @submit.prevent="submit" class="form">
-				<div class="form-items">
-					<FormEl>
-						<FileInput label="Заменить изображение" id="image" :error="form.errors.image" v-model="form.image"
-							:currentImage="form.path_full" />
-					</FormEl>
-					<FormEl>
-						<ResourseTextInput label="Alt" id="alt" :error="form.errors.alt" v-model="form.alt" />
-					</FormEl>
-					<FormEl>
-						<ResourseTextInput label="Подпись" id="caption" :error="form.errors.caption"
-							v-model="form.caption" />
-					</FormEl>
-					<FormEl>
-						<NumberInput label="Сортировка" id="sort" :error="form.errors.sort" v-model="form.sort" min="0" />
-					</FormEl>
-					<FormEl>
-						<Checkbox label="Активно" id="active" :error="form.errors.active"
-							v-model:checked="form.active" />
-					</FormEl>
-				</div>
-				<div class="form-bottom">
-					<Link class="btn_danger" :href="route('images.destroy', props.image.id)" method="delete" as="button">
-					<i class="fa-solid fa-trash btn-icon"></i>
-					<span class="btn-label">Удалить</span>
-					</Link>
-					<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
-						<i class="fa-solid fa-check btn-icon"></i>
-						<span class="btn-label">Сохранить</span>
-					</button>
-				</div>
-			</form>
-		</section>
+		<form @submit.prevent="submit">
+			<Panel>
+				<Image label="Изображение" id="image" v-model="form.image" :error="form.errors.image" :currentImage="form.path_full" />
+				<Text label="Alt" id="alt" v-model="form.alt" :error="form.errors.alt" />
+				<Text label="Подпись" id="caption" v-model="form.caption" :error="form.errors.caption" />
+				<Number label="Сортировка" id="sort" v-model="form.sort" :error="form.errors.sort" min="0" />
+				<BooleanField label="Активно" id="active" v-model="form.active" :error="form.errors.active" />
+				<Submit label="Сохранить" :disabled="!form.isDirty" />
+			</Panel>
+		</form>
 	</DashboardLayout>
 </template>

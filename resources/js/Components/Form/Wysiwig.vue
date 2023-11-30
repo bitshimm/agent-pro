@@ -98,11 +98,11 @@ defineEmits(['update:modelValue']);
 
 <template>
     <div class="flex flex-wrap py-4">
-        <div class="w-full md:w-1/5 px-1">
+        <div class="w-full lg:w-1/5 pr-4">
             <label v-if="label" :for="id" class="pt-2">{{ label }}:</label>
         </div>
-        <div class="w-full md:w-4/5 px-1">
-            <Editor class="w-full md:w-4/5 px-1" :class="{ 'border-red-600': error }" :init="config" :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)"
+        <div class="w-full lg:w-4/5 lg:max-w-screen-md">
+            <Editor :init="config" :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)"
 					tinymce-script-src="/js/tinymce/tinymce.min.js" />
             <div v-if="error" class="text-red-600">{{ error }}</div>
         </div>
