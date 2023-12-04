@@ -1,8 +1,9 @@
 <script setup>
-import FormEl from '@/Components/FormEl.vue';
-import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import Panel from '@/Components/Panel.vue';
+import Text from '@/Components/Text.vue';
+import Submit from '@/Components/Submit.vue';
 
 const user = usePage().props.user;
 const passwordInput = ref(null);
@@ -31,35 +32,13 @@ const updatePassword = () => {
 	});
 };
 </script>
-
 <template>
-	<section class="section">
-		<form class="form" @submit.prevent="updatePassword">
-			<div class="form-header">
-				Обновление пароля
-			</div>
-			<div class="form-items">
-				<FormEl defaultCol="2">
-					<ResourseTextInput type="password" label="Текущий пароль" id="current_password"
-						:error="form.errors.current_password" v-model="form.current_password"
-						autocomplete="current-password" />
-				</FormEl>
-				<FormEl defaultCol="2">
-					<ResourseTextInput type="password" label="Новый пароль" id="password" :error="form.errors.password"
-						v-model="form.password" required autocomplete="new-password" />
-				</FormEl>
-				<FormEl defaultCol="2">
-					<ResourseTextInput type="password" label="Новый пароль" id="password_confirmation"
-						:error="form.errors.password_confirmation" v-model="form.password_confirmation" required
-						autocomplete="new-password" />
-				</FormEl>
-			</div>
-			<div class="form-bottom">
-				<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
-					<i class="fa-solid fa-pen btn-icon"></i>
-					<span class="btn-label">Обновить</span>
-				</button>
-			</div>
-		</form>
-	</section>
+	<form @submit.prevent="updatePassword">
+		<Panel label="Обновление пароля">
+			<Text type="password" id="user_current_password" label="Текущий пароль" v-model="form.current_password" :error="form.errors.current_password" />
+			<Text type="password" id="user_password" label="Новый пароль" v-model="form.password" :error="form.errors.password" />
+			<Text type="password" id="user_password_confirmation" label="Новый пароль" v-model="form.password_confirmation" :error="form.errors.password_confirmation" />
+			<Submit label="Обновить" :disabled="!form.isDirty" />
+		</Panel>
+	</form>
 </template>

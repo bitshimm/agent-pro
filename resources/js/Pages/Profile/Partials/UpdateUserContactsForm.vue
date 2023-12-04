@@ -1,8 +1,9 @@
 <script setup>
-import ResourseTextInput from '@/Components/ResourseTextInput.vue';
-import PhoneInput from "@/Components/PhoneInput.vue";
 import { useForm, usePage } from '@inertiajs/vue3';
-import FormEl from '@/Components/FormEl.vue';
+import Panel from '@/Components/Panel.vue';
+import Text from '@/Components/Text.vue';
+import Phone from '@/Components/Phone.vue';
+import Submit from '@/Components/Submit.vue';
 
 const user = usePage().props.user;
 
@@ -21,39 +22,14 @@ const submit = () => {
 };
 </script>
 <template>
-	<section class="section">
-		<form class="form" @submit.prevent="submit">
-			<div class="form-header">
-				Контакты
-			</div>
-			<div class="form-items">
-				<FormEl>
-					<PhoneInput id="contact_phone" label="Контактый телефон" :error="form.errors.contact_phone"
-						v-model="form.contact_phone" />
-				</FormEl>
-				<FormEl>
-					<PhoneInput id="contact_phone_second" label="Контактый телефон (дополнительный)"
-						:error="form.errors.contact_phone_second" v-model="form.contact_phone_second" />
-				</FormEl>
-				<FormEl>
-					<ResourseTextInput id="contact_email" label="Контактый email" :error="form.errors.contact_email"
-						v-model="form.contact_email" type="email" />
-				</FormEl>
-				<FormEl>
-					<ResourseTextInput id="contact_address" label="Контактный адрес" :error="form.errors.contact_address"
-						v-model="form.contact_address" />
-				</FormEl>
-				<FormEl>
-					<ResourseTextInput id="contact_opening_hours" label="Часы работы"
-						:error="form.errors.contact_opening_hours" v-model="form.contact_opening_hours" />
-				</FormEl>
-			</div>
-			<div class="form-bottom">
-				<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
-					<i class="fa-solid fa-pen btn-icon"></i>
-					<span class="btn-label">Обновить</span>
-				</button>
-			</div>
-		</form>
-	</section>
+	<form @submit.prevent="submit">
+		<Panel label="Контакты">
+			<Phone id="profile_contact_phone" label="Контактый телефон" v-model="form.contact_phone" :error="form.errors.contact_phone"/>
+			<Phone id="profile_contact_phone_second" label="Контактый телефон (дополнительный)" v-model="form.contact_phone_second" :error="form.errors.contact_phone_second"/>
+			<Text id="profile_contact_email" label="Контактый email" v-model="form.contact_email" :error="form.errors.contact_email" type="email" />
+			<Text id="profile_contact_address" label="Контактный адрес" v-model="form.contact_address" :error="form.errors.contact_address"/>
+			<Text id="profile_contact_opening_hours" label="Часы работы" v-model="form.contact_opening_hours" :error="form.errors.contact_opening_hours"/>
+			<Submit label="Обновить" :disabled="!form.isDirty" />
+		</Panel>
+	</form>
 </template>

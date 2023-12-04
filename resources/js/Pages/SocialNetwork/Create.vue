@@ -2,9 +2,9 @@
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
-import Panel from '@/Components/Form/Panel.vue';
-import Text from '@/Components/Form/Text.vue';
-import Submit from '@/Components/Form/Submit.vue';
+import Panel from '@/Components/Panel.vue';
+import Text from '@/Components/Text.vue';
+import Submit from '@/Components/Submit.vue';
 
 const form = useForm({
 	name: '',

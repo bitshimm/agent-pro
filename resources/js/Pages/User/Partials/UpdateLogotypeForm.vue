@@ -1,7 +1,8 @@
 <script setup>
-import FileInput from '@/Components/FileInput.vue';
-import FormEl from '@/Components/FormEl.vue';
 import { useForm, usePage, Link } from '@inertiajs/vue3';
+import Panel from '@/Components/Panel.vue';
+import Image from '@/Components/Image.vue';
+import Submit from '@/Components/Submit.vue';
 
 const user = usePage().props.user;
 
@@ -19,23 +20,11 @@ const submit = () => {
 
 </script>
 <template>
-	<section class="section">
-		<form class="form" @submit.prevent="submit">
-			<div class="form-header">
-				Логотип
-			</div>
-			<div class="form-items">
-				<FormEl default-col="2">
-					<FileInput :label="form.current_logotype ? 'Заменить' : 'Добавить'" id="logotype"
-						:error="form.errors.logotype" v-model="form.logotype" :current-image="form.current_logotype" />
-				</FormEl>
-			</div>
-			<div class="form-bottom">
-				<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
-					<i class="fa-solid fa-pen btn-icon"></i>
-					<span class="btn-label">Обновить</span>
-				</button>
-			</div>
-		</form>
-	</section>
+	<form @submit.prevent="submit">
+		<Panel label="Логотип">
+			<Image id="user_logotype" label="Логотип" v-model="form.logotype" :currentImage="form.current_logotype"
+				:error="form.errors.logotype" />
+			<Submit label="Обновить" :disabled="!form.isDirty" />
+		</Panel>
+	</form>
 </template>

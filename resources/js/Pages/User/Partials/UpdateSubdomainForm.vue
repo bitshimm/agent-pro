@@ -1,7 +1,8 @@
 <script setup>
-import FormEl from '@/Components/FormEl.vue';
-import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
+import Panel from '@/Components/Panel.vue';
+import Text from '@/Components/Text.vue';
+import Submit from '@/Components/Submit.vue';
 
 const user = usePage().props.user;
 
@@ -14,26 +15,13 @@ const submit = () => {
 
 	});
 };
-
 </script>
 <template>
-	<section class="section">
-		<form class="form" @submit.prevent="submit">
-			<div class="form-header">
-				Поддомен
-			</div>
-			<div class="form-items">
-				<FormEl default-col="2">
-					<ResourseTextInput id="subdomain" label="Введите поддомен" :error="form.errors.subdomain"
-						v-model="form.subdomain" />
-				</FormEl>
-			</div>
-			<div class="form-bottom">
-				<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
-					<i class="fa-solid fa-pen btn-icon"></i>
-					<span class="btn-label">Обновить</span>
-				</button>
-			</div>
-		</form>
-	</section>
+	<form @submit.prevent="submit">
+		<Panel label="Поддомен">
+			<Text id="user_subdomain" label="Введите поддомен"
+				v-model="form.subdomain" :error="form.errors.subdomain" />
+			<Submit label="Обновить" :disabled="!form.isDirty" />
+		</Panel>
+	</form>
 </template>

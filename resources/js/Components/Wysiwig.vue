@@ -1,6 +1,5 @@
 <script setup>
 import Editor from '@tinymce/tinymce-vue';
-import { ref } from 'vue';
 
 const example_image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
 	const xhr = new XMLHttpRequest();
@@ -65,7 +64,7 @@ const config = {
 		});
 	},
 	language: 'ru',
-	content_style: "p[id^='callbackform-'] { border: 1px solid #000; }",
+	content_style: "p[id^='callbackform-'] { border: 1px solid #000; background-color: rgb(226, 232, 240); }",
 	automatic_uploads: true,
 	relative_urls: false,
 	images_upload_handler: example_image_upload_handler,
@@ -85,10 +84,6 @@ const config = {
 	}
 }
 
-const showModal = ref(false);
-const modalWrapper = ref(null);
-const modal = ref(null);
-
 defineProps({
 	modelValue: {
 		type: String,
@@ -98,105 +93,18 @@ defineProps({
 	error: String,
 });
 
-function openModal() {
-	modalWrapper.value.style.display = 'block';
-	setTimeout(() => {
-		showModal.value = true;
-	}, 1);
-	document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-	showModal.value = false;
-	document.body.style.overflow = 'auto';
-	setTimeout(function () {
-		modalWrapper.value.style.display = 'none';
-	}, 200);
-}
-function clickOutsideModal(e) {
-	if (!modal.value.contains(e.target)) {
-		closeModal();
-	}
-}
 defineEmits(['update:modelValue']);
-
 </script>
 
 <template>
-	<span class="form-label">{{ label }}:</span>
-	<div class="modal-btn" :class="{ error: error }" @click="openModal">Открыть окно</div>
-	<div v-if="error" class="form-error">{{ error }}</div>
-	<div class="modal-wrapper" ref="modalWrapper" :class="{ modalOpen: showModal }" @click="clickOutsideModal">
-		<div class="modal" ref="modal">
-			<div class="modal-header">
-				{{ label }}
-				<span class="modal-close" @click="closeModal">
-					<i class="fa-solid fa-xmark"></i>
-				</span>
-			</div>
-			<div class="modal-body">
-				<Editor :init="config" :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)"
+    <div class="flex flex-wrap py-4">
+        <div class="w-full lg:w-1/5 pr-4">
+            <label v-if="label" :for="id" class="pt-2">{{ label }}:</label>
+        </div>
+        <div class="w-full lg:w-4/5 lg:max-w-screen-md">
+            <Editor :init="config" :model-value="modelValue" @update:modelValue="$emit('update:modelValue', $event)"
 					tinymce-script-src="/js/tinymce/tinymce.min.js" />
-			</div>
-		</div>
-	</div>
+            <div v-if="error" class="text-red-600">{{ error }}</div>
+        </div>
+    </div>
 </template>
-<style scoped>
-.modal-btn {
-	background-color: rgb(226, 232, 240);
-	padding: 0.5rem 0.75rem;
-	border: 1px solid rgb(226, 232, 240);
-	border-radius: 6px;
-	cursor: pointer;
-	text-align: center;
-}
-
-.modal-btn.error {
-	border-color: rgb(185, 28, 28);
-}
-
-.modal-wrapper {
-	position: fixed;
-	background-color: rgba(0, 0, 0, 0.2);
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	padding: 50px;
-	z-index: 100;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-	display: none;
-	padding: 0 0.5rem;
-}
-
-.modal-wrapper.modalOpen {
-	opacity: 1;
-}
-
-.modal {
-	background-color: #fff;
-	border-radius: 10px;
-	transform: translateY(-50px);
-	transition: transform .2s ease;
-	max-width: 850px;
-	margin: 1.75rem auto;
-}
-
-.modal-wrapper.modalOpen .modal {
-	transform: translateY(0);
-}
-
-.modal-header {
-	padding: 1rem;
-	position: relative;
-	font-size: 20px;
-}
-
-.modal-close {
-	cursor: pointer;
-	position: absolute;
-	top: 50%;
-	right: 20px;
-	transform: translateY(-50%);
-}
-</style>

@@ -1,8 +1,9 @@
 <script setup>
-import FormEl from '@/Components/FormEl.vue';
-import ResourseTextInput from '@/Components/ResourseTextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import { onBeforeMount } from 'vue';
+import Panel from '@/Components/Panel.vue';
+import Text from '@/Components/Text.vue';
+import Submit from '@/Components/Submit.vue';
 
 const props = usePage().props;
 const user = props.user;
@@ -19,28 +20,17 @@ onBeforeMount(() => {
 })
 const submit = () => {
 	form.patch(route('users.social-networks.update', user.id), {
-
 	});
 };
 </script>
 <template>
-	<section class="section">
-		<form class="form" @submit.prevent="submit">
-			<div class="form-header">
-				Социальные сети
-			</div>
-			<div class="form-items">
-				<FormEl v-for="social_network in social_networks">
-					<ResourseTextInput :label="social_network.name" :id="'social_network_' + social_network.id"
-						v-model="form.user_social_networks[social_network.id]" />
-				</FormEl>
-			</div>
-			<div class="form-bottom">
-				<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
-					<i class="fa-solid fa-pen btn-icon"></i>
-					<span class="btn-label">Обновить</span>
-				</button>
-			</div>
-		</form>
-	</section>
+	<form @submit.prevent="submit">
+		<Panel label="Социальные сети">
+			<template v-for="social_network in social_networks">
+				<Text :id="'user_social_network_' + social_network.id" :label="social_network.name"
+					v-model="form.user_social_networks[social_network.id]" />
+			</template>
+			<Submit label="Обновить" :disabled="!form.isDirty" />
+		</Panel>
+	</form>
 </template>

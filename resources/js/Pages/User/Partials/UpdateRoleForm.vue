@@ -1,7 +1,8 @@
 <script setup>
-import FormEl from '@/Components/FormEl.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import Panel from '@/Components/Panel.vue';
+import Select from '@/Components/Select.vue';
+import Submit from '@/Components/Submit.vue';
 
 const user = usePage().props.user;
 const roles = usePage().props.roles;
@@ -15,31 +16,13 @@ const submit = () => {
 
 	});
 };
-
 </script>
 
 <template>
-	<section class="section">
-		<form class="form" @submit.prevent="submit">
-			<div class="form-header">
-				Роль
-			</div>
-			<div class="form-items">
-				<FormEl default-col="2">
-					<label for="roles" class="form-label">Выберите роль:</label>
-					<select v-model="form.role_id">
-						<option v-for="role, idx in roles" :value="role.id">{{
-							role.name }}</option>
-					</select>
-					<div v-if="form.errors.roles" class="form-error">{{ form.errors.role_id }}</div>
-				</FormEl>
-			</div>
-			<div class="form-bottom">
-				<button type="submit" class="btn_indigo ml-auto" :disabled="!form.isDirty">
-					<i class="fa-solid fa-pen btn-icon"></i>
-					<span class="btn-label">Обновить</span>
-				</button>
-			</div>
-		</form>
-	</section>
+	<form @submit.prevent="submit">
+		<Panel label="Роль">
+			<Select label="Выбрать роль" id="user_role" v-model="form.role_id" :options="roles" :error="form.errors.role_id"  />
+			<Submit label="Обновить" :disabled="!form.isDirty" />
+		</Panel>
+	</form>
 </template>

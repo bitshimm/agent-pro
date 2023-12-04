@@ -2,12 +2,12 @@
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
-import Panel from '@/Components/Form/Panel.vue';
-import Number from '@/Components/Form/Number.vue';
-import Text from '@/Components/Form/Text.vue';
-import BooleanField from '@/Components/Form/Boolean.vue';
-import Image from '@/Components/Form/Image.vue';
-import Submit from '@/Components/Form/Submit.vue';
+import Panel from '@/Components/Panel.vue';
+import Number from '@/Components/Number.vue';
+import Text from '@/Components/Text.vue';
+import BooleanField from '@/Components/Boolean.vue';
+import Image from '@/Components/Image.vue';
+import Submit from '@/Components/Submit.vue';
 
 const form = useForm({
 	image: null,

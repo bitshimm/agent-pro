@@ -173,5 +173,4 @@ onUnmounted(() => {
 			</div>
 		</div>
 	</div>
-	<!-- <SingleFlashMessage v-if="flashMessage" :message="flashMessage" /> -->
 </template>
