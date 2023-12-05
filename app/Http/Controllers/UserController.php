@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\AboutUpdateRequest;
+use App\Http\Requests\User\ContactsUpdateRequest;
+use App\Http\Requests\User\InformationUpdateRequest;
+use App\Http\Requests\User\LogotypeUpdateRequest;
+use App\Http\Requests\User\MetaUpdateRequest;
+use App\Http\Requests\User\PasswordUpdateRequest;
+use App\Http\Requests\User\RoleUpdateRequest;
+use App\Http\Requests\User\WidgetUpdateRequest;
 use App\Http\Requests\User\SubdomainUpdateRequest;
 use App\Models\Role;
 use App\Models\SocialNetwork;
@@ -13,7 +21,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -80,13 +87,11 @@ class UserController extends Controller
 		]);
 	}
 
-	public function roleUpdate(Request $request, User $user): RedirectResponse
+	public function roleUpdate(RoleUpdateRequest $request, User $user): RedirectResponse
 	{
-		$validated = $request->validate([
-			'role_id' => ['integer', 'exists:roles,id'],
-		]);
+		$data = $request->validated();
 
-		$user->update($validated);
+		$user->update($data);
 
 		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_role_updated'))->with('status', 'success');
 	}
@@ -94,9 +99,9 @@ class UserController extends Controller
 	/**
 	 * Update the user's subdomain.
 	 */
-	public function subdomainUpdate(SubdomainUpdateRequest $subdomainUpdateRequest, User $user): RedirectResponse
+	public function subdomainUpdate(SubdomainUpdateRequest $request, User $user): RedirectResponse
 	{
-		$data = $subdomainUpdateRequest->validated();
+		$data = $request->validated();
 
 		$this->userService->subdomainUpdate($user, $data);
 
@@ -106,13 +111,11 @@ class UserController extends Controller
 	/**
 	 * Update the user's information.
 	 */
-	public function informationUpdate(Request $request, User $user): RedirectResponse
+	public function informationUpdate(InformationUpdateRequest $request, User $user): RedirectResponse
 	{
-		$user->fill($request->validate([
-			'name' => ['string', 'max:255'],
-			'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-		]));
+		$data = $request->validated();
 
+		$user->fill($data);
 
 		if ($user->isDirty('email')) {
 			$user->email_verified_at = null;
@@ -126,12 +129,9 @@ class UserController extends Controller
 	/**
 	 * Update the user's password.
 	 */
-	public function passwordUpdate(Request $request, User $user): RedirectResponse
+	public function passwordUpdate(PasswordUpdateRequest $request, User $user): RedirectResponse
 	{
-		$validated = $request->validate([
-			'current_password' => ['required', 'current_password'],
-			'password' => ['required', 'min:5', 'confirmed'],
-		]);
+		$validated = $request->validated();
 
 		$request->user()->update([
 			'password' => Hash::make($validated['password']),
@@ -143,11 +143,9 @@ class UserController extends Controller
 	/**
 	 * Update the user's logotype.
 	 */
-	public function logotypeUpdate(Request $request, User $user): RedirectResponse
+	public function logotypeUpdate(LogotypeUpdateRequest $request, User $user): RedirectResponse
 	{
-		$data = $request->validate([
-			'logotype' => 'image|nullable',
-		]);
+		$data = $request->validated();
 
 		$this->userService->logotypeUpdate($user, $data);
 
@@ -157,15 +155,9 @@ class UserController extends Controller
 	/**
 	 * Update the user's contacts.
 	 */
-	function contactsUpdate(Request $request, User $user): RedirectResponse
+	function contactsUpdate(ContactsUpdateRequest $request, User $user): RedirectResponse
 	{
-		$data = $request->validate([
-			'contact_phone' => ['string', 'max:255', 'nullable'],
-			'contact_phone_second' => ['string', 'max:255', 'nullable'],
-			'contact_email' => ['email', 'max:255', 'nullable'],
-			'contact_address' => ['string', 'max:255', 'nullable'],
-			'contact_opening_hours' => ['string', 'max:255', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$this->userService->contactsUpdate($user, $data);
 
@@ -185,11 +177,9 @@ class UserController extends Controller
 	/**
 	 * Update the user's widget.
 	 */
-	public function widgetUpdate(Request $request, User $user): RedirectResponse
+	public function widgetUpdate(WidgetUpdateRequest $request, User $user): RedirectResponse
 	{
-		$data = $request->validate([
-			'widget' => ['string', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$this->userService->widgetUpdate($user, $data);
 
@@ -199,13 +189,9 @@ class UserController extends Controller
 	/**
 	 * Update the user's about information.
 	 */
-	public function aboutUpdate(Request $request, User $user): RedirectResponse
+	public function aboutUpdate(AboutUpdateRequest $request, User $user): RedirectResponse
 	{
-		$data = $request->validate([
-			'about_title' => ['string', 'max:255', 'nullable'],
-			'about_short_description' => ['string', 'nullable'],
-			'about_full_description' => ['string', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$this->userService->aboutUpdate($user, $data);
 
@@ -215,12 +201,9 @@ class UserController extends Controller
 	/**
 	 * Update the user's meta information.
 	 */
-	public function metaUpdate(Request $request, User $user): RedirectResponse
+	public function metaUpdate(MetaUpdateRequest $request, User $user): RedirectResponse
 	{
-		$data = $request->validate([
-			'meta_title' => ['string', 'max:255', 'nullable'],
-			'meta_description' => ['string', 'max:255', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$this->userService->metaUpdate($user, $data);
 

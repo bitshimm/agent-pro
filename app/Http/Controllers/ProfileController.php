@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\Profile\AboutUpdateRequest;
+use App\Http\Requests\Profile\ContactsUpdateRequest;
+use App\Http\Requests\Profile\InformationUpdateRequest;
+use App\Http\Requests\Profile\LogotypeUpdateRequest;
+use App\Http\Requests\Profile\MetaUpdateRequest;
+use App\Http\Requests\Profile\ThemeUpdateRequest;
+use App\Http\Requests\Profile\WidgetUpdateRequest;
 use App\Models\Role;
 use App\Models\SocialNetwork;
 use App\Models\Theme;
@@ -54,7 +60,7 @@ class ProfileController extends Controller
 	/**
 	 * Update the user's profile information.
 	 */
-	public function update(ProfileUpdateRequest $request): RedirectResponse
+	public function informationUpdate(InformationUpdateRequest $request): RedirectResponse
 	{
 		$request->user()->fill($request->validated());
 
@@ -88,11 +94,9 @@ class ProfileController extends Controller
 		return Redirect::to('/');
 	}
 
-	public function themeUpdate(Request $request): RedirectResponse
+	public function themeUpdate(ThemeUpdateRequest $request): RedirectResponse
 	{
-		$data = $request->validate([
-			'theme_id' => ['integer', 'exists:themes,id'],
-		]);
+		$data = $request->validated();
 
 		$user = $request->user();
 
@@ -101,11 +105,9 @@ class ProfileController extends Controller
 		return Redirect::route('profile.edit')->with('message', __('messages.theme_updated'))->with('status', 'success');
 	}
 
-	public function logotypeUpdate(Request $request): RedirectResponse
+	public function logotypeUpdate(LogotypeUpdateRequest $request): RedirectResponse
 	{
-		$data = $request->validate([
-			'logotype' => 'image|nullable',
-		]);
+		$data = $request->validated();
 
 		$user = $request->user();
 
@@ -123,11 +125,9 @@ class ProfileController extends Controller
 		return Redirect::route('profile.edit')->with('message', __('messages.social_networks_updated'))->with('status', 'success');
 	}
 
-	public function widgetUpdate(Request $request): RedirectResponse
+	public function widgetUpdate(WidgetUpdateRequest $request): RedirectResponse
 	{
-		$data = $request->validate([
-			'widget' => ['string', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$user = $request->user();
 
@@ -136,15 +136,9 @@ class ProfileController extends Controller
 		return Redirect::route('profile.edit')->with('message', __('messages.widget_updated'))->with('status', 'success');
 	}
 
-	public function contactsUpdate(Request $request): RedirectResponse
+	public function contactsUpdate(ContactsUpdateRequest $request): RedirectResponse
 	{
-		$data = $request->validate([
-			'contact_phone' => ['string', 'max:255', 'nullable'],
-			'contact_phone_second' => ['string', 'max:255', 'nullable'],
-			'contact_email' => ['email', 'max:255', 'nullable'],
-			'contact_address' => ['string', 'max:255', 'nullable'],
-			'contact_opening_hours' => ['string', 'max:255', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$user = $request->user();
 
@@ -153,13 +147,9 @@ class ProfileController extends Controller
 		return Redirect::route('profile.edit')->with('message', __('messages.contacts_updated'))->with('status', 'success');
 	}
 
-	public function aboutUpdate(Request $request): RedirectResponse
+	public function aboutUpdate(AboutUpdateRequest $request): RedirectResponse
 	{
-		$data = $request->validate([
-			'about_title' => ['string', 'max:255', 'nullable'],
-			'about_short_description' => ['string', 'nullable'],
-			'about_full_description' => ['string', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$user = $request->user();
 
@@ -168,12 +158,9 @@ class ProfileController extends Controller
 		return Redirect::route('profile.edit')->with('message', __('messages.about_updated'))->with('status', 'success');
 	}
 
-	public function metaUpdate(Request $request): RedirectResponse
+	public function metaUpdate(MetaUpdateRequest $request): RedirectResponse
 	{
-		$data = $request->validate([
-			'meta_title' => ['string', 'max:255', 'nullable'],
-			'meta_description' => ['string', 'max:255', 'nullable'],
-		]);
+		$data = $request->validated();
 
 		$user = $request->user();
 

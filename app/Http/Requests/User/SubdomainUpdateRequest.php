@@ -28,7 +28,7 @@ class SubdomainUpdateRequest extends FormRequest
 		 * (-[a-z\d]{1,63})* (буква/цифоа/дефис один или более. если дефис, то чередуется) 
 		 */
 		return [
-			'subdomain' => ['regex:/^[a-z\d]{1,63}(-[a-z\d]{1,63})*$/', Rule::unique(User::class)->ignore($this->user()->id)],
+			'subdomain' => ['regex:/^[a-z\d]{1,63}(-[a-z\d]{1,63})*$/', Rule::unique(User::class)->ignore($this->route('user')->id)],
 		];
 	}
 

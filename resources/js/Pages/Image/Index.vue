@@ -24,7 +24,7 @@ defineProps({
 			<div class="hover_text_wrapper">
 				<span class="hover_text"> {{ image.caption }} </span>
 			</div>
-			<Link class="absolute -top-1.5 -right-1.5 rounded-full w-8 h-8 bg-red-600 text-white"
+			<Link class="absolute -top-1.5 -right-1.5 rounded-full w-8 h-8 bg-red-600 text-white border-white border-2"
 				:href="route('images.destroy', image.id)" method="delete" as="button">
 			<i class="fa-solid fa-trash "></i>
 			</Link>

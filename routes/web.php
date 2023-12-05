@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
 	});
 
 	Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-	Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+	Route::patch('/profile', [ProfileController::class, 'informationUpdate'])->name('profile.information.update');
 	Route::patch('/profile-theme', [ProfileController::class, 'themeUpdate'])->name('profile.theme.update');
 	Route::patch('/profile-logotype', [ProfileController::class, 'logotypeUpdate'])->name('profile.logotype.update');
 	Route::patch('/profile-social-networks', [ProfileController::class, 'socialNetworksUpdate'])->name('profile.social-networks.update');
