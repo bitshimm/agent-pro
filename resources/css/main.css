@@ -268,7 +268,7 @@ body {
 .imageLink {
 	height: 200px;
 	border-radius: 6px;
-	overflow-x: auto;
+	/* overflow-x: auto; */
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;

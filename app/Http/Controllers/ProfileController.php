@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Role;
 use App\Models\SocialNetwork;
 use App\Models\Theme;
 use App\Services\UserService;
@@ -46,6 +47,7 @@ class ProfileController extends Controller
 			'user_social_networks' => $user->socialNetworks,
 			'user' => $user,
 			'themes' => $themes,
+			'roles' => Role::orderBy('id')->get(),
 		]);
 	}
 

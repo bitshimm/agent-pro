@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Mail;
 class SiteController extends Controller
 {
 	public SiteService $siteService;
-	public string $domain = "cruisel.pro";
+	public string $domain;
 
 	public function __construct(SiteService $siteService)
 	{
 		$this->siteService = $siteService;
+		$this->domain = config('app.domain');
 	}
 
 	public function publish()
@@ -35,12 +36,27 @@ class SiteController extends Controller
 
 		$pathToHtml = $user->subdomain . '.' . $this->domain . '/index.html';
 
-		$currentHtml = Storage::disk('agent-sites')->get($pathToHtml);
+		// $currentHtml = Storage::disk('agent-sites')->get($pathToHtml);
 
 		Storage::disk('agent-sites')->put($pathToHtml, $html);
 
-		return $html;
 		return back()->with('message', __('messages.site_published'))->with('status', 'success');
+	}
+
+	public function preview()
+	{
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		if (!$user->subdomain) {
+			back()->with('message', __('messages.subdomain_isNull'))->with('status', 'error');
+		}
+
+		$html = $this->siteService->getPublishHtml($user);
+
+		return $html;
 	}
 
 	public function callbackForm(Request $request)

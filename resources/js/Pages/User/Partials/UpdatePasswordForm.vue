@@ -18,7 +18,6 @@ const form = useForm({
 const updatePassword = () => {
 	form.patch(route('users.password.update', user.id), {
 		preserveScroll: true,
-		onSuccess: () => form.reset(),
 		onError: () => {
 			if (form.errors.password) {
 				form.reset('password', 'password_confirmation');
@@ -30,6 +29,7 @@ const updatePassword = () => {
 			}
 		},
 	});
+	form.reset();
 };
 </script>
 <template>
@@ -37,7 +37,7 @@ const updatePassword = () => {
 		<Panel label="Обновление пароля">
 			<Text type="password" id="user_current_password" label="Текущий пароль" v-model="form.current_password" :error="form.errors.current_password" />
 			<Text type="password" id="user_password" label="Новый пароль" v-model="form.password" :error="form.errors.password" />
-			<Text type="password" id="user_password_confirmation" label="Новый пароль" v-model="form.password_confirmation" :error="form.errors.password_confirmation" />
+			<Text type="password" id="user_password_confirmation" label="Подтвердите новый пароль" v-model="form.password_confirmation" :error="form.errors.password_confirmation" />
 			<Submit label="Обновить" :disabled="!form.isDirty" />
 		</Panel>
 	</form>

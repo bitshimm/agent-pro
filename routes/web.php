@@ -58,6 +58,14 @@ Route::middleware('auth')->group(function () {
 			Route::get('/social-networks/{socialNetwork}/edit', [SocialNetworkController::class, 'edit'])->name('social-networks.edit');
 			Route::patch('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'update'])->name('social-networks.update');
 			Route::delete('/social-networks/{socialNetwork}', [SocialNetworkController::class, 'destroy'])->name('social-networks.destroy');
+
+			Route::get('/themes', [ThemeController::class, 'index'])->name('themes.index');
+			Route::get('/themes/create', [ThemeController::class, 'create'])->name('themes.create');
+			Route::post('/themes', [ThemeController::class, 'store'])->name('themes.store');
+			Route::get('/themes/{theme}', [ThemeController::class, 'show'])->name('themes.show');
+			Route::get('/themes/{theme}/edit', [ThemeController::class, 'edit'])->name('themes.edit');
+			Route::patch('/themes/{theme}', [ThemeController::class, 'update'])->name('themes.update');
+			// Route::delete('/themes/{theme}', [ThemeController::class, 'destroy'])->name('themes.destroy');
 		});
 	});
 
@@ -104,19 +112,12 @@ Route::middleware('auth')->group(function () {
 	Route::patch('/images/{image}', [ImageController::class, 'update'])->name('images.update');
 	Route::delete('/images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
-	Route::get('/themes', [ThemeController::class, 'index'])->name('themes.index');
-	Route::get('/themes/create', [ThemeController::class, 'create'])->name('themes.create');
-	Route::post('/themes', [ThemeController::class, 'store'])->name('themes.store');
-	Route::get('/themes/{theme}', [ThemeController::class, 'show'])->name('themes.show');
-	Route::get('/themes/{theme}/edit', [ThemeController::class, 'edit'])->name('themes.edit');
-	Route::patch('/themes/{theme}', [ThemeController::class, 'update'])->name('themes.update');
-	// Route::delete('/themes/{theme}', [ThemeController::class, 'destroy'])->name('themes.destroy');
-
 	Route::post('/tinymce-upload', [TinymceController::class, 'upload'])->name('tinymce.upload');
 
 	Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
 
 	Route::get('/site/publish', [SiteController::class, 'publish'])->name('site.publish');
+	Route::get('/site/preview', [SiteController::class, 'preview'])->name('site.preview');
 });
 
 Route::post('/site/callbackForm', [SiteController::class, 'callbackForm']);

@@ -4,6 +4,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3'
 
 import Panel from '@/Components/Panel.vue';
 import Text from '@/Components/Text.vue';
+import Textarea from '@/Components/Textarea.vue';
 import Submit from '@/Components/Submit.vue';
 
 const props = defineProps({
@@ -34,6 +35,7 @@ const submit = () => {
 			<Panel>
 				<Text label="Название" id="name" v-model="form.name" :error="form.errors.name" />
 				<Text label="Иконка" id="icon" v-model="form.icon" :error="form.errors.icon" />
+				<Textarea label="Иконка" id="icon" v-model="form.icon" :error="form.errors.icon" />
 				<div class="py-3">
 					<div>
 						Иконка: <span v-html="form.icon"></span>

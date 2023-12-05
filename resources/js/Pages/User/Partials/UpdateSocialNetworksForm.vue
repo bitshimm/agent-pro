@@ -27,7 +27,7 @@ const submit = () => {
 	<form @submit.prevent="submit">
 		<Panel label="Социальные сети">
 			<template v-for="social_network in social_networks">
-				<Text :id="'user_social_network_' + social_network.id" :label="social_network.name"
+				<Text type="url" :id="'user_social_network_' + social_network.id" :label="social_network.name"
 					v-model="form.user_social_networks[social_network.id]" />
 			</template>
 			<Submit label="Обновить" :disabled="!form.isDirty" />

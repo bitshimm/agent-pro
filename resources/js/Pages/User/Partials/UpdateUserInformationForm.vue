@@ -4,7 +4,7 @@ import Panel from '@/Components/Panel.vue';
 import Text from '@/Components/Text.vue';
 import Submit from '@/Components/Submit.vue';
 
-const user = usePage().props.auth.user;
+const user = usePage().props.user;
 
 const form = useForm({
 	name: user.name,

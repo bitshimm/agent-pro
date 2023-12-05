@@ -6,6 +6,7 @@ import UpdateRoleForm from './Partials/UpdateRoleForm.vue';
 import UpdateSubdomainForm from './Partials/UpdateSubdomainForm.vue';
 import UpdateUserInformationForm from './Partials/UpdateUserInformationForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
+import UpdateThemeForm from './Partials/UpdateThemeForm.vue';
 import UpdateLogotypeForm from './Partials/UpdateLogotypeForm.vue';
 import UpdateContactsForm from './Partials/UpdateContactsForm.vue';
 import UpdateSocialNetworksForm from './Partials/UpdateSocialNetworksForm.vue';
@@ -36,6 +37,7 @@ const isManager = usePage().props.auth.isManager;
 		<UpdateSubdomainForm />
 		<UpdateUserInformationForm />
 		<UpdatePasswordForm />
+		<UpdateThemeForm />
 		<UpdateLogotypeForm />
 		<UpdateContactsForm />
 		<UpdateSocialNetworksForm />

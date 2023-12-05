@@ -28,6 +28,7 @@ defineProps({
 						<th>Изображение</th>
 						<th>Сортировка</th>
 						<th>Активно</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -59,6 +60,14 @@ defineProps({
 										d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 								</svg>
 							</span>
+							</Link>
+						</td>
+						<td>
+							<Link class="block" :href="route('articles.edit', article.id)">
+							<Link class="px-2 py-1 text-white bg-red-700 rounded-md"
+								:href="route('articles.destroy', article.id)" method="delete" as="button">
+							<i class="fa-sm fa-solid fa-trash"></i>
+							</Link>
 							</Link>
 						</td>
 					</tr>

@@ -36,7 +36,12 @@ class HandleInertiaRequests extends Middleware
 		 */
 		$user = $request->user();
 
+		$siteUrl = sprintf("%s://%s.%s", config('app.debug') ? 'http' : 'https',  $user ? $user->subdomain : '', config('app.domain'));
+
 		return array_merge(parent::share($request), [
+			'site' => [
+				'url' => $siteUrl,
+			],
 			'auth' => [
 				'user' => $user,
 				'isAdmin' => $user ? $user->isAdmin() : false,

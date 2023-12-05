@@ -6,15 +6,14 @@ use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\SubdomainUpdateRequest;
 use App\Models\Role;
 use App\Models\SocialNetwork;
+use App\Models\Theme;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -64,11 +63,19 @@ class UserController extends Controller
 	 */
 	public function edit(User $user)
 	{
+		$themes = Theme::select('themes.*')
+			->join('users', 'users.id', '=', 'themes.user_id')
+			->join('roles', 'roles.id', '=', 'users.role_id')
+			->where('themes.user_id', $user->id)
+			->orWhere('roles.slug', 'admin')
+			->orWhere('roles.slug', 'manager')
+			->get();
+
 		return Inertia::render('User/Edit', [
 			'user' => $user,
 			'social_networks' => SocialNetwork::orderBy('id')->get(),
 			'user_social_networks' => $user->socialNetworks,
-			'roles' => Role::orderBy('id')->get(),
+			'themes' => $themes,
 			'roles' => Role::orderBy('id')->get(),
 		]);
 	}
@@ -123,7 +130,7 @@ class UserController extends Controller
 	{
 		$validated = $request->validate([
 			'current_password' => ['required', 'current_password'],
-			'password' => ['required', Password::defaults(), 'confirmed'],
+			'password' => ['required', 'min:5', 'confirmed'],
 		]);
 
 		$request->user()->update([

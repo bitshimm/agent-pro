@@ -26,7 +26,7 @@ return [
     'special_offer_deleted' => 'Спец.предложение удалено',
 
     'logotype_updated' => 'Логотип обновлен',
-    'password_updated' => 'Логотип обновлен',
+    'password_updated' => 'Пароль обновлен',
     'social_networks_updated' => 'Социальные сети обновлены',
     'widget_updated' => 'Виджет обновлен',
     'contacts_updated' => 'Контакты обновлены',

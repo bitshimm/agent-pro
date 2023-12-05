@@ -9,8 +9,11 @@ use App\Models\Image;
 use App\Models\Page;
 use App\Models\Role;
 use App\Models\SpecialOffer;
+use App\Models\Theme;
 use App\Models\User;
+use App\Services\UploadService;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -29,7 +32,7 @@ class DatabaseSeeder extends Seeder
 		$adminRole = Role::create(['name' => 'Администратор', 'slug' => 'admin']);
 
 		//admin user
-		User::factory()
+		$admin = User::factory()
 			->for($adminRole)
 			->has(Article::factory()->count(10))
 			->has(Page::factory()->count(5))
@@ -37,8 +40,32 @@ class DatabaseSeeder extends Seeder
 			->has(SpecialOffer::factory()->count(3))
 			->create();
 
+		$themes = Theme::getDefaultThemes();
+		foreach ($themes as $theme) {
+			$filePath = public_path(sprintf("%s/%s", 'defaultThemesBackgrounds', $theme['background']));
+			$file = new UploadedFile(
+				$filePath,
+				$theme['background'],
+			);
+
+			$properties = Theme::getPropertiesAliases();
+			foreach ($theme['properties'] as $propertyKey => $propertyValue) {
+				$properties[$propertyKey]['value'] = $propertyValue;
+			}
+
+			$data = [
+				'name' => $theme['name'],
+				'properties' => $properties,
+			];
+
+			$data['background'] = UploadService::upload($file, 'themesBackgrounds');
+			$data['background_thumb'] = UploadService::uploadThumb($file, 'themesBackgrounds');
+
+			$admin->themes()->create($data);
+		}
+
 		// manager user
-		User::factory()
+		$manager = User::factory()
 			->for($managerRole)
 			->has(Article::factory()->count(5))
 			->has(Page::factory()->count(5))
@@ -47,7 +74,7 @@ class DatabaseSeeder extends Seeder
 			->create();
 
 		// agent users
-		User::factory()
+		$agent = User::factory()
 			->for($agentRole)
 			->has(Article::factory()->count(5))
 			->has(Page::factory()->count(5))

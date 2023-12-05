@@ -23,7 +23,7 @@ const submit = () => {
 			<div v-if="!themes.length">
 				Нет доступных тем.
 			</div>
-			<Select v-else label="Выбрать роль" id="user_theme" v-model="form.theme_id" :options="themes" :error="form.errors.themes" />
+			<Select v-else label="Выбрать тему" id="user_theme" v-model="form.theme_id" :options="themes" :error="form.errors.themes" />
 			<Submit label="Обновить" :disabled="!form.isDirty" />
 		</Panel>
 	</form>

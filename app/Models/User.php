@@ -60,16 +60,6 @@ class User extends Authenticatable
 		'email_verified_at' => 'datetime',
 	];
 
-	public function role(): BelongsTo
-	{
-		return $this->belongsTo(Role::class);
-	}
-
-	public function theme(): BelongsTo
-	{
-		return $this->belongsTo(Theme::class);
-	}
-
 	public function isAdmin()
 	{
 		if ($this->role->slug == 'admin') {
@@ -84,6 +74,16 @@ class User extends Authenticatable
 			return true;
 		}
 		return false;
+	}
+
+	public function role(): BelongsTo
+	{
+		return $this->belongsTo(Role::class);
+	}
+
+	public function theme(): BelongsTo
+	{
+		return $this->belongsTo(Theme::class);
 	}
 
 	/**

@@ -7,6 +7,7 @@ import ToastNotifications from '@/Components/ToastNotifications.vue';
 
 const isAdmin = usePage().props.auth.isAdmin;
 const isManager = usePage().props.auth.isManager;
+const site = usePage().props.site;
 const windowWidth = ref(window.innerWidth);
 const sidebarCollapse = ref(windowWidth.value <= 768);
 const onSidebar = ref(false);
@@ -34,7 +35,6 @@ onUnmounted(() => {
 	window.removeEventListener('resize', () => { windowWidth.value = window.innerWidth })
 });
 </script>
-
 <template>
 	<ToastNotifications />
 	<div class="wrapper" :class="{ sidebar_collapse: sidebarCollapse, on_sidebar: onSidebar }">
@@ -48,15 +48,21 @@ onUnmounted(() => {
 				</li>
 
 				<li class="nav_item mt-auto">
-					<Link href="#" class="nav_link">
-					<i class="nav_icon fa-solid fa-eye mr-2"></i>
-					<span class="nav_title">Предпросмотр</span>
+					<a :href="route('site.preview')" class="nav_link" target="_blank">
+						<i class="nav_icon fa-solid fa-eye mr-2"></i>
+						<span class="nav_title">Предпросмотр</span>
+					</a>
+				</li>
+				<li class="nav_item">
+					<Link :href="route('site.publish')" class="nav_link">
+					<i class="nav_icon fa-solid fa-upload mr-2"></i>
+					<span class="nav_title">Опубликовать</span>
 					</Link>
 				</li>
 				<li class="nav_item">
-					<a :href="route('site.publish')" class="nav_link" target="_blank">
-					<i class="nav_icon fa-solid fa-upload mr-2"></i>
-					<span class="nav_title">Опубликовать</span>
+					<a :href="site.url" class="nav_link" target="_blank">
+						<i class="nav_icon fa-solid fa-globe mr-2"></i>
+						<span class="nav_title">Перейти на сайт</span>
 					</a>
 				</li>
 
@@ -104,7 +110,7 @@ onUnmounted(() => {
 			</div>
 			<nav>
 				<ul class="nav">
-					<li class="nav_item">
+					<li class="nav_item" v-if="isAdmin">
 						<Link :href="route('themes.index')" class="nav_link" :class="{ active: activeRoute.themes }">
 						<i class="nav_icon fa-solid fa-paint-roller"></i>
 						<span class="nav_title">Темы</span>

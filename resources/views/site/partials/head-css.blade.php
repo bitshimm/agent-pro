@@ -6,6 +6,6 @@
 <link rel="stylesheet" href="{{ $url }}/css/fancybox/fancybox.min.css" />
 {{-- <link rel="stylesheet" href="{{ $url }}/css/glide/glide.core.min.css" />
 <link rel="stylesheet" href="{{ $url }}/css/swiper/swiper-bundle.min.css" /> --}}
-<link rel="stylesheet" href="/css/splide/splide-core.min.css">
+<link rel="stylesheet" href="{{ $url }}/css/splide/splide-core.min.css">
 
 <link rel="stylesheet" href="{{ $url }}/siteStatic/style.css?{{ config('version.hash') }}">

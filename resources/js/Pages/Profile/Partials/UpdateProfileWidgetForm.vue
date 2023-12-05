@@ -11,14 +11,14 @@ const form = useForm({
 });
 
 const submit = () => {
-	form.patch(route('users.widget.update', user.id), {
+	form.patch(route('profile.widget.update'), {
 	});
 };
 </script>
 <template>
 	<form @submit.prevent="submit">
 		<Panel label="Виджет">
-			<Textarea id="user_widget" label="Вставьте код" v-model="form.widget" :error="form.errors.widget" />
+			<Textarea id="profile_widget" label="Вставьте код" v-model="form.widget" :error="form.errors.widget" />
 			<Submit label="Обновить" :disabled="!form.isDirty" />
 		</Panel>
 	</form>

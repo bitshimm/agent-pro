@@ -1,20 +1,26 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
-import UpdateThemeForm from './Partials/UpdateThemeForm.vue';
-import UpdateUserSocialNetworksForm from './Partials/UpdateUserSocialNetworksForm.vue';
-import UpdateUserWidgetForm from './Partials/UpdateUserWidgetForm.vue';
-import UpdateUserAboutForm from './Partials/UpdateUserAboutForm.vue';
-import UpdateUserContacts from './Partials/UpdateUserContactsForm.vue';
-import UpdateUserLogotypeForm from './Partials/UpdateUserLogotypeForm.vue';
-import UpdateUserMetaForm from './Partials/UpdateUserMetaForm.vue';
+import UpdateProfileRoleForm from './Partials/UpdateProfileRoleForm.vue';
+import UpdateProfileSubdomainForm from './Partials/UpdateProfileSubdomainForm.vue';
+import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
+import UpdateProfileThemeForm from './Partials/UpdateProfileThemeForm.vue';
+import UpdateProfileSocialNetworksForm from './Partials/UpdateProfileSocialNetworksForm.vue';
+import UpdateProfileWidgetForm from './Partials/UpdateProfileWidgetForm.vue';
+import UpdateProfileAboutForm from './Partials/UpdateProfileAboutForm.vue';
+import UpdateProfileContacts from './Partials/UpdateProfileContactsForm.vue';
+import UpdateProfileLogotypeForm from './Partials/UpdateProfileLogotypeForm.vue';
+import UpdateProfileMetaForm from './Partials/UpdateProfileMetaForm.vue';
+import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 
 defineProps({
 	mustVerifyEmail: Boolean,
 	status: String
 });
-</script>
+const isAdmin = usePage().props.auth.isAdmin;
+const isManager = usePage().props.auth.isManager;
 
+</script>
 <template>
 	<Head title="Профиль" />
 
@@ -26,15 +32,17 @@ defineProps({
 				{{ $page.props.auth.user.name }}
 			</h1>
 		</template>
-		<UpdateThemeForm />
-		<UpdateUserLogotypeForm />
-		<UpdateUserContacts />
-		<UpdateUserSocialNetworksForm />
-		<UpdateUserWidgetForm />
-		<UpdateUserAboutForm />
-		<UpdateUserMetaForm />
-		<!-- <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" /> -->
-		<!-- <UpdatePasswordForm /> -->
+		<UpdateProfileRoleForm v-if="isAdmin" />
+		<UpdateProfileSubdomainForm />
+		<UpdateProfileInformationForm />
+		<UpdatePasswordForm v-if="isAdmin || isManager"/>
+		<UpdateProfileThemeForm />
+		<UpdateProfileLogotypeForm />
+		<UpdateProfileContacts />
+		<UpdateProfileSocialNetworksForm />
+		<UpdateProfileWidgetForm />
+		<UpdateProfileAboutForm />
+		<UpdateProfileMetaForm />
 
 		<!-- <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <DeleteUserForm class="max-w-xl" />
