@@ -12,6 +12,8 @@ use App\Http\Controllers\SpecialOfferController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\TinymceController;
 use App\Http\Controllers\UserController;
+use Carbon\Carbon;
+use Symfony\Component\DomCrawler\Crawler;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,145 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-	return redirect()->route('articles.index');
+	// return redirect()->route('articles.index');
+	$url = "example.com";
+	$dns = dns_get_record($url, DNS_A);
+
+	if (!empty($dns)) {
+		$content = @file_get_contents('https://' . $url);
+		if ($content !== false) {
+			$crawler = new Crawler($content);
+
+			/**
+			 * Logotype
+			 */
+			$logotype = $crawler->filter('.navbar .navbar-brand img');
+			if ($logotype->count() > 0) {
+				$logotype = $logotype->attr('src');
+			} else {
+				$logotype = '';
+			}
+
+			/**
+			 * NavBar
+			 */
+			$navBarItemsList = $crawler->filter('.navbar-nav .modal-dialog')->each(function (Crawler $node, $i): array {
+				return [
+					'title' => $node->filter('.modal-title')->text(),
+					'content' => $node->filter('.modal-body')->html(),
+				];
+			});
+
+			/**
+			 * Contacts
+			 */
+			$contacts = $crawler->filter('.contacts-head a')->each(function (Crawler $node, $i): array {
+				$href = $node->attr('href');
+				$type = '';
+				if (stripos($href, 'tel:') !== false) {
+					$href = str_replace('tel:', '', $href);
+					$type = 'tel';
+				} elseif (stripos($href, 'mailto:') !== false) {
+					$href = str_replace('mailto:', '', $href);
+					$type = 'mail';
+				}
+				return [
+					'type' => $type,
+					'value' => $href,
+				];
+			});
+
+			/**
+			 * SocialNetworks
+			 */
+			$socialNetworks = $crawler->filter('.f-contact-links-items .btn')->each(function (Crawler $node, $i): array {
+				$type = '';
+				$href = $node->attr('href');
+				$icon = $node->filter('i')->attr('class');
+				if (stripos($icon, 'facebook') !== false) {
+					$type = 'Facebook';
+				} elseif (stripos($icon, 'fa-vk') !== false) {
+					$type = 'Вконтакте';
+				} elseif (stripos($icon, 'instagram') !== false) {
+					$type = 'Instagram';
+				} elseif (stripos($icon, 'twitter') !== false) {
+					$type = 'Twitter';
+				} elseif (stripos($icon, 'youtube') !== false) {
+					$type = 'Youtube';
+				} elseif (stripos($icon, 'odnoklassniki') !== false) {
+					$type = 'Одноклассники';
+				} elseif (stripos($icon, 'telegram') !== false) {
+					$type = 'Telegram';
+				}
+				return [
+					'type' => $type,
+					'link' => $href,
+				];
+			});
+
+			/**
+			 * News
+			 */
+			$newsList = $crawler->filter('.news-item')->each(function (Crawler $node, $i): array {
+				$modal = $node->filter('.modal-content');
+				$createdAt = $node->filter('.news-head .news-date')->text();
+				$createdAt = Carbon::createFromFormat('d/m/Y', $createdAt)->toDateTimeString();
+				return [
+					'created_at' => $createdAt,
+					'title' => $modal->filter('.modal-title')->text(),
+					'content' => $modal->filter('.modal-body')->html(),
+				];
+			});
+
+			/**
+			 * SpecialOffers
+			 */
+			$specialOffersList = $crawler->filter('.collapse-special-orders .btn-content-special-order')->each(function (Crawler $node, $i) use ($crawler): array {
+				$btnTarget = $node->attr('data-bs-target');
+				$image = $node->filter('img')->attr('src');
+				$modal = $crawler->filter($btnTarget);
+				return [
+					'image' => $image,
+					'title' => $modal->filter('.modal-title')->text(),
+					'content' => $modal->filter('.modal-body')->html(),
+				];
+			});
+
+			/**
+			 * About
+			 */
+			$aboutWrapper = $crawler->filter('.decription-site');
+			$about = [
+				'title' => '',
+				'short' => '',
+				'desc' => '',
+			];
+			if ($aboutWrapper->count() > 0) {
+				$about['title'] = $aboutWrapper->filter('.about-us-title')->text();
+				$about['short'] = $aboutWrapper->filter('.text-white p')->text();
+				$about['desc'] = $aboutWrapper->filter('.modal-content .modal-body')->text();
+			}
+
+			/**
+			 * Images
+			 */
+			$images = $crawler->filter('.photo-slider .photo-item')->each(function (Crawler $node, $i): string {
+				return $node->filter('img')->attr('src');
+			});
+			$images = array_unique($images);
+		}
+		$result = [
+			'logotype' => $logotype,
+			'navBar' => $navBarItemsList,
+			'contacts' => $contacts,
+			'socialNetworks' => $socialNetworks,
+			'news' => $newsList,
+			'specialOffersList' => $specialOffersList,
+			'about' => $about,
+			'images' => $images,
+		];
+		dd($result);
+	}
 })->name('home');
 
 Route::middleware('auth')->group(function () {

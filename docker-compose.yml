@@ -36,11 +36,19 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_USERNAME: ${DB_USERNAME}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: agent-pro-phpmyadmin
+    restart: always
+    ports:
+      - 7003:80
+    environment:
+      - PMA_ARBITRARY=1
   redis:
     image: 'redis:alpine'
     container_name: agent-pro-redis
     ports:
-      - '7003:6379'
+      - '7004:6379'
     volumes:
       - './docker/redis:/data'
   mailpit:
