@@ -34,9 +34,14 @@ class SiteController extends Controller
 
 		$html = $this->siteService->getPublishHtml($user);
 
-		$pathToHtml = $user->subdomain . '.' . $this->domain . '/index.html';
+		$folder = $user->subdomain . '.' . $this->domain;
+		$pathToHtml = $folder . '/index.html';
 
 		// $currentHtml = Storage::disk('agent-sites')->get($pathToHtml);
+
+		if (!Storage::disk('agent-sites')->exists($folder)) {
+			Storage::disk('agent-sites')->makeDirectory($folder);
+		}
 
 		Storage::disk('agent-sites')->put($pathToHtml, $html);
 
