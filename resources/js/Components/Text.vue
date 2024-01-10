@@ -35,6 +35,7 @@ export default {
 				:type="[type ?? 'text']" :value="modelValue" :id="id"
 				@input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs">
 			<div v-if="error" class="text-red-600">{{ error }}</div>
+			<slot/>
 		</div>
 	</div>
 </template>

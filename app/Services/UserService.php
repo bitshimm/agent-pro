@@ -5,11 +5,15 @@ namespace App\Services;
 use App\Models\Page;
 use App\Models\User;
 use App\Services\UploadService;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\DomCrawler\Crawler;
 
 class UserService
 {
+	private $crawler;
+
 	public function store(array $data): void
 	{
 		if ($data['logotype']) {
@@ -23,7 +27,15 @@ class UserService
 
 		$data['password'] = Hash::make($data['password']);
 
-		User::create($data);
+		/**
+		 * @var User $user
+		 */
+		$user = User::create($data);
+
+		$hostname = sprintf("%s.%s", $user->subdomain, 'cruiselines.pro');
+		if (checkdnsrr($hostname, "A")) {
+			self::fillingUserReceivedData($user, $hostname);
+		}
 	}
 
 	public function subdomainUpdate(User $user, array $data): void
@@ -92,5 +104,38 @@ class UserService
 	public static function formatPhone(string $phone): string
 	{
 		return str_replace(['(', ')', '-'], '', $phone);
+	}
+
+	public static function fillingUserReceivedData(User $user, string $hostname)
+	{
+		$url = sprintf("https://%s", $hostname);
+		$content = @file_get_contents($url);
+		if ($content !== false) {
+			$data = [];
+			$crawler = new Crawler($content);
+
+			$logotype = $crawler->filter('.navbar .navbar-brand img');
+			if ($logotype->count() > 0) {
+				$logotypeUrl = $logotype->attr('src');
+				$urlItems = explode('/', $logotypeUrl);
+				$dataLogotype['logotype'] = new UploadedFile(
+					$url . $logotypeUrl,
+					array_pop($urlItems),
+				);
+				// self::logotypeUpdate($user, $dataLogotype);
+			}
+			
+			$pagesList = $crawler->filter('.navbar-nav .modal-dialog')->each(function (Crawler $node, $i): array {
+				return [
+					'title' => $node->filter('.modal-title')->text(),
+					'content' => $node->filter('.modal-body')->html(),
+					'sort' => 100,
+					'active' => true,
+				];
+			});
+			foreach ($pagesList as $page) {
+				// $pageValidatedData = 
+			}
+		}
 	}
 }

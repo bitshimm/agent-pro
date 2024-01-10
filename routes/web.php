@@ -28,7 +28,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 Route::get('/', function () {
 	// return redirect()->route('articles.index');
-	$url = "example.com";
+	$url = "tourismstudio.cruiselines.pro";
 	$dns = dns_get_record($url, DNS_A);
 
 	if (!empty($dns)) {
@@ -42,14 +42,17 @@ Route::get('/', function () {
 			$logotype = $crawler->filter('.navbar .navbar-brand img');
 			if ($logotype->count() > 0) {
 				$logotype = $logotype->attr('src');
+				$urlArray = explode('/', $logotype);
+				$logotype = array_pop($urlArray);
 			} else {
 				$logotype = '';
 			}
 
+
 			/**
 			 * NavBar
 			 */
-			$navBarItemsList = $crawler->filter('.navbar-nav .modal-dialog')->each(function (Crawler $node, $i): array {
+			$pagesList = $crawler->filter('.navbar-nav .modal-dialog')->each(function (Crawler $node, $i): array {
 				return [
 					'title' => $node->filter('.modal-title')->text(),
 					'content' => $node->filter('.modal-body')->html(),
@@ -143,7 +146,7 @@ Route::get('/', function () {
 			if ($aboutWrapper->count() > 0) {
 				$about['title'] = $aboutWrapper->filter('.about-us-title')->text();
 				$about['short'] = $aboutWrapper->filter('.text-white p')->text();
-				$about['desc'] = $aboutWrapper->filter('.modal-content .modal-body')->text();
+				$about['desc'] = $aboutWrapper->filter('.modal-content .modal-body')->html();
 			}
 
 			/**
@@ -156,7 +159,7 @@ Route::get('/', function () {
 		}
 		$result = [
 			'logotype' => $logotype,
-			'navBar' => $navBarItemsList,
+			'pages' => $pagesList,
 			'contacts' => $contacts,
 			'socialNetworks' => $socialNetworks,
 			'news' => $newsList,
@@ -175,6 +178,7 @@ Route::middleware('auth')->group(function () {
 		Route::post('/users', [UserController::class, 'store'])->name('users.store');
 		Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 		Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+		Route::get('/users/websiteAvailability/{subdomain}', [UserController::class, 'websiteAvailability'])->name('user.websiteAvailability');
 
 		Route::patch('/users/subdomain/{user}', [UserController::class, 'subdomainUpdate'])->name('users.subdomain.update');
 		Route::patch('/users/information/{user}', [UserController::class, 'informationUpdate'])->name('users.information.update');
