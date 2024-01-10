@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\User;
 
 class ImageController extends Controller
 {
@@ -22,7 +23,12 @@ class ImageController extends Controller
 
 	public function index(): Response
 	{
-		$images = Auth::user()->images()->orderBy('id', 'desc')->get();
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$images = $user->images()->orderBy('id', 'desc')->get();
 
 		return Inertia::render('Image/Index', [
 			'images' => $images,
@@ -38,7 +44,12 @@ class ImageController extends Controller
 	{
 		$data = $storeRequest->validated();
 
-		$this->imageService->store($data);
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$this->imageService->store($user, $data);
 
 		return redirect()->route('images.index')->with('message', __('messages.image_created'))->with('status', 'success');
 	}

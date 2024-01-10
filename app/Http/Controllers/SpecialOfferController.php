@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\User;
 
 class SpecialOfferController extends Controller
 {
@@ -23,7 +24,12 @@ class SpecialOfferController extends Controller
 
 	public function index(): Response
 	{
-		$specialOffers = Auth::user()->specialOffers()->orderBy('id', 'desc')->paginate(7);
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$specialOffers = $user->specialOffers()->orderBy('id', 'desc')->paginate(7);
 
 		return Inertia::render('SpecialOffer/Index', [
 			'special_offers' => $specialOffers,
@@ -39,7 +45,12 @@ class SpecialOfferController extends Controller
 	{
 		$data = $storeRequest->validated();
 
-		$this->specialOfferService->store($data);
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$this->specialOfferService->store($user, $data);
 
 		return redirect()->route('special-offers.index')->with('message', __('messages.special_offer_created'))->with('status', 'success');
 	}

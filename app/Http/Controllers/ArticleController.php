@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\User;
 
 class ArticleController extends Controller
 {
@@ -24,7 +25,12 @@ class ArticleController extends Controller
 
 	public function index(): Response
 	{
-		$articles = Auth::user()->articles()->orderBy('id', 'desc')->paginate(7);
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$articles = $user->articles()->orderBy('id', 'desc')->paginate(7);
 
 		return Inertia::render('Article/Index', [
 			'articles' => $articles,
@@ -40,7 +46,9 @@ class ArticleController extends Controller
 	{
 		$data = $storeRequest->validated();
 
-		$this->articleService->store($data);
+		$user = Auth::user();
+
+		$this->articleService->store($user, $data);
 
 		return redirect()->route('articles.index')->with('message', __('messages.article_created'))->with('status', 'success');
 	}

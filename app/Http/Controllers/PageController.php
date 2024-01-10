@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\User;
 
 class PageController extends Controller
 {
@@ -24,7 +25,12 @@ class PageController extends Controller
 
 	public function index(): Response
 	{
-		$pages = Auth::user()->pages()->orderBy('id', 'desc')->paginate(7);
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$pages = $user->pages()->orderBy('id', 'desc')->paginate(7);
 
 		return Inertia::render('Page/Index', [
 			'pages' => $pages,
@@ -40,7 +46,12 @@ class PageController extends Controller
 	{
 		$data = $storeRequest->validated();
 
-		$this->pageService->store($data);
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$this->pageService->store($user, $data);
 
 		return redirect()->route('pages.index')->with('message', __('messages.page_created'))->with('status', 'success');
 	}

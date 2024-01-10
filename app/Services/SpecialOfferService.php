@@ -5,11 +5,10 @@ namespace App\Services;
 use App\Models\SpecialOffer;
 use App\Models\User;
 use App\Services\UploadService;
-use Illuminate\Support\Facades\Auth;
 
 class SpecialOfferService
 {
-	public function store(array $data): void
+	public function store(User $user, array $data): void
 	{
 		if ($data['image']) {
 			$file = $data['image'];
@@ -17,7 +16,7 @@ class SpecialOfferService
 			$data['image_thumb'] = UploadService::uploadThumb($file, 'specialOfferImages');
 		}
 
-		Auth::user()->specialOffers()->create($data);
+		$user->specialOffers()->create($data);
 	}
 
 	public function update(SpecialOffer $specialOffer, array $data): void

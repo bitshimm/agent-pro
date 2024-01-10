@@ -13,6 +13,7 @@ use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\TinymceController;
 use App\Http\Controllers\UserController;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\DomCrawler\Crawler;
 
 /*
@@ -28,7 +29,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 Route::get('/', function () {
 	// return redirect()->route('articles.index');
-	$url = "tourismstudio.cruiselines.pro";
+	$url = "example.com";
 	$dns = dns_get_record($url, DNS_A);
 
 	if (!empty($dns)) {
@@ -113,10 +114,12 @@ Route::get('/', function () {
 				$modal = $node->filter('.modal-content');
 				$createdAt = $node->filter('.news-head .news-date')->text();
 				$createdAt = Carbon::createFromFormat('d/m/Y', $createdAt)->toDateTimeString();
+				$image = $node->filter('.news-head img');
 				return [
 					'created_at' => $createdAt,
 					'title' => $modal->filter('.modal-title')->text(),
 					'content' => $modal->filter('.modal-body')->html(),
+					'image' => $image->count() > 0 ? $image->attr('src') : '',
 				];
 			});
 
