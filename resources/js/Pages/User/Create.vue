@@ -69,7 +69,6 @@ const websiteAvailability = () => {
 					<div v-else-if="form.subdomain && form.subdomain == lastSubdomainChecked && websiteExists"
 						class="bg-green-500 text-white text-center px-4 py-2 rounded mt-2">
 						Поддомен найден!
-						{{ receivedData }}
 					</div>
 					<div v-else-if="form.subdomain && form.subdomain == lastSubdomainChecked && !websiteExists"
 						class="bg-neutral-300 text-white text-center px-4 py-2 rounded mt-2">
