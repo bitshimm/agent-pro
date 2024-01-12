@@ -59,12 +59,12 @@ onUnmounted(() => {
 					<span class="nav_title">Опубликовать</span>
 					</Link>
 				</li>
-				<li class="nav_item">
+				<!-- <li class="nav_item">
 					<a :href="site.url" class="nav_link" target="_blank">
 						<i class="nav_icon fa-solid fa-globe mr-2"></i>
 						<span class="nav_title">Перейти на сайт</span>
 					</a>
-				</li>
+				</li> -->
 
 				<li class="nav_item ml-auto">
 					<Dropdown align="right" width="48">
