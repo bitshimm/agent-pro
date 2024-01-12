@@ -2,16 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Article;
 use App\Models\Page;
-use App\Services\UploadService;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class PageService
 {
-	public function store(array $data): void
+	public function store(User $user, array $data): void
 	{
-		Auth::user()->pages()->create($data);
+		$user->pages()->create($data);
 	}
 
 	public function update(Page $page, array $data): void

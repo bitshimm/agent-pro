@@ -36,7 +36,8 @@
 						<ul class="navbar-nav">
 							@foreach ($pages as $page)
 								<li class="nav-item">
-									<a data-target="#pages-{{ $page->id }}" class="modal_btn">{{ $page->title }}</a>
+									<a data-target="#pages-{{ $page->id }}"
+										class="modal_btn">{{ $page->title }}</a>
 								</li>
 								<div class="modal_wrapper" id="pages-{{ $page->id }}">
 									<div class="modal">
@@ -151,7 +152,8 @@
 					<div class="special_offers_collapse">
 						<div class="special_offers_list">
 							@foreach ($specialOffers as $offer)
-								<a class="special_offers_el modal_btn" data-target="#specialOffers-{{ $offer->id }}">
+								<a class="special_offers_el modal_btn"
+									data-target="#specialOffers-{{ $offer->id }}">
 									<img src="{{ $offer->image }}" alt="">
 								</a>
 							@endforeach
@@ -266,11 +268,15 @@
 						</div>
 					</div>
 				</div> --}}
+				<div class="images_wrapper_head">
+					Фото
+				</div>
 				<div class="splide" role="group" aria-label="iamges slider">
 					<div class="splide__track images_wrapper">
 						<ul class="splide__list images">
 							@foreach ($images as $image)
-								<a class="image splide__slide" data-fancybox="images" data-src="{{ $image->path_full }}">
+								<a class="image splide__slide" data-fancybox="images"
+									data-src="{{ $image->path_full }}">
 									<img src="{{ $image->path_thumb }}"
 										@if ($image->alt) alt="{{ $image->alt }}"
 								@elseif($image->caption) alt="{{ $image->caption }}" @endif>
@@ -298,8 +304,8 @@
 		<div class="footer_wrapper">
 			<div class="footer">
 				<div id="footer-triangle">
-					<svg width="30px" height="30px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"
-						transform="matrix(1, 0, 0, 1, 0, 0)">
+					<svg width="30px" height="30px" viewBox="0 0 24.00 24.00" fill="none"
+						xmlns="http://www.w3.org/2000/svg" transform="matrix(1, 0, 0, 1, 0, 0)">
 						<path
 							d="M20.4086 9.35258C22.5305 10.5065 22.5305 13.4935 20.4086 14.6474L7.59662 21.6145C5.53435 22.736 3 21.2763 3 18.9671L3 5.0329C3 2.72368 5.53435 1.26402 7.59661 2.38548L20.4086 9.35258Z"
 							stroke-width="0.4800000000000001"></path>
@@ -382,7 +388,8 @@
 					@if ($user->socialNetworks->count())
 						<span class="footer_contact">
 							<span class="footer-contacts-icon">
-								<svg width="16px" height="16px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+								<svg width="16px" height="16px" viewBox="0 0 32 32"
+									xmlns="http://www.w3.org/2000/svg">
 									<g id="Icon-Set" transform="translate(-100.000000, -255.000000)">
 										<path
 											d="M116,281 C114.832,281 113.704,280.864 112.62,280.633 L107.912,283.463 L107.975,278.824 C104.366,276.654 102,273.066 102,269 C102,262.373 108.268,257 116,257 C123.732,257 130,262.373 130,269 C130,275.628 123.732,281 116,281 L116,281 Z M116,255 C107.164,255 100,261.269 100,269 C100,273.419 102.345,277.354 106,279.919 L106,287 L113.009,282.747 C113.979,282.907 114.977,283 116,283 C124.836,283 132,276.732 132,269 C132,261.269 124.836,255 116,255 L116,255 Z"
@@ -395,7 +402,8 @@
 							</span>
 							<div class="social_networks">
 								@foreach ($user->socialNetworks as $social_network)
-									<a class="social_network" href="{{ $social_network->pivot->link }}" target="_blank">
+									<a class="social_network" href="{{ $social_network->pivot->link }}"
+										target="_blank">
 										<div class="social_network_icon">
 											{!! $social_network->icon !!}
 										</div>

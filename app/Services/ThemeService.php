@@ -3,23 +3,18 @@
 namespace App\Services;
 
 use App\Models\Theme;
+use App\Models\User;
 use App\Services\UploadService;
-use Illuminate\Support\Facades\Auth;
 
 class ThemeService
 {
-	public function store(array $data): void
+	public function store(User $user, array $data): void
 	{
 		if ($data['background']) {
 			$file = $data['background'];
 			$data['background'] = UploadService::upload($file, 'themesBackgrounds');
 			$data['background_thumb'] = UploadService::uploadThumb($file, 'themesBackgrounds');
 		}
-
-		/**
-		 * @var User $user
-		 */
-		$user = Auth::user();
 
 		$user->themes()->create($data);
 	}

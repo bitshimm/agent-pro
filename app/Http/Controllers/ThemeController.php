@@ -64,7 +64,12 @@ class ThemeController extends Controller
 			'properties' => [],
 		]);
 
-		$this->themeService->store($data);
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$this->themeService->store($user, $data);
 
 		return redirect()->route('themes.index')->with('message', __('messages.theme_created'))->with('status', 'success');
 	}

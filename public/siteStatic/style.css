@@ -54,7 +54,8 @@
 body {
 	font-size: 16px;
 	font-weight: 400;
-	font-family: 'Roboto', sans-serif;
+	/* font-family: 'Roboto', sans-serif; */
+	font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
 .wrapper {
@@ -312,6 +313,14 @@ body.modal-open {
 	position: relative;
 }
 
+.images_container .images_wrapper_head {
+	font-size: 24px;
+	line-height: 37px;
+	color: var(--articles-head-color);
+	text-align: right;
+	margin-bottom: 10px;
+}
+
 .images_container .images_wrapper .images {
 	display: flex;
 }
@@ -544,6 +553,10 @@ body.modal-open {
 	fill: var(--footer-socialnetwork-hover-color);
 	color: var(--footer-socialnetwork-hover-color);
 }
+.footer .footer_contacts .footer_contact .social_networks .social_network:hover .social_network_icon svg,
+.footer .footer_contacts .footer_contact .social_networks .social_network:hover .social_network_icon svg path{
+	fill: var(--footer-socialnetwork-hover-color);
+}
 
 .footer .footer_contacts .footer_contact .social_networks .social_network .social_network_icon {
 	position: absolute;
@@ -552,8 +565,13 @@ body.modal-open {
 	transform: translate(-50%, -50%);
 	display: block;
 	font-size: 16px;
+	width: 18px;
+	height: 18px;
 }
-
+.footer .footer_contacts .footer_contact .social_networks .social_network .social_network_icon svg,
+.footer .footer_contacts .footer_contact .social_networks .social_network .social_network_icon svg path {
+	fill: var(--footer-socialnetwork-color);
+}
 .special_offers_wrapper {
 	position: absolute;
 	top: 15%;
@@ -793,7 +811,7 @@ body.modal-open {
 	}
 
 	.modal_wrapper {
-		padding: 0 17px;
+		padding: 0 8px;
 	}
 
 	.footer_wrapper .footer {

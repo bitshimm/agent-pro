@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use App\Models\Image;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ImageService
 {
 	/**
 	 * Store service
 	 */
-	public function store(array $data): void
+	public function store(User $user, array $data): void
 	{
 		if ($data['image']) {
 			$file = $data['image'];
@@ -19,7 +19,7 @@ class ImageService
 		}
 		unset($data['image']);
 
-		Auth::user()->images()->create($data);
+		$user->images()->create($data);
 	}
 
 	/**

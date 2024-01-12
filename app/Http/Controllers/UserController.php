@@ -155,7 +155,7 @@ class UserController extends Controller
 	/**
 	 * Update the user's contacts.
 	 */
-	function contactsUpdate(ContactsUpdateRequest $request, User $user): RedirectResponse
+	public function contactsUpdate(ContactsUpdateRequest $request, User $user): RedirectResponse
 	{
 		$data = $request->validated();
 
@@ -218,5 +218,24 @@ class UserController extends Controller
 		$this->userService->destroy($user);
 
 		return redirect()->route('users.index')->with('message', __('messages.user_deleted'))->with('status', 'success');
+	}
+
+	/**
+	 * check website availability
+	 */
+	public function websiteAvailability(string $subdomain)
+	{
+		$hostname = sprintf("%s.%s", $subdomain, config('app.verified_domain'));
+		$checkdnsrr = checkdnsrr($hostname, "A");
+
+		if ($checkdnsrr) {
+			return response()->json([
+				'status' => 'success',
+			]);
+		}
+
+		return response()->json([
+			'status' => 'error',
+		]);
 	}
 }

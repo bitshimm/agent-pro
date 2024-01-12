@@ -13,8 +13,16 @@
 </template>
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 
 const props = defineProps({
 	links: Array,
+});
+
+onMounted(() => {
+	props.links.map((link) => {
+		link.label = link.label.replace("Previous", 'Назад').replace("Next", 'Вперёд');
+		return link;
+	});
 });
 </script>

@@ -154,7 +154,7 @@ onUnmounted(() => {
 						<span class="nav_title">Социальные сети</span>
 						</Link>
 					</li>
-					<li class="nav_item">
+					<li class="nav_item" v-if="isAdmin">
 						<Link :href="route('filemanager')" class="nav_link">
 						<i class="nav_icon fa-solid fa-file"></i>
 						<span class="nav_title">Файловый менеджер</span>
