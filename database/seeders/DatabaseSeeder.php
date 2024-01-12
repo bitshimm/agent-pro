@@ -34,10 +34,10 @@ class DatabaseSeeder extends Seeder
 		//admin user
 		$admin = User::factory()
 			->for($adminRole)
-			->has(Article::factory()->count(10))
-			->has(Page::factory()->count(5))
-			->has(Image::factory()->count(10))
-			->has(SpecialOffer::factory()->count(3))
+			->has(Article::factory()->count(2))
+			->has(Page::factory()->count(2))
+			->has(Image::factory()->count(3))
+			->has(SpecialOffer::factory())
 			->create();
 
 		$themes = Theme::getDefaultThemes();
@@ -67,19 +67,19 @@ class DatabaseSeeder extends Seeder
 		// manager user
 		$manager = User::factory()
 			->for($managerRole)
-			->has(Article::factory()->count(5))
-			->has(Page::factory()->count(5))
-			->has(Image::factory()->count(10))
-			->has(SpecialOffer::factory()->count(3))
+			->has(Article::factory()->count(2))
+			->has(Page::factory()->count(2))
+			->has(Image::factory()->count(3))
+			->has(SpecialOffer::factory())
 			->create();
 
 		// agent users
 		$agent = User::factory()
 			->for($agentRole)
-			->has(Article::factory()->count(5))
-			->has(Page::factory()->count(5))
-			->has(Image::factory()->count(10))
-			->has(SpecialOffer::factory()->count(3))
-			->count(3)->create();
+			->has(Article::factory()->count(2))
+			->has(Page::factory()->count(2))
+			->has(Image::factory()->count(3))
+			->has(SpecialOffer::factory())
+			->create();
 	}
 }

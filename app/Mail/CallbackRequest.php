@@ -29,7 +29,7 @@ class CallbackRequest extends Mailable
 	{
 		return new Envelope(
 			subject: 'Форма обратной связи',
-			from: new Address($this->agentEmail, $this->agentUrl),
+			from: new Address(config("mail.from.address"), config("mail.from.name")),
 		);
 	}
 
