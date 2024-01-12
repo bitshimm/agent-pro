@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		DB::table('social_networks')->insert(['name' => 'Telegram', 'icon' => '<i class="fa-brands fa-telegram"></i>']);
-		DB::table('social_networks')->insert(['name' => 'Вконтакте', 'icon' => '<i class="fa-brands fa-vk"></i>']);
-		DB::table('social_networks')->insert(['name' => 'Одноклассники', 'icon' => '<i class="fa-brands fa-square-odnoklassniki"></i>']);
+		$this->call([
+			SocialNetworkSeeder::class,
+		]);
 
 		$agentRole = Role::create(['name' => 'Агент', 'slug' => 'agent']);
 		$managerRole = Role::create(['name' => 'Менеджер', 'slug' => 'manager']);

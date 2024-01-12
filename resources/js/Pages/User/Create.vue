@@ -5,6 +5,7 @@ import Panel from '@/Components/Panel.vue';
 import Text from '@/Components/Text.vue';
 import Image from '@/Components/Image.vue';
 import Submit from '@/Components/Submit.vue';
+import BooleanField from '@/Components/Boolean.vue';
 import { ref } from 'vue';
 
 const form = useForm({
@@ -14,17 +15,21 @@ const form = useForm({
 	email: '',
 	password: '',
 	password_confirmation: '',
-})
-
-const submit = () => {
-	form.post(route('users.store'), {
-	});
-};
+	transfer_data: false,
+});
 
 const websiteExists = ref(false);
 const checking = ref(false);
 const lastSubdomainChecked = ref('');
 const receivedData = ref(null);
+
+const submit = () => {
+	if (!form.subdomain || form.subdomain != lastSubdomainChecked.value || !websiteExists.value || checking.value) {
+		form.transfer_data = false;
+	}
+	form.post(route('users.store'), {
+	});
+};
 
 const websiteAvailability = () => {
 	checking.value = true;
@@ -67,12 +72,15 @@ const websiteAvailability = () => {
 						Проверить наличие
 					</div>
 					<div v-else-if="form.subdomain && form.subdomain == lastSubdomainChecked && websiteExists"
-						class="bg-green-500 text-white text-center px-4 py-2 rounded mt-2">
-						Поддомен найден!
+						class="text-center px-4 py-2 rounded mt-2" style="background-color: #ECF0D7; color: #A60B38;">
+						Сайт найден!
+						<div>
+							<BooleanField label="Перенести данные" id="transfer_data" v-model="form.transfer_data" />
+						</div>
 					</div>
 					<div v-else-if="form.subdomain && form.subdomain == lastSubdomainChecked && !websiteExists"
 						class="bg-neutral-300 text-white text-center px-4 py-2 rounded mt-2">
-						Поддомен не найден!
+						Сайт не найден!
 					</div>
 				</Text>
 				<Text id="name" label="Имя" v-model="form.name" :error="form.errors.name" />
@@ -81,7 +89,7 @@ const websiteAvailability = () => {
 				<Text type="password" id="password" label="Пароль" v-model="form.password" :error="form.errors.password" />
 				<Text type="password" id="password_confirmation" label="Подтвердите пароль"
 					v-model="form.password_confirmation" :error="form.errors.password_confirmation" />
-				<Submit label="Добавить" :disabled="!form.isDirty" />
+				<Submit label="Добавить" :disabled="!form.isDirty || checking" />
 			</Panel>
 		</form>
 	</DashboardLayout>

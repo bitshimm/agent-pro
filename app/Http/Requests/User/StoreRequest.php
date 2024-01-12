@@ -31,7 +31,8 @@ class StoreRequest extends FormRequest
 			'name' => 'required|string|max:255',
 			'logotype' => 'image|nullable',
 			'email' => 'required|string|email|max:255|unique:' . User::class,
-			'password' => ['required', 'confirmed']
+			'password' => ['required', 'confirmed'],
+			'transfer_data' => ['boolean'],
 		];
 	}
 

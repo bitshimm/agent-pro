@@ -34,7 +34,6 @@ const submit = () => {
 		<form @submit.prevent="submit">
 			<Panel>
 				<Text label="Название" id="name" v-model="form.name" :error="form.errors.name" />
-				<Text label="Иконка" id="icon" v-model="form.icon" :error="form.errors.icon" />
 				<Textarea label="Иконка" id="icon" v-model="form.icon" :error="form.errors.icon" />
 				<div class="py-3">
 					<div>

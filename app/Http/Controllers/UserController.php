@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use Symfony\Component\DomCrawler\Crawler;
 
 class UserController extends Controller
 {
@@ -226,18 +225,13 @@ class UserController extends Controller
 	 */
 	public function websiteAvailability(string $subdomain)
 	{
-		$hostname = sprintf("%s.%s", $subdomain, 'example.com');
-		$url = sprintf("https://%s", $hostname);
+		$hostname = sprintf("%s.%s", $subdomain, config('app.verified_domain'));
 		$checkdnsrr = checkdnsrr($hostname, "A");
-		if ($checkdnsrr) {
-			$content = @file_get_contents($url);
-			if ($content !== false) {
-				$crawler = new Crawler($content);
 
-				return response()->json([
-					'status' => 'success',
-				]);
-			}
+		if ($checkdnsrr) {
+			return response()->json([
+				'status' => 'success',
+			]);
 		}
 
 		return response()->json([

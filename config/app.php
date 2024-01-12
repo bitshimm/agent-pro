@@ -58,6 +58,8 @@ return [
 
     'domain' => env('APP_DOMAIN', ''),
 
+    'verified_domain' => env('APP_VERIFIED_DOMAIN', ''),
+
     'asset_url' => env('ASSET_URL', '/'),
 
     /*

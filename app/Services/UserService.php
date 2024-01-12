@@ -15,6 +15,12 @@ class UserService
 {
 	public function store(array $data): void
 	{
+		$transferData = false;
+		if ($data['transfer_data']) {
+			$transferData = true;
+		}
+		if (isset($data['transfer_data'])) unset($data['transfer_data']);
+
 		if ($data['logotype']) {
 			$file = $data['logotype'];
 			$data['logotype'] = UploadService::upload($file, 'usersLogotypes');
@@ -31,8 +37,8 @@ class UserService
 		 */
 		$user = User::create($data);
 
-		$hostname = sprintf("%s.%s", $user->subdomain, 'example.com');
-		if (checkdnsrr($hostname, "A")) {
+		if ($transferData) {
+			$hostname = sprintf("%s.%s", $user->subdomain, config('app.verified_domain'));
 			self::fillingUserReceivedData($user, $hostname);
 		}
 	}
