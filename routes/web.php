@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function () {
 	Route::get('/site/preview', [SiteController::class, 'preview'])->name('site.preview');
 });
 
-Route::post('/site/callbackForm', [SiteController::class, 'callbackForm']);
+Route::middleware('cors')->group(function () {
+	Route::post('/site/callbackForm', [SiteController::class, 'callbackForm']);
+});
 
 require __DIR__ . '/auth.php';
