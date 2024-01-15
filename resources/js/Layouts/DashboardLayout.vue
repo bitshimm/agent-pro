@@ -8,7 +8,7 @@ import ToastNotifications from '@/Components/ToastNotifications.vue';
 const isAdmin = usePage().props.auth.isAdmin;
 const isManager = usePage().props.auth.isManager;
 const site = usePage().props.site;
-const user = usePage().props.user;
+const user = usePage().props.auth.user;
 const windowWidth = ref(window.innerWidth);
 const sidebarCollapse = ref(windowWidth.value <= 768);
 const onSidebar = ref(false);
