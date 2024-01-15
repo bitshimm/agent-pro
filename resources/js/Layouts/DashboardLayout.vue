@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted, watch, computed } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import ToastNotifications from '@/Components/ToastNotifications.vue';
+import SvgSprites from '@/Components/SvgSprites.vue';
 
 const isAdmin = usePage().props.auth.isAdmin;
 const isManager = usePage().props.auth.isManager;
@@ -37,6 +38,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
+	<SvgSprites />
 	<ToastNotifications />
 	<div class="wrapper" :class="{ sidebar_collapse: sidebarCollapse, on_sidebar: onSidebar }">
 		<div id="sidebar_overlay" @click="sidebarCollapse = !sidebarCollapse;"></div>
