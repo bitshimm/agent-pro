@@ -9,6 +9,7 @@ use App\Http\Requests\Profile\LogotypeUpdateRequest;
 use App\Http\Requests\Profile\MetaUpdateRequest;
 use App\Http\Requests\Profile\ThemeUpdateRequest;
 use App\Http\Requests\Profile\WidgetUpdateRequest;
+use App\Http\Requests\User\SubdomainUpdateRequest;
 use App\Models\Role;
 use App\Models\SocialNetwork;
 use App\Models\Theme;
@@ -55,6 +56,20 @@ class ProfileController extends Controller
 			'themes' => $themes,
 			'roles' => Role::orderBy('id')->get(),
 		]);
+	}
+
+	/**
+	 * Update the user's profile subdomain.
+	 */
+	public function subdomainUpdate(SubdomainUpdateRequest $request): RedirectResponse
+	{
+		$data = $request->validated();
+
+		$user = $request->user();
+		
+		$this->userService->subdomainUpdate($user, $data);
+
+		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_subdomain_updated'))->with('status', 'success');
 	}
 
 	/**

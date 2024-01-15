@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
 			Route::patch('/themes/{theme}', [ThemeController::class, 'update'])->name('themes.update');
 			// Route::delete('/themes/{theme}', [ThemeController::class, 'destroy'])->name('themes.destroy');
 		});
+
+		Route::patch('/profile-subdomain', [ProfileController::class, 'subdomainUpdate'])->name('profile.subdomain.update');
 	});
 
 	Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

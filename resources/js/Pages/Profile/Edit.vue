@@ -33,7 +33,7 @@ const isManager = usePage().props.auth.isManager;
 			</h1>
 		</template>
 		<UpdateProfileRoleForm v-if="isAdmin" />
-		<UpdateProfileSubdomainForm />
+		<UpdateProfileSubdomainForm v-if="isAdmin || isManager"/>
 		<UpdateProfileInformationForm />
 		<UpdatePasswordForm v-if="isAdmin || isManager"/>
 		<UpdateProfileThemeForm />
