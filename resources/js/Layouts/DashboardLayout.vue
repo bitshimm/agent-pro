@@ -8,6 +8,7 @@ import ToastNotifications from '@/Components/ToastNotifications.vue';
 const isAdmin = usePage().props.auth.isAdmin;
 const isManager = usePage().props.auth.isManager;
 const site = usePage().props.site;
+const user = usePage().props.user;
 const windowWidth = ref(window.innerWidth);
 const sidebarCollapse = ref(windowWidth.value <= 768);
 const onSidebar = ref(false);
@@ -105,7 +106,7 @@ onUnmounted(() => {
 				<!-- <i class="nav_icon fa-solid fa-circle-nodes fa-spin fa-2xl"></i> -->
 				<i class="nav_icon fa-brands fa-battle-net" style="font-size:23px;color: #B2B7FF;"></i>
 				<!-- <i class="nav_icon fa-solid fa-user"></i> -->
-				<span class="nav_title text-2xl">cruiselines</span>
+				<span class="nav_title text-xl">{{ user.subdomain }}</span>
 				</Link>
 			</div>
 			<nav>
