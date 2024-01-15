@@ -9,7 +9,7 @@ use App\Http\Requests\Profile\LogotypeUpdateRequest;
 use App\Http\Requests\Profile\MetaUpdateRequest;
 use App\Http\Requests\Profile\ThemeUpdateRequest;
 use App\Http\Requests\Profile\WidgetUpdateRequest;
-use App\Http\Requests\User\SubdomainUpdateRequest;
+use App\Http\Requests\Profile\SubdomainUpdateRequest;
 use App\Models\Role;
 use App\Models\SocialNetwork;
 use App\Models\Theme;

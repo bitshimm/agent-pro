@@ -11,7 +11,7 @@ const form = useForm({
 });
 
 const submit = () => {
-	form.patch(route('users.subdomain.update', user.id), {
+	form.patch(route('profile.subdomain.update'), {
 
 	});
 };
