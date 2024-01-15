@@ -105,7 +105,7 @@ onUnmounted(() => {
 				<!-- <i class="nav_icon fa-solid fa-circle-nodes fa-spin fa-2xl"></i> -->
 				<i class="nav_icon fa-brands fa-battle-net" style="font-size:23px;color: #B2B7FF;"></i>
 				<!-- <i class="nav_icon fa-solid fa-user"></i> -->
-				<span class="nav_title text-2xl">test</span>
+				<span class="nav_title text-2xl">cruiselines</span>
 				</Link>
 			</div>
 			<nav>
