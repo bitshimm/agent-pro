@@ -5,13 +5,12 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import ToastNotifications from '@/Components/ToastNotifications.vue';
 import SvgSprites from '@/Components/SvgSprites.vue';
-
+import {store} from '../store.js';
 const isAdmin = usePage().props.auth.isAdmin;
 const isManager = usePage().props.auth.isManager;
 const site = usePage().props.site;
 const user = usePage().props.auth.user;
 const windowWidth = ref(window.innerWidth);
-const sidebarCollapse = ref(windowWidth.value <= 768);
 const onSidebar = ref(false);
 
 const activeRoute = {
@@ -28,7 +27,7 @@ onMounted(() => {
 	window.addEventListener('resize', () => {
 		windowWidth.value = window.innerWidth
 		if (windowWidth.value <= 768) {
-			sidebarCollapse.value = true;
+			store.sidebarCollapse = true;
 		}
 	});
 });
@@ -40,12 +39,12 @@ onUnmounted(() => {
 <template>
 	<SvgSprites />
 	<ToastNotifications />
-	<div class="wrapper" :class="{ sidebar_collapse: sidebarCollapse, on_sidebar: onSidebar }">
-		<div id="sidebar_overlay" @click="sidebarCollapse = !sidebarCollapse;"></div>
+	<div class="wrapper" :class="{ sidebar_collapse: store.sidebarCollapse, on_sidebar: onSidebar }">
+		<div id="sidebar_overlay" @click="store.sidebarCollapse = !store.sidebarCollapse;"></div>
 		<nav class="main_header">
 			<ul class="navbar_nav">
 				<li class="nav_item">
-					<a class="nav_link" href="#" id="menu-toggler" @click="sidebarCollapse = !sidebarCollapse">
+					<a class="nav_link" href="#" id="menu-toggler" @click="store.sidebarCollapse = !store.sidebarCollapse">
 						<i class="fas fa-lg fa-bars"></i>
 					</a>
 				</li>

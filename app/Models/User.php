@@ -11,6 +11,79 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property int $role_id
+ * @property int|null $theme_id
+ * @property string $subdomain
+ * @property string|null $logotype
+ * @property string|null $contact_phone
+ * @property string|null $contact_phone_second
+ * @property string|null $contact_email
+ * @property string|null $contact_address
+ * @property string|null $contact_opening_hours
+ * @property string|null $about_title
+ * @property string|null $about_short_description
+ * @property string|null $about_full_description
+ * @property string|null $widget
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Article> $articles
+ * @property-read int|null $articles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Image> $images
+ * @property-read int|null $images_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Page> $pages
+ * @property-read int|null $pages_count
+ * @property-read \App\Models\Role $role
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SocialNetwork> $socialNetworks
+ * @property-read int|null $social_networks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SpecialOffer> $specialOffers
+ * @property-read int|null $special_offers_count
+ * @property-read \App\Models\Theme|null $theme
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Theme> $themes
+ * @property-read int|null $themes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAboutFullDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAboutShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAboutTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactOpeningHours($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactPhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactPhoneSecond($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLogotype($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereMetaDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereMetaTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSubdomain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereThemeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereWidget($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
 	use HasApiTokens, HasFactory, Notifiable;

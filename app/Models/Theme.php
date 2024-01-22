@@ -6,6 +6,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * App\Models\Theme
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property string $name
+ * @property string $background
+ * @property string $background_thumb
+ * @property array $properties
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereBackground($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereBackgroundThumb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereProperties($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Theme whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Theme extends Model
 {
 	use HasFactory;
