@@ -102,6 +102,12 @@ class UserService
 
 	public function destroy(User $user)
 	{
+		$folder = $user->subdomain . '.' . config('app.domain');
+
+		if (Storage::disk('agent-sites')->exists($folder)) {
+			Storage::disk('agent-sites')->move($folder, 'removed.' . $folder);
+		}
+
 		$user->delete();
 	}
 

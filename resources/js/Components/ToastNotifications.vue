@@ -3,6 +3,7 @@ import { usePage } from '@inertiajs/vue3';
 import { watch, onMounted, computed } from 'vue';
 import { useToast } from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import { checkDifference } from '../store.js';
 
 const flash = computed(() => usePage().props.flash);
 const errors = computed(() => usePage().props.errors);
@@ -18,6 +19,7 @@ watch(flash, (newFlash) => {
     if (newFlash.message) {
         openNotification(newFlash.message, newFlash.status);
     }
+    checkDifference();
 });
 
 watch(errors, (newErrors) => {

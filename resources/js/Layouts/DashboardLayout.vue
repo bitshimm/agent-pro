@@ -1,11 +1,12 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { ref, onMounted, onUnmounted, watch, computed } from 'vue';
+import { ref, onMounted, onUnmounted, watch, onUpdated } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import ToastNotifications from '@/Components/ToastNotifications.vue';
 import SvgSprites from '@/Components/SvgSprites.vue';
-import {store} from '../store.js';
+import { checkDifference, websiteAvailability, store } from '../store.js';
+
 const isAdmin = usePage().props.auth.isAdmin;
 const isManager = usePage().props.auth.isManager;
 const site = usePage().props.site;
@@ -30,6 +31,8 @@ onMounted(() => {
 			store.sidebarCollapse = true;
 		}
 	});
+	checkDifference();
+	websiteAvailability(user.subdomain)
 });
 
 onUnmounted(() => {
@@ -48,26 +51,24 @@ onUnmounted(() => {
 						<i class="fas fa-lg fa-bars"></i>
 					</a>
 				</li>
-
 				<li class="nav_item mt-auto">
 					<a :href="route('site.preview')" class="nav_link" target="_blank">
 						<i class="nav_icon fa-solid fa-eye mr-2"></i>
 						<span class="nav_title">Предпросмотр</span>
 					</a>
 				</li>
-				<li class="nav_item">
+				<li class="nav_item" v-if="store.hasDifferences">
 					<Link :href="route('site.publish')" class="nav_link">
 					<i class="nav_icon fa-solid fa-upload mr-2"></i>
 					<span class="nav_title">Опубликовать</span>
 					</Link>
 				</li>
-				<!-- <li class="nav_item">
+				<li class="nav_item" v-if="store.websiteExists">
 					<a :href="site.url" class="nav_link" target="_blank">
 						<i class="nav_icon fa-solid fa-globe mr-2"></i>
 						<span class="nav_title">Перейти на сайт</span>
 					</a>
-				</li> -->
-
+				</li>
 				<li class="nav_item ml-auto">
 					<Dropdown align="right" width="48">
 						<template #trigger>

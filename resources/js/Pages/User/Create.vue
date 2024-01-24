@@ -7,6 +7,7 @@ import Image from '@/Components/Image.vue';
 import Submit from '@/Components/Submit.vue';
 import BooleanField from '@/Components/Boolean.vue';
 import { ref } from 'vue';
+import axios from 'axios';
 
 const form = useForm({
 	subdomain: '',
@@ -21,7 +22,6 @@ const form = useForm({
 const websiteExists = ref(false);
 const checking = ref(false);
 const lastSubdomainChecked = ref('');
-const receivedData = ref(null);
 
 const submit = () => {
 	if (!form.subdomain || form.subdomain != lastSubdomainChecked.value || !websiteExists.value || checking.value) {
@@ -33,13 +33,11 @@ const submit = () => {
 
 const websiteAvailability = () => {
 	checking.value = true;
-	fetch(route('user.websiteAvailability', form.subdomain))
-		.then(response => response.json())
-		.then(response => {
-			console.log(response)
-			if (response.status == 'success') {
+	axios.get(route('user.websiteAvailability', form.subdomain))
+		.then(response => response.data)
+		.then(data => {
+			if (data.status == 'success') {
 				websiteExists.value = true;
-				receivedData.value = response.data;
 			} else {
 				websiteExists.value = false;
 			}

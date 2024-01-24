@@ -13,6 +13,7 @@ use App\Http\Requests\Profile\SubdomainUpdateRequest;
 use App\Models\Role;
 use App\Models\SocialNetwork;
 use App\Models\Theme;
+use App\Services\SiteService;
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -26,10 +27,12 @@ use Inertia\Response;
 class ProfileController extends Controller
 {
 	private UserService $userService;
+	private SiteService $siteService;
 
-	public function __construct(UserService $userService)
+	public function __construct(UserService $userService, SiteService $siteService)
 	{
 		$this->userService = $userService;
+		$this->siteService = $siteService;
 	}
 
 	/**
@@ -66,10 +69,10 @@ class ProfileController extends Controller
 		$data = $request->validated();
 
 		$user = $request->user();
-		
+
 		$this->userService->subdomainUpdate($user, $data);
 
-		return Redirect::route('users.edit', $user->id)->with('message', __('messages.user_subdomain_updated'))->with('status', 'success');
+		return Redirect::route('profile.edit', $user->id)->with('message', __('messages.subdomain_updated'))->with('status', 'success');
 	}
 
 	/**
@@ -182,5 +185,28 @@ class ProfileController extends Controller
 		$this->userService->metaUpdate($user, $data);
 
 		return Redirect::route('profile.edit')->with('message', __('messages.meta_updated'))->with('status', 'success');
+	}
+
+	/**
+	 * check website availability
+	 */
+	public function websiteAvailability(Request $request)
+	{
+		/**
+		 *  @var User $user
+		 */
+		$user = $request->user();
+
+		$dnsExists = $this->siteService->dnsExists($user->subdomain);
+
+		if ($dnsExists) {
+			return response()->json([
+				'status' => 'success',
+			]);
+		}
+
+		return response()->json([
+			'status' => 'error',
+		]);
 	}
 }

@@ -29,7 +29,7 @@ const isManager = usePage().props.auth.isManager;
 			<h1>
 				<Link :href="route('home')">Главная</Link>
 				<span class="text-indigo-400 font-medium"> /</span>
-				{{ $page.props.auth.user.name }}
+				Профиль
 			</h1>
 		</template>
 		<UpdateProfileRoleForm v-if="isAdmin" />

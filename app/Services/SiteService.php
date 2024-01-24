@@ -9,15 +9,20 @@ use App\Models\SpecialOffer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Theme;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CallbackRequest;
 
 class SiteService
 {
-	public string $url;
+	public string $appUrl;
 	public string $home_page;
+	public string $appDomain;
 
 	public function __construct()
 	{
-		$this->url = config('app.url');
+		$this->appUrl = config('app.url');
+		$this->appDomain = config('app.domain');
 
 		if (config('app.debug')) {
 			$this->home_page = "#";
@@ -26,9 +31,53 @@ class SiteService
 		}
 	}
 
+	public function publish(User $user)
+	{
+		if (!$user->subdomain) {
+			return back()->with('message', __('messages.subdomain_isNull'))->with('status', 'error');
+		}
+		$html = $this->getPublishHtml($user);
+
+		$folder = $user->subdomain . '.' . $this->appDomain;
+		$pathToHtml = $folder . '/index.html';
+
+		if (!Storage::disk('agent-sites')->exists($folder)) {
+			Storage::disk('agent-sites')->makeDirectory($folder);
+		}
+
+		Storage::disk('agent-sites')->put($pathToHtml, $html);
+	}
+
+	public function checkDifference(User $user): bool
+	{
+		$html = $this->getPublishHtml($user);
+
+		$folder = $user->subdomain . '.' . $this->appDomain;
+		$pathToHtml = $folder . '/index.html';
+
+		$currentHtml = Storage::disk('agent-sites')->get($pathToHtml);
+
+		return $html == $currentHtml;
+	}
+
+	public function callbackForm(array $data)
+	{
+		$agent = User::where('subdomain', $data['subdomain'])->firstOrFail();
+
+		Mail::to($agent->email)->send(new CallbackRequest($data['name'], $data['phone'], $agent->email, sprintf("%s.%s", $agent->subdomain, $this->appDomain)));
+	}
+
+	public function dnsExists($subdomain): bool
+	{
+		$hostname = sprintf("%s.%s", $subdomain, config('app.verified_domain'));
+		$checkdnsrr = checkdnsrr($hostname, "A");
+
+		return $checkdnsrr;
+	}
+
 	public function getPublishHtml(User $user): string
 	{
-		$url = $this->url;
+		$url = $this->appUrl;
 		$homePage = $this->home_page;
 		$subdomain = $user->subdomain;
 		$user->logotype = self::getLogotype($user);
@@ -123,6 +172,6 @@ class SiteService
 
 	private function setImgCurrentUrl(string $string): string
 	{
-		return str_replace("/storage/", $this->url . "/storage/", $string);
+		return str_replace("/storage/", $this->appUrl . "/storage/", $string);
 	}
 }

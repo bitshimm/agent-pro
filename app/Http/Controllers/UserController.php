@@ -16,6 +16,7 @@ use App\Models\Role;
 use App\Models\SocialNetwork;
 use App\Models\Theme;
 use App\Models\User;
+use App\Services\SiteService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,10 +28,12 @@ use Inertia\Response;
 class UserController extends Controller
 {
 	private UserService $userService;
+	private SiteService $siteService;
 
-	public function __construct(UserService $service)
+	public function __construct(UserService $userService, SiteService $siteService)
 	{
-		$this->userService = $service;
+		$this->userService = $userService;
+		$this->siteService = $siteService;
 	}
 
 	/**
@@ -225,10 +228,9 @@ class UserController extends Controller
 	 */
 	public function websiteAvailability(string $subdomain)
 	{
-		$hostname = sprintf("%s.%s", $subdomain, config('app.verified_domain'));
-		$checkdnsrr = checkdnsrr($hostname, "A");
+		$dnsExists = $this->siteService->dnsExists($subdomain);
 
-		if ($checkdnsrr) {
+		if ($dnsExists) {
 			return response()->json([
 				'status' => 'success',
 			]);

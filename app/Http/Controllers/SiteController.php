@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\CallbackRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Services\SiteService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+
 
 class SiteController extends Controller
 {
 	public SiteService $siteService;
-	public string $domain;
 
 	public function __construct(SiteService $siteService)
 	{
 		$this->siteService = $siteService;
-		$this->domain = config('app.domain');
 	}
 
 	public function publish()
@@ -28,22 +25,7 @@ class SiteController extends Controller
 		 */
 		$user = Auth::user();
 
-		if (!$user->subdomain) {
-			back()->with('message', __('messages.subdomain_isNull'))->with('status', 'error');
-		}
-
-		$html = $this->siteService->getPublishHtml($user);
-
-		$folder = $user->subdomain . '.' . $this->domain;
-		$pathToHtml = $folder . '/index.html';
-
-		// $currentHtml = Storage::disk('agent-sites')->get($pathToHtml);
-
-		if (!Storage::disk('agent-sites')->exists($folder)) {
-			Storage::disk('agent-sites')->makeDirectory($folder);
-		}
-
-		Storage::disk('agent-sites')->put($pathToHtml, $html);
+		$this->siteService->publish($user);
 
 		return back()->with('message', __('messages.site_published'))->with('status', 'success');
 	}
@@ -56,7 +38,7 @@ class SiteController extends Controller
 		$user = Auth::user();
 
 		if (!$user->subdomain) {
-			back()->with('message', __('messages.subdomain_isNull'))->with('status', 'error');
+			return back()->with('message', __('messages.subdomain_isNull'))->with('status', 'error');
 		}
 
 		$html = $this->siteService->getPublishHtml($user);
@@ -64,7 +46,27 @@ class SiteController extends Controller
 		return $html;
 	}
 
-	public function callbackForm(Request $request)
+	public function checkDifference(): JsonResponse
+	{
+		/**
+		 * @var User $user
+		 */
+		$user = Auth::user();
+
+		$previewEqualCurrent = $this->siteService->checkDifference($user);
+
+		if ($previewEqualCurrent === true) {
+			return response()->json([
+				'different' => false,
+			]);
+		}
+
+		return response()->json([
+			'different' => true,
+		]);
+	}
+
+	public function callbackForm(Request $request): JsonResponse
 	{
 		$data = $request->validate([
 			'name' => ['string', 'required'],
@@ -72,9 +74,7 @@ class SiteController extends Controller
 			'subdomain' => ['string', 'required'],
 		]);
 
-		$agent = User::where('subdomain', $data['subdomain'])->firstOrFail();
-
-		Mail::to($agent->email)->send(new CallbackRequest($data['name'], $data['phone'], $agent->email, sprintf("%s.%s", $agent->subdomain, $this->domain)));
+		$this->siteService->callbackForm($data);
 
 		return response()->json([
 			'status' => 'success',

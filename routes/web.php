@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SocialNetworkController;
@@ -73,6 +74,7 @@ Route::middleware('auth')->group(function () {
 	});
 
 	Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+	Route::get('/profile/websiteAvailability', [ProfileController::class, 'websiteAvailability'])->name('profile.websiteAvailability');
 	Route::patch('/profile', [ProfileController::class, 'informationUpdate'])->name('profile.information.update');
 	Route::patch('/profile-theme', [ProfileController::class, 'themeUpdate'])->name('profile.theme.update');
 	Route::patch('/profile-logotype', [ProfileController::class, 'logotypeUpdate'])->name('profile.logotype.update');
@@ -121,6 +123,7 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('/site/publish', [SiteController::class, 'publish'])->name('site.publish');
 	Route::get('/site/preview', [SiteController::class, 'preview'])->name('site.preview');
+	Route::get('/site/checkDifference', [SiteController::class, 'checkDifference'])->name('site.checkDifference');
 });
 
 Route::middleware('cors')->group(function () {
