@@ -3,6 +3,8 @@
 	--main-sidebar-width-collapsed: 85px;
 	--main-sidebar-margin-collapsed: -220px;
 	--main-sidebar-width: 220px;
+	--main-sidebar-mobile-width: 300px;
+	--main-sidebar-mobile-margin-collapsed: -300px;
 }
 
 body {
@@ -350,6 +352,15 @@ section.section {
 	.main_sidebar {
 		margin-left: 0;
 		transition: all 0.3s ease-out;
+		width: var(--main-sidebar-mobile-width);
+	}
+
+	.on_sidebar .main_sidebar {
+		width: var(--main-sidebar-mobile-width);
+	}
+
+	.main_sidebar .nav_link {
+		font-size: 18px;
 	}
 
 	#sidebar_overlay {
@@ -358,8 +369,9 @@ section.section {
 
 	/* Сайдбар закрыт */
 	.sidebar_collapse .main_sidebar {
-		margin-left: var(--main-sidebar-margin-collapsed);
+		margin-left: var(--main-sidebar-mobile-margin-collapsed);
 		transition: all 0.3s ease-out;
+		width: var(--main-sidebar-mobile-width);
 	}
 
 	.main_header,
