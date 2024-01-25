@@ -38,10 +38,6 @@ RUN curl -sLS https://deb.nodesource.com/setup_18.x | bash - && \
 #     curl -fsSL https://github.com/Imagick/imagick/archive/06116aa24b76edaf6b1693198f79e6c295eda8a9.tar.gz | tar xvz -C "/usr/src/php/ext/imagick" --strip 1; \
 #     docker-php-ext-install imagick
 
-# Install xdebug
-RUN pecl install -o -f xdebug \
-    && docker-php-ext-enable xdebug
-
 # Install redis 
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \

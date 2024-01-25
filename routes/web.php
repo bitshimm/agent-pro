@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\FileManagerController;
-use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SocialNetworkController;
@@ -25,9 +25,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-	return redirect()->route('articles.index');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
 	Route::group(['middleware' => 'role:admin,manager'], function () {
