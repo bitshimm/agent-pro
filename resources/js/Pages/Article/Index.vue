@@ -46,33 +46,23 @@ defineProps({
 						<td>
 							<Link class="block" :href="route('articles.edit', article.id)">
 							<span v-if="article.active">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-									stroke="currentColor" width="24" height="24" class="inline-block text-green-500"
-									role="presentation">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-								</svg>
+								<Icon id="success" width="24" height="24" currentColor="text-green-500" />
 							</span>
 							<span v-else>
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-									stroke="currentColor" width="24" height="24" class="inline-block text-red-500"
-									role="presentation">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-										d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-								</svg>
+								<Icon id="error" width="24" height="24" currentColor="text-red-500" />
 							</span>
 							</Link>
 						</td>
 						<td>
 							<Link class="block" :href="route('articles.edit', article.id)">
-							<div class="flex gap-x-1 justify-end">
+							<div class="flex gap-x-4 justify-end">
 								<Link class="px-2 py-2 rounded-md bg-red-100" :href="route('articles.edit', article.id)"
 									as="button">
-								<Icon id="edit" stroke="fill-slate-700" fill="fill-slate-700" width="20" height="20" />
+								<Icon id="edit" width="20" height="20" currentColor="text-slate-700" />
 								</Link>
 								<Link class="px-2 py-2 rounded-md bg-red-100" :href="route('articles.destroy', article.id)"
 									method="delete" as="button">
-								<Icon id="trash" fill="fill-slate-700" width="20" height="20" />
+								<Icon id="trash" width="20" height="20" currentColor="text-slate-700" />
 								</Link>
 							</div>
 							</Link>

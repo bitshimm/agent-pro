@@ -28,7 +28,7 @@ defineProps({
 			</div>
 			<Link class="absolute -top-1.5 -right-1.5 px-2 py-2 rounded-full bg-red-100 border-gray-100 border-2"
 				:href="route('images.destroy', image.id)" method="delete" as="button">
-			<Icon id="trash" fill="fill-slate-700" width="20" height="20" />
+			<Icon id="trash" width="20" height="20" currentColor="text-slate-700" />
 			</Link>
 			</Link>
 		</div>
