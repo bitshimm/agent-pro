@@ -1,6 +1,8 @@
 <script setup>
+import Icon from '@/Components/Icon.vue';
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+
 defineProps({
 	images: Array,
 });
@@ -24,9 +26,9 @@ defineProps({
 			<div class="hover_text_wrapper">
 				<span class="hover_text"> {{ image.caption }} </span>
 			</div>
-			<Link class="absolute -top-1.5 -right-1.5 rounded-full w-8 h-8 bg-red-600 text-white border-white border-2"
+			<Link class="absolute -top-1.5 -right-1.5 px-2 py-2 rounded-full bg-red-100 border-gray-100 border-2"
 				:href="route('images.destroy', image.id)" method="delete" as="button">
-			<i class="fa-solid fa-trash "></i>
+			<Icon id="trash" fill="fill-slate-700" width="20" height="20" />
 			</Link>
 			</Link>
 		</div>

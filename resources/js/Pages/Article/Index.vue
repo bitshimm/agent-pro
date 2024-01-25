@@ -65,10 +65,16 @@ defineProps({
 						</td>
 						<td>
 							<Link class="block" :href="route('articles.edit', article.id)">
-							<Link class="px-2 py-2 rounded-md" :href="route('articles.destroy', article.id)" method="delete"
-								as="button">
-							<Icon id="trash" fill="fill-slate-700" width="20" height="20" />
-							</Link>
+							<div class="flex gap-x-1 justify-end">
+								<Link class="px-2 py-2 rounded-md bg-red-100" :href="route('articles.edit', article.id)"
+									as="button">
+								<Icon id="edit" stroke="fill-slate-700" fill="fill-slate-700" width="20" height="20" />
+								</Link>
+								<Link class="px-2 py-2 rounded-md bg-red-100" :href="route('articles.destroy', article.id)"
+									method="delete" as="button">
+								<Icon id="trash" fill="fill-slate-700" width="20" height="20" />
+								</Link>
+							</div>
 							</Link>
 						</td>
 					</tr>
