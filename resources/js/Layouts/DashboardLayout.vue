@@ -30,7 +30,11 @@ onMounted(() => {
 		if (windowWidth.value <= 768) {
 			store.sidebarCollapse = true;
 		}
+
 	});
+	if (store.sidebarCollapse === false && window.innerWidth <= 768) {
+		store.sidebarCollapse = true;
+	}
 	checkDifference();
 	websiteAvailability(user.subdomain)
 });
