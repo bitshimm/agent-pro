@@ -2,58 +2,73 @@ version: "3"
 
 services:
   nginx:
+    container_name: nginx
     image: 'nginx:latest'
-    container_name: agent-pro-nginx
+    restart: unless-stopped
+    tty: true
     volumes:
       - ./docker/nginx:/etc/nginx/conf.d/
-      - .:/var/www/agent-pro/
+      - .:/var/www/
     ports:
-      - "7001:80"
+      - "80:80"
     depends_on:
       - php
       - mysql
   php:
+    container_name: php
     build:
       context: ./docker/php/
       dockerfile: Dockerfile
-    container_name: agent-pro-app
+    restart: unless-stopped
+    tty: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
-      - .:/var/www/agent-pro/
-    ports:
-      - "5173:5173"
+      - .:/var/www/
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - mysql
   mysql:
+    container_name: mysql
     image: mysql:latest
-    container_name: agent-pro-mysql
-    restart: always
+    restart: unless-stopped
+    tty: true
     volumes:
       - ./docker/mysql:/var/lib/mysql
     ports:
-      - "7002:3306"
+      - "3306:3306"
     command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_USERNAME: ${DB_USERNAME}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  node:
+    container_name: node
+    build:
+      context: ./docker/node/
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - "5173:5173"
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
   phpmyadmin:
     image: phpmyadmin
-    container_name: agent-pro-phpmyadmin
-    restart: always
+    restart: unless-stopped
     ports:
-      - 7003:80
+      - 7007:80
     environment:
       - PMA_ARBITRARY=1
   redis:
+    container_name: redis
     image: 'redis:alpine'
-    container_name: agent-pro-redis
     ports:
-      - '7004:6379'
+      - '6379:6379'
     volumes:
       - './docker/redis:/data'
   mailpit:
     image: 'axllent/mailpit:latest'
-    container_name: agent-pro-mailpit
     ports:
       - '${FORWARD_MAILPIT_PORT:-1025}:1025'
       - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'

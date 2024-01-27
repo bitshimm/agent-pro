@@ -25,6 +25,7 @@ return [
     'special_offer_updated' => 'Спец.предложение обновлено',
     'special_offer_deleted' => 'Спец.предложение удалено',
 
+    'subdomain_updated' => 'Поддомен обновлен',
     'information_updated' => 'Информация обновлена',
     'logotype_updated' => 'Логотип обновлен',
     'password_updated' => 'Пароль обновлен',
