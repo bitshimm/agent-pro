@@ -24,11 +24,11 @@ const submit = () => {
 };
 </script>
 <template>
-	<Head title="Изображения" />
+	<Head title="Галерея" />
 	<DashboardLayout>
 		<template #breadcrumbs>
 			<h1>
-				<Link :href="route('images.index')">Изображения</Link>
+				<Link :href="route('images.index')">Галерея</Link>
 				<span class="text-indigo-400 font-medium"> /</span>
 				Создание
 			</h1>

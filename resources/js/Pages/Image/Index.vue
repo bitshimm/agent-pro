@@ -9,11 +9,11 @@ defineProps({
 </script>
 
 <template>
-	<Head title="Изображения" />
+	<Head title="Галерея" />
 	<DashboardLayout>
 		<template #breadcrumbs>
 			<h1>
-				Изображения
+				Галерея
 			</h1>
 		</template>
 		<Link class="btn_indigo" :href="route('images.create')">

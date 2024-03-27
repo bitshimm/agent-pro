@@ -22,6 +22,7 @@ const activeRoute = {
 	social_networks: route().current('social-networks.*'),
 	special_offers: route().current('special-offers.*'),
 	users: route().current('users.*'),
+	profile: route().current('profile.*'),
 };
 
 onMounted(() => {
@@ -117,6 +118,12 @@ onUnmounted(() => {
 			</div>
 			<nav>
 				<ul class="nav">
+					<li class="nav_item">
+						<Link :href="route('profile.edit')" class="nav_link" :class="{ active: activeRoute.profile }">
+                        <i class="nav_icon fa-solid fa-user"></i>
+						<span class="nav_title">Профиль</span>
+						</Link>
+					</li>
 					<li class="nav_item" v-if="isAdmin">
 						<Link :href="route('themes.index')" class="nav_link" :class="{ active: activeRoute.themes }">
 						<i class="nav_icon fa-solid fa-paint-roller"></i>
@@ -129,29 +136,29 @@ onUnmounted(() => {
 						<span class="nav_title">Пользователи</span>
 						</Link>
 					</li>
-					<li class="nav_item">
+					<li class="nav_item" v-if="!isAdmin && !isManager">
 						<Link :href="route('articles.index')" class="nav_link" :class="{ active: activeRoute.articles }">
 						<i class="nav_icon fa-solid fa-newspaper"></i>
 						<span class="nav_title">Новости</span>
 						</Link>
 					</li>
-					<li class="nav_item">
+					<li class="nav_item" v-if="!isAdmin && !isManager">
 						<Link :href="route('pages.index')" class="nav_link" :class="{ active: activeRoute.pages }">
 						<i class="nav_icon fa-solid fa-tablet"></i>
 						<span class="nav_title">Страницы</span>
 						</Link>
 					</li>
-					<li class="nav_item">
+					<li class="nav_item" v-if="!isAdmin && !isManager">
 						<Link :href="route('special-offers.index')" class="nav_link"
 							:class="{ active: activeRoute.special_offers }">
 						<i class="nav_icon fa-solid fa-newspaper"></i>
 						<span class="nav_title">Спец. предложения</span>
 						</Link>
 					</li>
-					<li class="nav_item">
+					<li class="nav_item" v-if="!isAdmin && !isManager">
 						<Link :href="route('images.index')" class="nav_link" :class="{ active: activeRoute.images }">
 						<i class="nav_icon fa-solid fa-image"></i>
-						<span class="nav_title">Изображения</span>
+						<span class="nav_title">Галерея</span>
 						</Link>
 					</li>
 					<li class="nav_item" v-if="isAdmin">

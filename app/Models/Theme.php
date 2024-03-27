@@ -180,7 +180,7 @@ class Theme extends Model
 
 			'images_border_color' => [
 				'slug' => '--images-border-color',
-				'name' => 'Цвет обводки изображения',
+				'name' => 'Цвет обводки изображения в галереи',
 				'value' => '',
 			],
 			'images_chevron_color' => [

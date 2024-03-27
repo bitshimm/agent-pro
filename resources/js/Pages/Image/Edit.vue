@@ -31,11 +31,11 @@ const submit = () => {
 };
 </script>
 <template>
-	<Head title="Изображения" />
+	<Head title="Галерея" />
 	<DashboardLayout>
 		<template #breadcrumbs>
 			<h1>
-				<Link :href="route('articles.index')">Изображения</Link>
+				<Link :href="route('articles.index')">Галерея</Link>
 				<span class="text-indigo-400 font-medium"> /</span>
 				{{ form.caption }}
 			</h1>
