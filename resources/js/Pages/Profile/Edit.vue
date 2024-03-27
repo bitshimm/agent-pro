@@ -36,13 +36,13 @@ const isManager = usePage().props.auth.isManager;
 		<UpdateProfileSubdomainForm v-if="isAdmin || isManager"/>
 		<UpdateProfileInformationForm />
 		<UpdatePasswordForm v-if="isAdmin || isManager"/>
-		<UpdateProfileThemeForm />
-		<UpdateProfileLogotypeForm />
-		<UpdateProfileContacts />
-		<UpdateProfileSocialNetworksForm />
-		<UpdateProfileWidgetForm />
-		<UpdateProfileAboutForm />
-		<UpdateProfileMetaForm />
+		<UpdateProfileThemeForm v-if="!isAdmin && !isManager" />
+		<UpdateProfileLogotypeForm v-if="!isAdmin && !isManager" />
+		<UpdateProfileContacts v-if="!isAdmin && !isManager" />
+		<UpdateProfileSocialNetworksForm v-if="!isAdmin && !isManager" />
+		<UpdateProfileWidgetForm v-if="!isAdmin && !isManager" />
+		<UpdateProfileAboutForm v-if="!isAdmin && !isManager" />
+		<UpdateProfileMetaForm v-if="!isAdmin && !isManager" />
 
 		<!-- <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <DeleteUserForm class="max-w-xl" />
