@@ -56,19 +56,19 @@ onUnmounted(() => {
 						<i class="fas fa-lg fa-bars"></i>
 					</a>
 				</li>
-				<li class="nav_item mt-auto">
+				<li class="nav_item mt-auto" v-if="!isAdmin && !isManager">
 					<a :href="route('site.preview')" class="nav_link" target="_blank">
 						<i class="nav_icon fa-solid fa-eye mr-2"></i>
 						<span class="nav_title">Предпросмотр</span>
 					</a>
 				</li>
-				<li class="nav_item" v-if="store.hasDifferences">
+				<li class="nav_item" v-if="store.hasDifferences && !isAdmin && !isManager">
 					<Link :href="route('site.publish')" class="nav_link">
 					<i class="nav_icon fa-solid fa-upload mr-2"></i>
 					<span class="nav_title">Опубликовать</span>
 					</Link>
 				</li>
-				<li class="nav_item" v-if="store.websiteExists">
+				<li class="nav_item" v-if="store.websiteExists && !isAdmin && !isManager">
 					<a :href="site.url" class="nav_link" target="_blank">
 						<i class="nav_icon fa-solid fa-globe mr-2"></i>
 						<span class="nav_title">Перейти на сайт</span>
